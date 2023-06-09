@@ -15,12 +15,14 @@ Subscription API
 Course API
 
 - resource: course/
-- resource: course/module/
+- resource: module/
+- resource: content/
+- resource: content/quiz/question/
 - resource: content/quiz/submit/{proxy+}
 - resource: content/quiz/start/{proxy+}
 - resource: content/quiz/evaluate/{proxy+}
-- resource: content/video/{proxy+}
-- resource: content/reading/{proxy+}
+- resource: content/video/
+- resource: content/reading/
 
 
 Student API
