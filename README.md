@@ -15,20 +15,22 @@ Subscription API
 Course API
 
 - resource: course/
-- resource: course/{module}/content
-- resource: course/{module}/content/quiz
-- resource: course/{module}/content/quiz/question
-- resource: course/{module}/content/quiz/submit
-- resource: course/{module}/content/quiz/start
-- resource: course/{module}/content/quiz/evaluate
+- resource: course/module/
+- resource: content/quiz/submit/{proxy+}
+- resource: content/quiz/start/{proxy+}
+- resource: content/quiz/evaluate/{proxy+}
+- resource: content/video/{proxy+}
+- resource: content/reading/{proxy+}
 
 
 Student API
 
 - resource: student/
 - resource: student/favourites
-- resource: student/progress
-- resource: student/certificate
+- resource: student/progress/
+- resource: student/progress/{proxy+}
+- resource: student/certificate/
+- resource: student/certificate/{proxy+}
 
 <!-- Admin API
 
