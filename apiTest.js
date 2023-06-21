@@ -12,3 +12,7 @@ const completion = await openai.createChatCompletion({
 }
 
 askChatGpt();
+
+function isPrime(number) {
+  
+}

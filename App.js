@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { FAB } from 'react-native-paper';
+
 import {
   StyleSheet,
   Text,
@@ -71,7 +73,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <SignOutButton />
         <TextInput
           onChangeText={value => setInput('name', value)}
@@ -94,7 +96,16 @@ const App = () => {
             <Text style={styles.todoDescription}>{todo.description}</Text>
           </View>
         ))}
-      </View>
+      </View> */}
+
+
+
+
+      <FAB
+        icon="forum"
+        style={styles.fab}
+        onPress={() => console.log('Pressed')}
+      />
     </SafeAreaView>
   );
 };
@@ -112,4 +123,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   buttonText: {color: 'white', padding: 16, fontSize: 18},
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 16,
+    bottom: 0,
+  },
 });
