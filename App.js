@@ -71,20 +71,20 @@ const App = () => {
         <SafeAreaProvider>
           <Tab.Navigator>
             <Tab.Screen
-              name="My Learning"
-              component={MyLeaning}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
               name="Home"
               component={Home}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="home" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="My Learning"
+              component={MyLeaning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
                 ),
               }}
             />
