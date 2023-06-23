@@ -2,59 +2,19 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.1.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
-    "GROUP": {
+    "CloudWatchRule": {
       "Type": "String",
-      "Default": ""
-    },
-    "modules": {
-      "Type": "String",
-      "Default": "",
-      "Description": "Comma-delimited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
-    },
-    "resourceName": {
-      "Type": "String",
-      "Default": ""
-    },
-    "trigger": {
-      "Type": "String",
-      "Default": "true"
-    },
-    "functionName": {
-      "Type": "String",
-      "Default": ""
-    },
-    "roleName": {
-      "Type": "String",
-      "Default": ""
-    },
-    "parentResource": {
-      "Type": "String",
-      "Default": ""
-    },
-    "parentStack": {
-      "Type": "String",
-      "Default": ""
-    },
-    "env": {
-      "Type": "String"
+      "Default": "NONE",
+      "Description": " Schedule Expression"
     },
     "deploymentBucketName": {
       "Type": "String"
     },
-    "s3Key": {
+    "env": {
       "Type": "String"
     },
-    "storagestudentName": {
-      "Type": "String",
-      "Default": "storagestudentName"
-    },
-    "storagestudentArn": {
-      "Type": "String",
-      "Default": "storagestudentArn"
-    },
-    "storagestudentStreamArn": {
-      "Type": "String",
-      "Default": "storagestudentStreamArn"
+    "s3Key": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -75,16 +35,24 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
+        },
         "Handler": "index.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "brainbuddy44066a49PostConfirmation",
+            "courseHandler",
             {
               "Fn::Join": [
                 "",
                 [
-                  "brainbuddy44066a49PostConfirmation",
+                  "courseHandler",
                   "-",
                   {
                     "Ref": "env"
@@ -99,23 +67,8 @@
             "ENV": {
               "Ref": "env"
             },
-            "MODULES": {
-              "Ref": "modules"
-            },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "GROUP": {
-              "Ref": "GROUP"
-            },
-            "STORAGE_STUDENT_NAME": {
-              "Ref": "storagestudentName"
-            },
-            "STORAGE_STUDENT_ARN": {
-              "Ref": "storagestudentArn"
-            },
-            "STORAGE_STUDENT_STREAMARN": {
-              "Ref": "storagestudentStreamArn"
             }
           }
         },
@@ -126,15 +79,8 @@
           ]
         },
         "Runtime": "nodejs18.x",
-        "Timeout": 25,
-        "Code": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": {
-            "Ref": "s3Key"
-          }
-        }
+        "Layers": [],
+        "Timeout": 25
       }
     },
     "LambdaExecutionRole": {
@@ -143,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "brainbuddy44066a49PostConfirmation",
+            "brainbuddyLambdaRolec22aa2c7",
             {
               "Fn::Join": [
                 "",
                 [
-                  "brainbuddy44066a49PostConfirmation",
+                  "brainbuddyLambdaRolec22aa2c7",
                   "-",
                   {
                     "Ref": "env"
@@ -218,58 +164,6 @@
           ]
         }
       }
-    },
-    "AmplifyResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:Put*",
-                "dynamodb:Create*",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:Get*",
-                "dynamodb:BatchGetItem",
-                "dynamodb:List*",
-                "dynamodb:Describe*",
-                "dynamodb:Scan",
-                "dynamodb:Query",
-                "dynamodb:Update*",
-                "dynamodb:RestoreTable*",
-                "dynamodb:Delete*"
-              ],
-              "Resource": [
-                {
-                  "Ref": "storagestudentArn"
-                },
-                {
-                  "Fn::Join": [
-                    "/",
-                    [
-                      {
-                        "Ref": "storagestudentArn"
-                      },
-                      "index/*"
-                    ]
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      }
     }
   },
   "Outputs": {
@@ -286,6 +180,11 @@
         ]
       }
     },
+    "Region": {
+      "Value": {
+        "Ref": "AWS::Region"
+      }
+    },
     "LambdaExecutionRole": {
       "Value": {
         "Ref": "LambdaExecutionRole"
@@ -297,11 +196,6 @@
           "LambdaExecutionRole",
           "Arn"
         ]
-      }
-    },
-    "Region": {
-      "Value": {
-        "Ref": "AWS::Region"
       }
     }
   }

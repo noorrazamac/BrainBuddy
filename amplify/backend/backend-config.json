@@ -1,5 +1,35 @@
 {
   "api": {
+    "course": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "courseHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "moduleHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "contentHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "student": {
       "dependsOn": [
         {
@@ -92,10 +122,36 @@
   "function": {
     "brainbuddy44066a49PostConfirmation": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "student"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "contentHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "courseHandler": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
     "favouritesHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "moduleHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -138,6 +194,38 @@
         }
       ]
     },
+    "AMPLIFY_function_contentHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "contentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_contentHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "contentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_courseHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "courseHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_courseHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "courseHandler"
+        }
+      ]
+    },
     "AMPLIFY_function_favouritesHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -151,6 +239,22 @@
         {
           "category": "function",
           "resourceName": "favouritesHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_moduleHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "moduleHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_moduleHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "moduleHandler"
         }
       ]
     },
@@ -220,6 +324,18 @@
     }
   },
   "storage": {
+    "content": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "course": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "module": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
     "payments": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

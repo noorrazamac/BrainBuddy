@@ -1,0 +1,131 @@
+{
+    "resource": "/course",
+    "path": "/course",
+    "httpMethod": "GET",
+    "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-CA,en-US;q=0.9,en;q=0.8",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-ASN": "577",
+        "CloudFront-Viewer-Country": "CA",
+        "Host": "api-id.execute-api.us-east-1.amazonaws.com",
+        "User-Agent": "aws-amplify/5.2.4 react-native",
+        "Via": "2.0 cf-identifier.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "---==",
+        "x-amz-date": "20230623T231127Z",
+        "X-Amz-Security-Token": "---",
+        "X-Amzn-Trace-Id": "Root=---3",
+        "X-Forwarded-For": "---, ---",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "application/json, text/plain, */*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-CA,en-US;q=0.9,en;q=0.8"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-ASN": [
+            "577"
+        ],
+        "CloudFront-Viewer-Country": [
+            "CA"
+        ],
+        "Host": [
+            "api-id.execute-api.us-east-1.amazonaws.com"
+        ],
+        "User-Agent": [
+            "aws-amplify/5.2.4 react-native"
+        ],
+        "Via": [
+            "2.0 cf-identifier.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "---=="
+        ],
+        "x-amz-date": [
+            "20230623T231127Z"
+        ],
+        "X-Amz-Security-Token": [
+            "---"
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=---3"
+        ],
+        "X-Forwarded-For": [
+            "---, ---"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": {
+        "name": "param"
+    },
+    "multiValueQueryStringParameters": {
+        "name": [
+            "param"
+        ]
+    },
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "jxxrte",
+        "resourcePath": "/course",
+        "httpMethod": "GET",
+        "extendedRequestId": "***",
+        "requestTime": "23/Jun/2023:23:11:27 +0000",
+        "path": "/dev/course",
+        "accountId": "account-id",
+        "protocol": "HTTP/1.1",
+        "stage": "dev",
+        "domainPrefix": "api-id",
+        "requestTimeEpoch": 1687561887167,
+        "requestId": "***",
+        "identity": {
+            "cognitoIdentityPoolId": "us-east-1:userpool-id",
+            "accountId": "account-id",
+            "cognitoIdentityId": "us-east-1:cognito-idp-id",
+            "caller": "caller-access-key:CognitoIdentityCredentials",
+            "sourceIp": "---",
+            "principalOrgId": "o-***",
+            "accessKey": "caller temp access key",
+            "cognitoAuthenticationType": "authenticated",
+            "cognitoAuthenticationProvider": "cognito-idp.us-east-1.amazonaws.com/us-east-***,cognito-idp.us-east-1.amazonaws.com/us-east-***:CognitoSignIn:usersub",
+            "userArn": "arn:aws:sts::account-id:assumed-role/authRole/CognitoIdentityCredentials",
+            "userAgent": "aws-amplify/5.2.4 react-native",
+            "user": "caller-access-key:CognitoIdentityCredentials"
+        },
+        "domainName": "api-id.execute-api.us-east-1.amazonaws.com",
+        "apiId": "api-id"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}

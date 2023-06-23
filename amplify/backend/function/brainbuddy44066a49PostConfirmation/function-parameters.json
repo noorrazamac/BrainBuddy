@@ -12,5 +12,15 @@
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "brainbuddy44066a49PostConfirmation",
-  "skipEdit": true
+  "skipEdit": true,
+  "permissions": {
+    "storage": {
+      "student": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }

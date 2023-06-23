@@ -32,49 +32,39 @@ const SignOutButton = () => {
     </Pressable>
   );
 };
+const testAPI = () => {
+  const apiName = 'course';
+  const path = '/course';
+  const myInit = {
+    headers: {}, // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+    queryStringParameters: {
+      name: 'param' // OPTIONAL
+    }
+  };
 
-const initialFormState = {name: '', description: ''};
+  API.get(apiName, path, myInit)
+    .then((response) => {
+      // Add your code here
+      console.log("done");
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};
 
 const App = () => {
-  const [formState, setFormState] = useState(initialFormState);
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  function setInput(key, value) {
-    setFormState({...formState, [key]: value});
-  }
-
-  
-  async function fetchTodos() {
-    try {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
-      const todos = todoData.data.listTodos.items;
-      setTodos(todos);
-    } catch (err) {
-      console.log('error fetching todos');
-    }
-  }
-
-  async function addTodo() {
-    try {
-      if (!formState.name || !formState.description) return;
-      const todo = {...formState};
-      setTodos([...todos, todo]);
-      setFormState(initialFormState);
-      await API.graphql(graphqlOperation(createTodo, {input: todo}));
-    } catch (err) {
-      console.log('error creating todo:', err);
-    }
-  }
+ 
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <SignOutButton />
-        
+        <Pressable onPress={testAPI} style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>
+            api
+          </Text>
+        </Pressable>
           <Text style={styles.buttonText}>Create todo</Text>
        
       </View>
