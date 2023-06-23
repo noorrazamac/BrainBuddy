@@ -15,14 +15,6 @@
     },
     "s3Key": {
       "Type": "String"
-    },
-    "storageStudentName": {
-      "Type": "String",
-      "Default": "storageStudentName"
-    },
-    "storageStudentArn": {
-      "Type": "String",
-      "Default": "storageStudentArn"
     }
   },
   "Conditions": {
@@ -55,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "student",
+            "favouritesHandler",
             {
               "Fn::Join": [
                 "",
                 [
-                  "student",
+                  "favouritesHandler",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "brainbuddyLambdaRole4b2b302f",
+            "brainbuddyLambdaRole3e85cb38",
             {
               "Fn::Join": [
                 "",
                 [
-                  "brainbuddyLambdaRole4b2b302f",
+                  "brainbuddyLambdaRole3e85cb38",
                   "-",
                   {
                     "Ref": "env"
@@ -168,34 +160,6 @@
                   }
                 ]
               }
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:DescribeTable",
-                "dynamodb:GetItem",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:PutItem",
-                "dynamodb:UpdateItem",
-                "dynamodb:DeleteItem"
-              ],
-              "Resource": [
-                {
-                  "Ref": "storageStudentArn"
-                },
-                {
-                  "Fn::Join": [
-                    "/",
-                    [
-                      {
-                        "Ref": "storageStudentArn"
-                      },
-                      "index/*"
-                    ]
-                  ]
-                }
-              ]
             }
           ]
         }

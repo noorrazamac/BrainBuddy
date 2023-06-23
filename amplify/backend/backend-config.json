@@ -8,7 +8,45 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "student"
+          "resourceName": "studentHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "favouritesHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "progressHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
+    "subscription": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "subscriptionHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "paymentsHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -57,22 +95,28 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "student": {
+    "favouritesHandler": {
       "build": true,
-      "dependsOn": [
-        {
-          "attributeEnvMap": {
-            "Arn": "TABLE_ARN",
-            "Name": "TABLE_NAME"
-          },
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "storage",
-          "resourceName": "Student"
-        }
-      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "paymentsHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "progressHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "studentHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "subscriptionHandler": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -94,25 +138,101 @@
         }
       ]
     },
-    "AMPLIFY_function_student_deploymentBucketName": {
+    "AMPLIFY_function_favouritesHandler_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "student"
+          "resourceName": "favouritesHandler"
         }
       ]
     },
-    "AMPLIFY_function_student_s3Key": {
+    "AMPLIFY_function_favouritesHandler_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "student"
+          "resourceName": "favouritesHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_paymentsHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "paymentsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_paymentsHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "paymentsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_progressHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "progressHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_progressHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "progressHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_studentHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "studentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_studentHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "studentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_subscriptionHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "subscriptionHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_subscriptionHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "subscriptionHandler"
         }
       ]
     }
   },
   "storage": {
-    "Student": {
+    "payments": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "progress": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "student": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "subscription": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

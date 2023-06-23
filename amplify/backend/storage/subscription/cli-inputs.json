@@ -1,6 +1,6 @@
 {
-  "resourceName": "student",
-  "tableName": "student",
+  "resourceName": "subscription",
+  "tableName": "subscription",
   "partitionKey": {
     "fieldName": "id",
     "fieldType": "string"

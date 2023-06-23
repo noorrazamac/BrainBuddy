@@ -1,8 +1,8 @@
 {
-  "resourceName": "student",
-  "tableName": "student",
+  "resourceName": "progress",
+  "tableName": "progress",
   "partitionKey": {
-    "fieldName": "id",
+    "fieldName": "student_id",
     "fieldType": "string"
   },
   "gsi": [],

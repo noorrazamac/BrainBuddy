@@ -30,9 +30,9 @@ Student API
 - resource: student/
 - resource: student/favourites/
 - resource: student/progress/
-- resource: student/progress/{proxy+}
+<!-- - resource: student/progress/{proxy+} -->
 - resource: student/certificate/
-- resource: student/certificate/{proxy+}
+<!-- - resource: student/certificate/{proxy+} -->
 
 --> Mark as complete
 
@@ -48,6 +48,7 @@ Users:
 Course:
 
 {
+	name:	
 	category:
 	level:
 	modules:[
@@ -99,8 +100,12 @@ Student:
 {
 	id:
 	student name:
-	enrolled_courses:
-	favorite_courses:
+	enrolled_courses:[
+
+	]
+	favorite_courses:[
+		
+	]
 	subscription_id:
 }
 

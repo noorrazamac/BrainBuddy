@@ -3,7 +3,33 @@
   "paths": {
     "/student": {
       "name": "/student",
-      "lambdaFunction": "student",
+      "lambdaFunction": "studentHandler",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/favourites": {
+      "name": "/favourites",
+      "lambdaFunction": "favouritesHandler",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/progress": {
+      "name": "/progress",
+      "lambdaFunction": "progressHandler",
       "permissions": {
         "setting": "private",
         "auth": [

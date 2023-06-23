@@ -22,16 +22,36 @@
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
           "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-7842327134554b357273-build.zip"
         },
-        "student": {
+        "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/student-6841316839464a35562f-build.zip"
+          "s3Key": "amplify-builds/studentHandler-5a37707967424a674f4a-build.zip"
+        },
+        "favouritesHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/favouritesHandler-7853692f32344b633559-build.zip"
+        },
+        "progressHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/progressHandler-30684339654870375977-build.zip"
+        },
+        "subscriptionHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/subscriptionHandler-484631667344376f556d-build.zip"
+        },
+        "paymentsHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/paymentsHandler-4f672b58533470543673-build.zip"
         }
       },
-      "api": {
+      "storage": {
+        "progress": {},
+        "subscription": {},
+        "payments": {},
         "student": {}
       },
-      "storage": {
-        "Student": {}
+      "api": {
+        "student": {},
+        "subscription": {}
       }
     }
   }
