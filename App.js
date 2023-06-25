@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import MyLeaning from "./screens/MyLearning/MyLearning";
+import CourseDetails from "./screens/CourseDetails/CourseDetails";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -70,6 +71,15 @@ const App = () => {
       <NavigationContainer>
         <SafeAreaProvider>
           <Tab.Navigator>
+          <Tab.Screen
+              name="Course Details"
+              component={CourseDetails}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
+                ),
+              }}
+            />
             <Tab.Screen
               name="My Learning"
               component={MyLeaning}
