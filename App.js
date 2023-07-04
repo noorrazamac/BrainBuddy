@@ -154,7 +154,7 @@ const App = () => {
   );
 };
 
-export default withAuthenticator(App);
+
 
 const styles = StyleSheet.create({
   container: { width: 400, flex: 1, padding: 20, alignSelf: "center" },
@@ -215,4 +215,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-}
