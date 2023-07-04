@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 const courses = [
-  
+
 
 ];
 
@@ -92,7 +92,34 @@ const styles = StyleSheet.create({
     color: '#999',
     textAlign: 'center',
   },
-
+  emptyCoursesContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyCoursesMessage: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#999',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  sadEmoji: {
+    fontSize: 64,
+  },
+  buttonContainer: {
+    backgroundColor: '#8BC34A',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginTop: 20,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
 });
 
 export default MyLearningScreen;
