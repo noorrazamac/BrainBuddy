@@ -9,14 +9,65 @@
       "UnauthRoleName": "amplify-brainbuddy-dev-185249-unauthRole",
       "StackName": "amplify-brainbuddy-dev-185249",
       "StackId": "arn:aws:cloudformation:us-east-1:371562463357:stack/amplify-brainbuddy-dev-185249/b4e6ab10-ff3c-11ed-847b-1241b1d5547d",
-      "AmplifyAppId": "d2v14zfqx3o0c3"
+      "AmplifyAppId": "d2v14zfqx3o0c3",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-brainbuddy-dev-185249-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-brainbuddy-dev-185249-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "brainbuddy44066a49": {}
       },
+      "function": {
+        "brainbuddy44066a49PostConfirmation": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-696a6f6d6d7a6d7a5352-build.zip"
+        },
+        "studentHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/studentHandler-386b784a654246493243-build.zip"
+        },
+        "favouritesHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/favouritesHandler-4f4f4e7179725a667366-build.zip"
+        },
+        "progressHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/progressHandler-312f6c3541724e546c6b-build.zip"
+        },
+        "subscriptionHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/subscriptionHandler-6b67554d5253545a6838-build.zip"
+        },
+        "paymentsHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/paymentsHandler-3651494b62655a6e6949-build.zip"
+        },
+        "courseHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/courseHandler-7137564c343765586a54-build.zip"
+        },
+        "moduleHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/moduleHandler-365855495549312f434b-build.zip"
+        },
+        "contentHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/contentHandler-427a4b4b54487051336a-build.zip"
+        }
+      },
+      "storage": {
+        "progress": {},
+        "subscription": {},
+        "payments": {},
+        "student": {},
+        "course": {},
+        "module": {},
+        "content": {}
+      },
       "api": {
-        "brainbuddy": {}
+        "student": {},
+        "subscription": {},
+        "course": {}
       }
     }
   }

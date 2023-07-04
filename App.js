@@ -1,4 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
+import { FAB } from "react-native-paper";
+import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+import Home from "./screens/Home/Home";
+import Profile from "./screens/Profile/Profile";
+import MyLeaning from "./screens/MyLearning/MyLearning";
+import ChatSupport from "./screens/ChatSupport/ChatSupport";
+
+const Tab = createMaterialBottomTabNavigator();
+
 import {
   StyleSheet,
   Text,
@@ -6,24 +19,45 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
-} from 'react-native';
-import {API, graphqlOperation} from 'aws-amplify';
-import {createTodo} from './src/graphql/mutations';
-import {listTodos} from './src/graphql/queries';
+  Modal,
+  TouchableOpacity
+} from "react-native";
+// import {API, graphqlOperation} from 'aws-amplify';
+// import {createTodo} from './src/graphql/mutations';
+// import {listTodos} from './src/graphql/queries';
 import {
   withAuthenticator,
   useAuthenticator,
-} from '@aws-amplify/ui-react-native';
+} from "@aws-amplify/ui-react-native";
 
-import { Amplify } from 'aws-amplify';
-import awsExports from './src/aws-exports';
+import { Amplify } from "aws-amplify";
+import awsExports from "./src/aws-exports";
 Amplify.configure(awsExports);
 
 // retrieves only the current value of 'user' from 'useAuthenticator'
-const userSelector = (context) => [context.user]
+const userSelector = (context) => [context.user];
+
+const HomeScreen = () => {
+  return (
+    <View>
+      <Text>Home Screen</Text> 
+      {/* Add your content here */}
+    </View>
+  );
+};
+
+const SettingsScreen = () => {
+  return (
+    <View>
+      <Text>Settings Screen</Text>
+      {/* Add your content here */}
+    </View>
+  );
+};
 
 const SignOutButton = () => {
   const { user, signOut } = useAuthenticator(userSelector);
+
   return (
     <Pressable onPress={signOut} style={styles.buttonContainer}>
       <Text style={styles.buttonText}>
@@ -32,69 +66,90 @@ const SignOutButton = () => {
     </Pressable>
   );
 };
-
-const initialFormState = {name: '', description: ''};
+const testAPI = () => {
+  const apiName = 'course';
+  const path = '/course';
+  const myInit = {
+    headers: {}, // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+    queryStringParameters: {
+      name: 'param' // OPTIONAL
+    }
+  };
 
 const App = () => {
-  const [formState, setFormState] = useState(initialFormState);
-  const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  function setInput(key, value) {
-    setFormState({...formState, [key]: value});
-  }
+  const openPopup = () => {
+    setIsPopupVisible(true);
+  };
 
-  async function fetchTodos() {
-    try {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
-      const todos = todoData.data.listTodos.items;
-      setTodos(todos);
-    } catch (err) {
-      console.log('error fetching todos');
-    }
-  }
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
 
-  async function addTodo() {
-    try {
-      if (!formState.name || !formState.description) return;
-      const todo = {...formState};
-      setTodos([...todos, todo]);
-      setFormState(initialFormState);
-      await API.graphql(graphqlOperation(createTodo, {input: todo}));
-    } catch (err) {
-      console.log('error creating todo:', err);
-    }
-  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <SignOutButton />
-        <TextInput
-          onChangeText={value => setInput('name', value)}
-          style={styles.input}
-          value={formState.name}
-          placeholder="Name"
-        />
-        <TextInput
-          onChangeText={value => setInput('description', value)}
-          style={styles.input}
-          value={formState.description}
-          placeholder="Description"
-        />
-        <Pressable onPress={addTodo} style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Create todo</Text>
-        </Pressable>
-        {todos.map((todo, index) => (
-          <View key={todo.id ? todo.id : index} style={styles.todo}>
-            <Text style={styles.todoName}>{todo.name}</Text>
-            <Text style={styles.todoDescription}>{todo.description}</Text>
-          </View>
-        ))}
-      </View>
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <Tab.Navigator>
+            <Tab.Screen
+              name="My Learning"
+              component={MyLeaning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Home"
+              component={Home}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="home" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Profile"
+              component={() => <Profile SignOut={SignOutButton} />}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="account" color={color} size={24} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </SafeAreaProvider>
+      </NavigationContainer>
+
+      <FAB
+        icon="forum"
+        style={styles.fab}
+        onPress={openPopup}
+      />
+
+      <Modal visible={isPopupVisible} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+            <View style={styles.headingContainer}>
+              <Text style={styles.headingText}>Chat Support</Text>
+            </View>
+            <View style={styles.popupContainer}>
+
+              <ChatSupport/>
+
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={closePopup}
+              >
+                <Icon name="arrow-left" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -102,14 +157,62 @@ const App = () => {
 export default withAuthenticator(App);
 
 const styles = StyleSheet.create({
-  container: {width: 400, flex: 1, padding: 20, alignSelf: 'center'},
-  todo: {marginBottom: 15},
-  input: {backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18},
-  todoName: {fontSize: 20, fontWeight: 'bold'},
+  container: { width: 400, flex: 1, padding: 20, alignSelf: "center" },
+  todo: { marginBottom: 15 },
+  input: {
+    backgroundColor: "#ddd",
+    marginBottom: 10,
+    padding: 8,
+    fontSize: 18,
+  },
+  todoName: { fontSize: 20, fontWeight: "bold" },
   buttonContainer: {
-    alignSelf: 'center',
-    backgroundColor: 'black',
+    alignSelf: "center",
+    backgroundColor: "black",
     paddingHorizontal: 8,
   },
-  buttonText: {color: 'white', padding: 16, fontSize: 18},
+  buttonText: { color: "white", padding: 16, fontSize: 18 },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 16,
+    bottom: 100,
+  },
+
+  modalContainer: {
+    flex: 1,
+  },
+  headingContainer: {
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  headingText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+  },
+  popupContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  popupText: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  closeButton: {
+    position: "absolute",
+    top: -30,
+    left: 5,
+    backgroundColor: "#ccc",
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    borderRadius: 50,
+  },
 });
+}

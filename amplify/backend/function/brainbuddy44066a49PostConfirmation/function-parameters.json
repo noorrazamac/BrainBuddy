@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "brainbuddy44066a49",
+  "functionName": "brainbuddy44066a49PostConfirmation",
+  "resourceName": "brainbuddy44066a49PostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "brainbuddy44066a49PostConfirmation",
+  "skipEdit": true,
+  "permissions": {
+    "storage": {
+      "student": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}
