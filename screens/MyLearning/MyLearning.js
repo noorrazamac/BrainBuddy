@@ -1,10 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 const courses = [
-
-
+  { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
+  { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
+  { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
+  { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
+  { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
+  { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
+  { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
+  { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
+  { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
+  // Add more courses as needed
 ];
 
 const MyLearningScreen = () => {
@@ -34,10 +42,12 @@ const MyLearningScreen = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>My Learning</Text>
       </View>
-      <View style={styles.contentContainer}>
-        <Text style={styles.sectionTitle}>My Courses</Text>
-        {renderCourseBoxes()}
-      </View>
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <Text style={styles.sectionTitle}>My Courses</Text>
+          {renderCourseBoxes()}
+        </View>
+      </ScrollView>
     </View>
   );
 };
