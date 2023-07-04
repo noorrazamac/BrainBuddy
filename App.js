@@ -7,8 +7,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
+
 import MyLeaning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
+
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -96,20 +98,20 @@ const App = () => {
         <SafeAreaProvider>
           <Tab.Navigator>
             <Tab.Screen
-              name="My Learning"
-              component={MyLeaning}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
               name="Home"
               component={Home}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="home" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="My Learning"
+              component={MyLearning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
                 ),
               }}
             />
