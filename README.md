@@ -3,28 +3,20 @@ API Design
 Subscription API
 
 - resourse: subscription/
-	- Connects to "subscriptionHandler" Lambda function to manage data in "subscription" dynamoDB table
-	- e.g.
-		- get # fetches current subscription details
-		- post # creates new Subscription if doesn't exists
-		- update # udpates existing subscription
-		- delete # deletes the subscription 
+    - get # fetches current subscription details
+    - post # creates new Subscription if doesn't exists
+    - update # udpates existing subscription
+    - delete # deletes the subscription 
 
 - resource: subscription/payment
-	- Connects to "paymentsHandler" Lambda function to manage data in "payments" dynamoDB table
+
+
 
 Course API
 
 - resource: course/
-	- Connects to "courseHandler" Lambda function to manage data in "course" dynamoDB table
-	
 - resource: module/
-	- Connects to "moduleHandler" Lambda function to manage data in "module" dynamoDB table
-
 - resource: content/
-	- Connects to "contentHandler" Lambda function to manage data in "content" dynamoDB table
-
-//TODO
 - resource: content/quiz/question/
 - resource: content/quiz/submit/{proxy+}
 - resource: content/quiz/start/{proxy+}
@@ -36,16 +28,11 @@ Course API
 Student API
 
 - resource: student/
-	- Connects to "studentHandler" Lambda function to manage data in "student" dynamoDB table
-
 - resource: student/favourites/
-	- Connects to "favouritesHandler" Lambda function to manage data in "student" dynamoDB table
-
 - resource: student/progress/
-	- Connects to "progressHandler" Lambda function to manage data in "progress" dynamoDB table
-
-//TODO
+<!-- - resource: student/progress/{proxy+} -->
 - resource: student/certificate/
+<!-- - resource: student/certificate/{proxy+} -->
 
 --> Mark as complete
 
