@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import MyLeaning from "./screens/MyLearning/MyLearning";
+import ChatSupport from "./screens/ChatSupport/ChatSupport";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -18,6 +19,8 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
+  Modal,
+  TouchableOpacity
 } from "react-native";
 // import {API, graphqlOperation} from 'aws-amplify';
 // import {createTodo} from './src/graphql/mutations';
@@ -37,7 +40,7 @@ const userSelector = (context) => [context.user];
 const HomeScreen = () => {
   return (
     <View>
-      <Text>Home Screen</Text>
+      <Text>Home Screen</Text> 
       {/* Add your content here */}
     </View>
   );
@@ -65,6 +68,18 @@ const SignOutButton = () => {
 };
 
 const App = () => {
+
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
@@ -104,8 +119,27 @@ const App = () => {
       <FAB
         icon="forum"
         style={styles.fab}
-        onPress={() => console.log("Pressed")}
+        onPress={openPopup}
       />
+
+      <Modal visible={isPopupVisible} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+            <View style={styles.headingContainer}>
+              <Text style={styles.headingText}>Chat Support</Text>
+            </View>
+            <View style={styles.popupContainer}>
+
+              <ChatSupport/>
+
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={closePopup}
+              >
+                <Icon name="arrow-left" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -133,5 +167,41 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 16,
     bottom: 100,
+  },
+
+  modalContainer: {
+    flex: 1,
+  },
+  headingContainer: {
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  headingText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+  },
+  popupContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  popupText: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  closeButton: {
+    position: "absolute",
+    top: -30,
+    left: 5,
+    backgroundColor: "#ccc",
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    borderRadius: 50,
   },
 });
