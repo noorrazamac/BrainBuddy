@@ -135,7 +135,7 @@ const App = () => {
                 style={styles.closeButton}
                 onPress={closePopup}
               >
-                <Icon name="arrow-left" size={24} color="white" />
+                <Icon name="arrow-left" size={24} color="black" />
               </TouchableOpacity>
             </View>
           </SafeAreaView>
