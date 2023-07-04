@@ -49,7 +49,7 @@ const CourseDetails = () => {
         </View>
 
         <View style={styles.detailsContainer}>
-          <Text style={styles.label}>Description:</Text>
+          <Text style={styles.label}>Course Description:</Text>
           <Text style={styles.description}>{course.description}</Text>
 
           <Text style={styles.label}>Course Details:</Text>
@@ -57,9 +57,20 @@ const CourseDetails = () => {
             {course.additionalDescription}
           </Text>
 
-        {/* Add Instructors here */}
+          <Text style={styles.label}>Course Instructors:</Text>
+          <View style={styles.instructorContainer}>
+            {course.instructors.map((instructor, index) => (
+              <View key={index} style={styles.inlineContainer}>
+                <Image
+                  source={require('./assets/humanIcon.png')}
+                  style={styles.instructorIcon}
+                />
+                <Text style={styles.instructor}>{instructor}</Text>
+              </View>
+            ))}
+          </View>
 
-          <Text style={styles.label}>Duration:</Text>
+          <Text style={styles.label}>Course Duration:</Text>
           <Text style={styles.duration}>{course.duration}</Text>
         </View>
       </View>
@@ -105,15 +116,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
   },
-  description: {
-    fontSize: 16,
-    marginBottom: 8,
-  },
   additionalDescription: {
-    fontSize: 16,
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  instructorContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  inlineContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
     marginBottom: 8,
   },
- //Add instructor styling
+  instructorIcon: {
+    width: 35,
+    height: 35,
+    marginRight: 8,
+  },
+  instructor: {
+    fontSize: 16,
+  },
   duration: {
     fontSize: 16,
   },
