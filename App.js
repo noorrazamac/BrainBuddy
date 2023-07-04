@@ -76,7 +76,7 @@ const testAPI = () => {
       name: 'param' // OPTIONAL
     }
   };
-
+}
 const App = () => {
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -153,6 +153,7 @@ const App = () => {
     </SafeAreaView>
   );
 };
+export default withAuthenticator(App);
 
 
 
