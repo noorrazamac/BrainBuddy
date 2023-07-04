@@ -66,6 +66,16 @@ const SignOutButton = () => {
     </Pressable>
   );
 };
+const testAPI = () => {
+  const apiName = 'course';
+  const path = '/course';
+  const myInit = {
+    headers: {}, // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+    queryStringParameters: {
+      name: 'param' // OPTIONAL
+    }
+  };
 
 const App = () => {
 
@@ -205,3 +215,4 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+}

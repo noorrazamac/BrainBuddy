@@ -1,0 +1,10 @@
+{
+  "resourceName": "content",
+  "tableName": "content",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
