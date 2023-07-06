@@ -206,7 +206,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    marginRight: 50
   },
   popupText: {
     fontSize: 24,

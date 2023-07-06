@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import React, { useState, useCallback, useEffect } from 'react'
-import { GiftedChat, InputToolbar, Composer } from 'react-native-gifted-chat'
+import { GiftedChat, InputToolbar, Composer, Send } from 'react-native-gifted-chat'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ChatSupport = () => {
   const [messages, setMessages] = useState([])
@@ -14,7 +15,7 @@ const ChatSupport = () => {
         user: {
           _id: 2,
           name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+          avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         },
       },
     ])
@@ -32,6 +33,7 @@ const ChatSupport = () => {
       containerStyle={styles.inputToolbarContainer}
       primaryStyle={styles.inputPrimary}
       renderComposer={renderComposer}
+      renderSend={renderSend}
     />
   )
 
@@ -39,12 +41,20 @@ const ChatSupport = () => {
     <Composer
       {...props}
       textInputStyle={styles.composerInput}
+      placeholder="Type a message"
     />
+  )
+
+  const renderSend = (props) => (
+    <Send {...props} containerStyle={styles.sendContainer}>
+      <View style={styles.sendButton}>
+        <Icon name="send" size={24} color="#fff" />
+      </View>
+    </Send>
   )
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Chat Support Screen</Text>
       <GiftedChat
         messages={messages}
         onSend={messages => onSend(messages)}
@@ -52,6 +62,9 @@ const ChatSupport = () => {
           _id: 1,
         }}
         renderInputToolbar={renderInputToolbar}
+        listViewProps={{
+          contentContainerStyle: styles.chatContentContainer, // Added contentContainerStyle
+        }}
       />
     </View>
   )
@@ -65,19 +78,17 @@ const styles = StyleSheet.create({
     flex: 1,
     width: width,
   },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    alignSelf: 'center',
-  },
   inputToolbarContainer: {
     borderTopWidth: 0,
-    marginBottom: 5,
+    marginBottom: 10,
+    marginRight: 25
   },
   inputPrimary: {
     borderRadius: 20,
-    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+    marginLeft: 25,
   },
   composerInput: {
     marginLeft: 10,
@@ -85,5 +96,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     paddingHorizontal: 10,
+  },
+  sendContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  sendButton: {
+    backgroundColor: '#3F51B5',
+    borderRadius: 50,
+    padding: 8,
+  },
+  chatContentContainer: {
+    flexGrow: 1,
+    justifyContent: 'flex-end', // Align chat to the bottom
   },
 })
