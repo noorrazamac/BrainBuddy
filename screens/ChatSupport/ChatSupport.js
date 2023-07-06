@@ -21,10 +21,28 @@ const ChatSupport = () => {
     ])
   }, [])
 
+  // async function askChatGpt(query) {
+  //   const { Configuration, OpenAIApi } = require("openai");
+  //   const configuration = new Configuration({
+  //     apiKey: "",
+  //   });
+  //   const openai = new OpenAIApi(configuration);
+  //   const completion = await openai.createChatCompletion({
+  //     model: "gpt-3.5-turbo",
+  //     messages: [{"role": "system", "content": "You are a helpful assistant."}, {role: "user", content: query}],
+  //   });
+
+  //   setMessages(previousMessages => GiftedChat.append(previousMessages, [{ _id: Math.round(Math.random() * 1000000), text: "completion.data.choices[0].message", createdAt: new Date(), user: { _id: 2, name: 'React Native', avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' } }]))
+  //   console.log(completion.data.choices[0].message);
+  // }
+
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, messages),
     )
+    
+    // Call chatGPT from backend and append response to messages
+    setMessages(previousMessages => GiftedChat.append(previousMessages, [{ _id: Math.round(Math.random() * 1000000), text: "completion.data.choices[0].message", createdAt: new Date(), user: { _id: 2, name: 'React Native', avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' } }]))
   }, [])
 
   const renderInputToolbar = (props) => (
