@@ -189,17 +189,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headingContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: '#6750A4',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: '#ccc',
   },
   headingText: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
   },
   popupContainer: {
     flex: 1,

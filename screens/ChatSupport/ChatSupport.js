@@ -77,11 +77,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: width,
+    backgroundColor: "#E8DEF8",
   },
   inputToolbarContainer: {
     borderTopWidth: 0,
     marginBottom: 10,
-    marginRight: 25
+    marginRight: 25,
+    backgroundColor: "#E8DEF8",
   },
   inputPrimary: {
     borderRadius: 20,
