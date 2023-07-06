@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { LogBox } from "react-native";
 import { FAB } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,8 +8,12 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
-import MyLeaning from "./screens/MyLearning/MyLearning";
+
+import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -76,7 +81,7 @@ const testAPI = () => {
       name: 'param' // OPTIONAL
     }
   };
-
+}
 const App = () => {
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -96,20 +101,20 @@ const App = () => {
         <SafeAreaProvider>
           <Tab.Navigator>
             <Tab.Screen
-              name="My Learning"
-              component={MyLeaning}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
               name="Home"
               component={Home}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="home" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="My Learning"
+              component={MyLearning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
                 ),
               }}
             />
@@ -153,8 +158,9 @@ const App = () => {
     </SafeAreaView>
   );
 };
-
 export default withAuthenticator(App);
+
+
 
 const styles = StyleSheet.create({
   container: { width: 400, flex: 1, padding: 20, alignSelf: "center" },
@@ -200,6 +206,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
+    marginRight: 50
   },
   popupText: {
     fontSize: 24,
@@ -215,4 +222,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-}
