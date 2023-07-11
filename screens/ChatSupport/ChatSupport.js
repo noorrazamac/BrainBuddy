@@ -40,9 +40,46 @@ const ChatSupport = () => {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, messages),
     )
+
+    // Show loading text for 5 seconds (update till response from backend API)
+    setMessages(previousMessages => GiftedChat.append(previousMessages, [
+      {
+        _id: Math.round(Math.random() * 1000000),
+        text: 'Typing...',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        },
+      },
+    ]))
+
+    setTimeout(() => {
+      // Call chatGPT from backend and append response to messages
+      setMessages(previousMessages => {
+        const updatedMessages = [...previousMessages];
     
-    // Call chatGPT from backend and append response to messages
-    setMessages(previousMessages => GiftedChat.append(previousMessages, [{ _id: Math.round(Math.random() * 1000000), text: "completion.data.choices[0].message", createdAt: new Date(), user: { _id: 2, name: 'React Native', avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' } }]))
+        // Find the index of the previous message from BOT
+        const previousMessageIndex = updatedMessages.findIndex(
+          message => message.user._id === 2
+        );
+    
+        if (previousMessageIndex >= 0) {
+          // Update the properties of the previous message from BOT
+          const previousMessage = updatedMessages[previousMessageIndex];
+          const updatedPreviousMessage = {
+            ...previousMessage,
+            text: 'Response from backend API',
+          };
+    
+          updatedMessages[previousMessageIndex] = updatedPreviousMessage;
+        }
+    
+        return updatedMessages;
+        // return GiftedChat.append(updatedMessages, messages);
+      });
+    }, 5000); 
   }, [])
 
   const renderInputToolbar = (props) => (
