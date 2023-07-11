@@ -168,6 +168,17 @@
     },
     "studentHandler": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "student"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },

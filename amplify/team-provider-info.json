@@ -20,11 +20,11 @@
       "function": {
         "brainbuddy44066a49PostConfirmation": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-696a6f6d6d7a6d7a5352-build.zip"
+          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-534d332f2f4331703450-build.zip"
         },
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/studentHandler-386b784a654246493243-build.zip"
+          "s3Key": "amplify-builds/studentHandler-4b6838727755327a3357-build.zip"
         },
         "favouritesHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
