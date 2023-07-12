@@ -8,8 +8,12 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import MyLeaning from "./screens/MyLearning/MyLearning";
+import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import CourseDetails from "./screens/CourseDetails/CourseDetails";
 
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 const Tab = createMaterialBottomTabNavigator();
 
 import {
@@ -19,6 +23,8 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
+  Modal,
+  TouchableOpacity
 } from "react-native";
 // import {API, graphqlOperation} from 'aws-amplify';
 // import {createTodo} from './src/graphql/mutations';
@@ -38,7 +44,7 @@ const userSelector = (context) => [context.user];
 const HomeScreen = () => {
   return (
     <View>
-      <Text>Home Screen</Text>
+      <Text>Home Screen</Text> 
       {/* Add your content here */}
     </View>
   );
@@ -64,8 +70,30 @@ const SignOutButton = () => {
     </Pressable>
   );
 };
-
+const testAPI = () => {
+  const apiName = 'course';
+  const path = '/course';
+  const myInit = {
+    headers: {}, // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+    queryStringParameters: {
+      name: 'param' // OPTIONAL
+    }
+  };
+}
 const App = () => {
+
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
@@ -81,20 +109,20 @@ const App = () => {
               }}
             />
             <Tab.Screen
-              name="My Learning"
-              component={MyLeaning}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
               name="Home"
               component={Home}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="home" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="My Learning"
+              component={MyLearning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
                 ),
               }}
             />
@@ -114,13 +142,35 @@ const App = () => {
       <FAB
         icon="forum"
         style={styles.fab}
-        onPress={() => console.log("Pressed")}
+        onPress={openPopup}
       />
+
+      <Modal visible={isPopupVisible} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+            <View style={styles.headingContainer}>
+              <Text style={styles.headingText}>Chat Support</Text>
+            </View>
+            <View style={styles.popupContainer}>
+
+              <ChatSupport/>
+
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={closePopup}
+              >
+                <Icon name="arrow-left" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 };
-
 export default withAuthenticator(App);
+
+
+
+
 
 const styles = StyleSheet.create({
   container: { width: 400, flex: 1, padding: 20, alignSelf: "center" },
@@ -143,5 +193,41 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 16,
     bottom: 100,
+  },
+
+  modalContainer: {
+    flex: 1,
+  },
+  headingContainer: {
+    backgroundColor: '#6750A4',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  headingText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  popupContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  popupText: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  closeButton: {
+    position: "absolute",
+    top: -30,
+    left: 5,
+    backgroundColor: "#ccc",
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    borderRadius: 50,
   },
 });
