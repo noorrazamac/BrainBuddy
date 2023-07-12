@@ -97,6 +97,66 @@ createItemInDynamoDB = async (event) => {
         }
     }
 }
+
+updateItemInDynamoDB = async (event) => {
+    if ('body' in event) {
+        const body = JSON.parse(event['body']);
+        if (body && 'student_id' in body) {
+            const student_id = body["student_id"];
+            console.log("updating data for student: ", student_id);
+            const params = {
+                TableName: process.env.STORAGE_STUDENT_NAME,
+                // TableName: "student-" + process.env.ENV,
+                Key: {
+                    id: { S: student_id }, // Assuming the primary key is of type string
+                },
+                UpdateExpression: "set #name = :name, #email = :email, #phone = :phone, #address = :address, #city = :city, #state = :state",
+                ExpressionAttributeNames: {
+                    "#name": "name",
+                    "#email": "email",
+                    "#phone": "phone",
+                    "#address": "address",
+                    "#city": "city",
+                    "#state": "state",
+                },
+                ExpressionAttributeValues: {
+                    ":name": { S: body["name"] },
+                    ":email": { S: body["email"] },
+                    ":phone": { S: body["phone"] },
+                    ":address": { S: body["address"] },
+                    ":city": { S: body["city"] },
+                    ":state": { S: body["state"] },
+                },
+
+            };
+            try {
+                const result = await dynamodb.updateItem(params).promise();
+                console.log('Retrieved item:', result);
+                return {
+                    statusCode: 200,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*"
+                    },
+                }
+            }
+            catch (err) {
+                console.error('Error updating item in DynamoDB', err);
+                return {
+                    statusCode: 200,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*"
+                    },
+                    body: JSON.stringify('Error updating the Student!')
+                };
+            }
+        }
+
+    }
+}
+
+
 exports.handler = async (event) => {
     console.log(`EVENT: ${(event['resource'])}`);
     console.log(`EVENT: ${(event['path'])}`);
@@ -110,6 +170,10 @@ exports.handler = async (event) => {
         // else if(httpMethod == 'POST'){
         //     console.log("Executing POST")
         //     return await createItemInDynamoDB(event);
+        // }
+        // else if(httpMethod == 'PUT'){
+        //     console.log("Executing PUT")
+        //     return await updateItemInDynamoDB(event);
         // }
     }
 

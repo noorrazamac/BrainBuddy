@@ -48,6 +48,7 @@ Users:
 Course:
 
 {
+	id:
 	name:	
 	category:
 	level:
@@ -62,6 +63,7 @@ Course:
 
 Module:
 {
+	id:
 	name:	
 	contents:{
 		order:

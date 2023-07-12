@@ -24,31 +24,31 @@
         },
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/studentHandler-4b6838727755327a3357-build.zip"
+          "s3Key": "amplify-builds/studentHandler-5076306c373733587550-build.zip"
         },
         "favouritesHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/favouritesHandler-4f4f4e7179725a667366-build.zip"
+          "s3Key": "amplify-builds/favouritesHandler-356446655a4e4c704d4e-build.zip"
         },
         "progressHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/progressHandler-312f6c3541724e546c6b-build.zip"
+          "s3Key": "amplify-builds/progressHandler-6a446d4c6b4539455457-build.zip"
         },
         "subscriptionHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/subscriptionHandler-6b67554d5253545a6838-build.zip"
+          "s3Key": "amplify-builds/subscriptionHandler-59544f614d5a52387951-build.zip"
         },
         "paymentsHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/paymentsHandler-3651494b62655a6e6949-build.zip"
+          "s3Key": "amplify-builds/paymentsHandler-66486949483853764969-build.zip"
         },
         "courseHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/courseHandler-7137564c343765586a54-build.zip"
+          "s3Key": "amplify-builds/courseHandler-65437132344f366e4438-build.zip"
         },
         "moduleHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/moduleHandler-365855495549312f434b-build.zip"
+          "s3Key": "amplify-builds/moduleHandler-68464d742f536c546b71-build.zip"
         },
         "contentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
