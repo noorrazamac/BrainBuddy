@@ -4,16 +4,17 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import { LogBox } from 'react-native';
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
-import MyLeaning from "./screens/MyLearning/MyLearning";
+import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import CourseDetails from "./screens/CourseDetails/CourseDetails";
 
 
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
+
 const Tab = createMaterialBottomTabNavigator();
 
 import {
