@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { LogBox } from "react-native";
 import { FAB } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import { LogBox } from 'react-native';
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
-
 import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
+import CourseDetails from "./screens/CourseDetails/CourseDetails";
 
 
 LogBox.ignoreLogs(['Warning: ...']);
@@ -113,6 +112,15 @@ const App = () => {
             <Tab.Screen
               name="My Learning"
               component={MyLearning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Course Details"
+              component={CourseDetails}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="book" color={color} size={24} />
