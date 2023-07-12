@@ -120,15 +120,6 @@ const App = () => {
               }}
             />
             <Tab.Screen
-              name="My Learning"
-              component={MyLearning}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
               name="Profile"
               component={() => <Profile SignOut={SignOutButton} />}
               options={{
@@ -233,4 +224,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-}
