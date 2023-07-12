@@ -113,7 +113,7 @@
             "cognitoIdentityPoolId": "us-east-1:userpool-id",
             "accountId": "account-id",
             "cognitoIdentityId": "us-east-1:cognito-idp-id",
-            "caller": "caller-access-key:CognitoIdentityCredentials",
+            "caller": "iam auth role identifier:CognitoIdentityCredentials",
             "sourceIp": "---",
             "principalOrgId": "o-***",
             "accessKey": "caller temp access key",
@@ -121,7 +121,7 @@
             "cognitoAuthenticationProvider": "cognito-idp.us-east-1.amazonaws.com/us-east-***,cognito-idp.us-east-1.amazonaws.com/us-east-***:CognitoSignIn:usersub",
             "userArn": "arn:aws:sts::account-id:assumed-role/authRole/CognitoIdentityCredentials",
             "userAgent": "aws-amplify/5.2.4 react-native",
-            "user": "caller-access-key:CognitoIdentityCredentials"
+            "user": "iam auth role identifier:CognitoIdentityCredentials"
         },
         "domainName": "api-id.execute-api.us-east-1.amazonaws.com",
         "apiId": "api-id"

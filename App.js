@@ -12,6 +12,7 @@ import Profile from "./screens/Profile/Profile";
 import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 
+
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
 
@@ -119,6 +120,15 @@ const App = () => {
               }}
             />
             <Tab.Screen
+              name="My Learning"
+              component={MyLearning}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="book" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
               name="Profile"
               component={() => <Profile SignOut={SignOutButton} />}
               options={{
@@ -159,6 +169,8 @@ const App = () => {
   );
 };
 export default withAuthenticator(App);
+
+
 
 
 
@@ -221,3 +233,4 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+}
