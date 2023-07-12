@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { LogBox } from "react-native";
 import { FAB } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,6 +12,9 @@ import Profile from "./screens/Profile/Profile";
 import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -159,6 +163,8 @@ export default withAuthenticator(App);
 
 
 
+
+
 const styles = StyleSheet.create({
   container: { width: 400, flex: 1, padding: 20, alignSelf: "center" },
   todo: { marginBottom: 15 },
@@ -186,17 +192,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headingContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: '#6750A4',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: '#ccc',
   },
   headingText: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
   },
   popupContainer: {
     flex: 1,
