@@ -8,7 +8,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 
-import MyLeaning from "./screens/MyLearning/MyLearning";
+import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 
 
