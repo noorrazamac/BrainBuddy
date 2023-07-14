@@ -129,7 +129,8 @@ const App = () => {
             />
             <Tab.Screen
               name="Profile"
-              component={() => <Profile SignOut={SignOutButton} />}
+              //component={() => <Profile SignOut={SignOutButton} />}
+              component={Profile}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="account" color={color} size={24} />
