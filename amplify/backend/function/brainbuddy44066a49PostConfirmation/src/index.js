@@ -31,6 +31,52 @@ const modules = moduleNames.map((name) => require(`./${name}`));
  *
  */
 exports.handler = async (event, context) => {
+  console.log(event);
+  if('triggerSource' in event && event['triggerSource'] == "PostConfirmation_ConfirmSignUp"){
+    let userName=event["userName"];
+    let request=event["request"];
+    let userAttributes=request["userAttributes"];
+    let email=""
+    let sub="";
+    if("email" in userAttributes){
+      email=userAttributes["email"];
+    }
+    if("sub" in userAttributes){
+      sub=userAttributes["sub"];
+    }
+    console.log("userName",userName);
+    console.log("email",email);
+    // console.log("userName",userName);
+    // console.log("userName",userName);
+    
+    // const tableName="student-"+process.env.ENV;
+    const tableName=process.env.STORAGE_STUDENT_NAME
+    const jsonObject = {
+      id: sub,
+      userName: userName,
+      email: email,
+      subscription_id: null,
+      enrolled_courses:[],
+      favorite_courses:[]
+    };
+  
+    const params = {
+      Item: AWS.DynamoDB.Converter.marshall(jsonObject),
+      TableName: tableName
+    };
+  
+    try {
+      await dynamodb.putItem(params).promise();
+      console.log('JSON object stored successfully in DynamoDB');
+    } catch (err) {
+      console.error('Error storing JSON object in DynamoDB', err);
+    }
+    await Promise.all(modules.map((module) => module.handler(event, context)));
+  
+    
+
+  }
+  // PostConfirmation_ConfirmSignUp
   /**
    * Instead of naively iterating over all handlers, run them concurrently with
    * `await Promise.all(...)`. This would otherwise just be determined by the
@@ -38,44 +84,5 @@ exports.handler = async (event, context) => {
    */
   // log
   
-  let userName=event["userName"];
-  let request=event["request"];
-  let userAttributes=request["userAttributes"];
-  let email=""
-  let sub="";
-  if("email" in userAttributes){
-    email=userAttributes["email"];
-  }
-  if("sub" in userAttributes){
-    sub=userAttributes["email"];
-  }
-  console.log("userName",userName);
-  console.log("email",email);
-  // console.log("userName",userName);
-  // console.log("userName",userName);
-  
-  // const tableName="student-"+process.env.ENV;
-  const tableName=process.env.STORAGE_STUDENT_NAME
-  const jsonObject = {
-    id: sub,
-    userName: userName,
-    email: email,
-    subscription_id: null,
-    enrolled_courses:[],
-    favorite_courses:[]
-  };
-
-  const params = {
-    Item: AWS.DynamoDB.Converter.marshall(jsonObject),
-    TableName: tableName
-  };
-
-  try {
-    await dynamodb.putItem(params).promise();
-    console.log('JSON object stored successfully in DynamoDB');
-  } catch (err) {
-    console.error('Error storing JSON object in DynamoDB', err);
-  }
-  await Promise.all(modules.map((module) => module.handler(event, context)));
-  return "success";
+  return event;
 };
