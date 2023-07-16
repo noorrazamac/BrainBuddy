@@ -202,9 +202,56 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     
   },
-  arrowIcon: {
-    width: 20,
-    height: 20,
+  moduleContentContainer: {
+    paddingVertical: 8,
+  },
+  moduleContent: {
+    fontSize: 17,
+  },
+  descriptionContainer: {
+    marginBottom: 16,
+  },
+  additionalDescriptionContainer: {
+    marginBottom: 16,
+  },
+  instructorsContainer: {
+    marginBottom: 16,
+  },
+  durationContainer: {
+    marginBottom: 16,
+  },
+  modulesContainer: {
+    marginBottom: 16,
+  },
+  modulesContainer: {
+    marginBottom: 16,
+  },
+  modulesBackground: {
+    backgroundColor: '#F0F0F0',
+    padding: 16,
+    borderRadius: 8,
+  },
+  modulesContainer: {
+    marginBottom: 16,
+  },
+  table: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    marginTop: 8,
+    backgroundColor: '#f2f2f2',
+  },
+  tableRow: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    padding: 8,
+    backgroundColor: 'transparent',
+  },
+  tableRowEven: {
+    backgroundColor: '#ebebeb',
+  },
+  tableRowOdd: {
+    backgroundColor: '#f9f9f9',
   },
 });
 
