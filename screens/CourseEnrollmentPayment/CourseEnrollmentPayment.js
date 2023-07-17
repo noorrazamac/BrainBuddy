@@ -9,6 +9,12 @@ const CourseEnrollmentPayment = () => {
 
   return (
     <View style={styles.container}>
+
+    <Text style={styles.optionText}>Subscription Duration</Text>
+    <Text style={styles.optionText}>1. 6 months</Text>
+    <Text style={styles.optionText}>2. 12 months</Text>
+
+
       <Text style={styles.title}>Payment Options</Text>
 
       <TouchableOpacity
