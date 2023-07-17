@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView, Button } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+
 
 const course = 
 {
@@ -11,7 +13,7 @@ const course =
   duration: '4 weeks',
 };
 
-const CourseDetails = () => {
+const CourseDetails = ({navigation}) => {
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
@@ -55,13 +57,48 @@ const CourseDetails = () => {
 
           <Text style={styles.label}>Course Duration:</Text>
           <Text style={styles.duration}>{course.duration}</Text>
+           <AppButton
+           onPress={() =>
+                   navigation.navigate('CourseEnrollmentPayment')
+                 }
+           title="Enroll Now" size="sm" backgroundColor="#007bff" />
+
+
+
+
         </View>
       </View>
     </ScrollView>
   );
 };
 
+const AppButton = ({ onPress, title }) => (
+  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+    <Text style={styles.appButtonText}>{title}</Text>
+  </TouchableOpacity>
+);
+
 const styles = StyleSheet.create({
+
+  screenContainer: {
+      flex: 1,
+      justifyContent: "center",
+      padding: 16
+    },
+    appButtonContainer: {
+      elevation: 8,
+      backgroundColor: "#009688",
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 12
+    },
+    appButtonText: {
+      fontSize: 18,
+      color: "#fff",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
   scrollContainer: {
     flexGrow: 1,
   },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const PaymentOptionsScreen = () => {
+const CourseEnrollmentPayment = () => {
   const handlePaymentOptionPress = (option) => {
     // Handle the selected payment option
     console.log('Selected option:', option);
@@ -13,31 +13,24 @@ const PaymentOptionsScreen = () => {
 
       <TouchableOpacity
         style={styles.optionContainer}
-        onPress={() => handlePaymentOptionPress('Option 1')}
+        onPress={() => handlePaymentOptionPress('Credit Card Payment')}
       >
         <Text style={styles.optionText}>Option 1</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.optionContainer}
-        onPress={() => handlePaymentOptionPress('Option 2')}
+        onPress={() => handlePaymentOptionPress('Debit Card Payment')}
       >
         <Text style={styles.optionText}>Option 2</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.optionContainer}
-        onPress={() => handlePaymentOptionPress('Option 3')}
+        onPress={() => handlePaymentOptionPress('PayPal')}
       >
         <Text style={styles.optionText}>Option 3</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.optionContainer}
-        onPress={() => handlePaymentOptionPress('Option 4')}
-      >
-        <Text style={styles.optionText}>Option 4</Text>
-      </TouchableOpacity>
     </View>
   );
 };
