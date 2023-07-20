@@ -88,7 +88,111 @@ const Quiz = () => {
 };
 
 const styles = StyleSheet.create({
- 
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    backgroundColor: '#ec5252',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    padding: 20,
+  },
+  questionContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    marginBottom: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e5e5e5',
+  },
+  questionText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+  },
+  optionButton: {
+    backgroundColor: '#f5f5f5',
+    borderWidth: 1,
+    borderColor: '#dddddd',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 5,
+  },
+  selectedOptionButton: {
+    borderColor: 'blue',
+  },
+  optionText: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+  },
+  matchingContainer: {
+    marginVertical: 10,
+  },
+  matchingItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  matchingQuestion: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+  },
+  matchingAnswer: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginLeft: 10,
+  },
+  feedbackContainer: {
+    marginTop: 20,
+  },
+  feedbackText: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+  },
+  correctFeedbackText: {
+    color: 'green',
+  },
+  incorrectFeedbackText: {
+    color: 'red',
+  },
+  nextButton: {
+    backgroundColor: '#ec5252',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginTop: 10,
+  },
+  nextButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  quizCompletedText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });
 
 export default Quiz;
