@@ -167,14 +167,14 @@ exports.handler = async (event) => {
             console.log("Executing GET")
             return await getItemFromDynamoDB(event);
         }
-        // else if(httpMethod == 'POST'){
-        //     console.log("Executing POST")
-        //     return await createItemInDynamoDB(event);
-        // }
-        // else if(httpMethod == 'PUT'){
-        //     console.log("Executing PUT")
-        //     return await updateItemInDynamoDB(event);
-        // }
+        else if(httpMethod == 'POST'){
+            console.log("Executing POST")
+            return await createItemInDynamoDB(event);
+        }
+        else if(httpMethod == 'PUT'){
+            console.log("Executing PUT")
+            return await updateItemInDynamoDB(event);
+        }
     }
 
     return {

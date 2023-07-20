@@ -138,6 +138,17 @@
     },
     "contentHandler": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "content"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -182,6 +193,17 @@
     },
     "moduleHandler": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "module"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },

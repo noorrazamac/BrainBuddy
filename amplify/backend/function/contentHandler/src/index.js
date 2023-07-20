@@ -1,4 +1,10 @@
-
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_CONTENT_ARN
+	STORAGE_CONTENT_NAME
+	STORAGE_CONTENT_STREAMARN
+Amplify Params - DO NOT EDIT */
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}

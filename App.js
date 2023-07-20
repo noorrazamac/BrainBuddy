@@ -7,6 +7,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LogBox } from 'react-native';
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 25a2369e0a1126301b816c472adb6060635aea53
 import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import CourseDetails from "./screens/CourseDetails/CourseDetails";
