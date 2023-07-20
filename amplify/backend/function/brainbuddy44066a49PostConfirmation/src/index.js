@@ -47,7 +47,7 @@ exports.handler = async (event, context) => {
     email=userAttributes["email"];
   }
   if("sub" in userAttributes){
-    sub=userAttributes["email"];
+    sub=userAttributes["sub"];
   }
   console.log("userName",userName);
   console.log("email",email);
