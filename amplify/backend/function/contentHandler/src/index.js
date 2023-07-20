@@ -56,7 +56,7 @@ createItemInDynamoDB = async (event) => {
         const body = JSON.parse(event['body']);
         if (body && 'student_id' in body) {
             const content_id = body["content_id"];
-            console.log("creating data for content: ", student_id);
+            console.log("creating data for content: ", content_id);
             const jsonObject = {
                 id: content_id,
                 name: body["name"],
@@ -67,7 +67,7 @@ createItemInDynamoDB = async (event) => {
             
               const params = {
                 Item: AWS.DynamoDB.Converter.marshall(jsonObject),
-                TableName: tableName
+                TableName: process.env.STORAGE_CONTENT_NAME,
             };
             try {
                 const result = await dynamodb.putItem(params).promise();
@@ -90,7 +90,7 @@ createItemInDynamoDB = async (event) => {
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Headers": "*"
                     },
-                    body: JSON.stringify('Error creating the Student!')
+                    body: JSON.stringify('Error creating the Content!')
                 };
             }
         }
@@ -102,7 +102,7 @@ updateItemInDynamoDB = async (event) => {
         const body = JSON.parse(event['body']);
         if (body && 'content_id' in body) {
             const content_id = body["content_id"];
-            console.log("updating data for content: ", student_id);
+            console.log("updating data for content: ", content_id);
             const jsonObject = {
                 id: content_id,
                 name: body["name"],
@@ -113,7 +113,7 @@ updateItemInDynamoDB = async (event) => {
             
               const params = {
                 Item: AWS.DynamoDB.Converter.marshall(jsonObject),
-                TableName: tableName
+                TableName: process.env.STORAGE_CONTENT_NAME
             };
             try {
                 const result = await dynamodb.updateItem(params).promise();
@@ -134,7 +134,7 @@ updateItemInDynamoDB = async (event) => {
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Headers": "*"
                     },
-                    body: JSON.stringify('Error updating the Student!')
+                    body: JSON.stringify('Error updating the Content!')
                 };
             }
         }
