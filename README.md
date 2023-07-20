@@ -50,8 +50,10 @@ Course:
 {
 	id:
 	name:	
-	category:
-	level:
+	description:
+	additionalDescription:
+	instructors:[]
+	duration
 	modules:[
 		{
 			order:

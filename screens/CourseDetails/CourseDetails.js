@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { Amplify, API } from 'aws-amplify';
+import awsconfig from '../../src/aws-exports';
+Amplify.configure(awsconfig);
 
 const course = {
   title: 'React Native 101',
@@ -37,11 +40,33 @@ const course = {
   ],
 };
 
+async function getData(course_id) {
+  const apiName = 'course';
+  const path = '/course';
+  const myInit = {
+    headers: {} // OPTIONAL
+  };
+
+  return await API.get(apiName, path, {
+    queryStringParameters: {
+      course_id: course_id
+    }
+  });
+}
+
+
+
 const CourseDetails = () => {
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
-
+  const course_id = '001';
+  courses= ( async function() {
+    const courses = await getData(course_id);
+    console.log(JSON.stringify(courses));
+    return courses();
+  })();
+  // console.log(JSON.stringify(courses));
   const [expandedModuleIndex, setExpandedModuleIndex] = useState(null);
 
   const toggleModule = (index) => {
