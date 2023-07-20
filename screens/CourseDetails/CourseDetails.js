@@ -107,6 +107,28 @@ const CourseDetails = () => {
                   onPress={() => toggleModule(index)}
                   activeOpacity={0.8}
                 >
+                  <View
+                    style={[
+                      styles.tableRow,
+                      index % 2 === 0 ? styles.tableRowEven : styles.tableRowOdd,
+                    ]}
+                  >
+                    <View style={styles.moduleTitleContainer}>
+                      <Feather name="chevron-down" size={16} color="#333" />
+                      <Text style={styles.moduleTitle}>{module.title}</Text>
+                    </View>
+
+                    {expandedModuleIndex === index && (
+                      <View style={styles.moduleContentContainer}>
+                        {module.content.map((item, i) => (
+                          <View key={i} style={styles.moduleContentItem}>
+                            <Feather name="chevron-right" size={14} color="#333" />
+                            <Text style={styles.moduleContentText}>{item}</Text>
+                          </View>
+                        ))}
+                      </View>
+                    )}
+                  </View> 
                 </TouchableOpacity>
               ))}
             </View>
