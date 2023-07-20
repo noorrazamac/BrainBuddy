@@ -10,11 +10,14 @@ Amplify Params - DO NOT EDIT */
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
+const AWS = require('aws-sdk');
+const dynamodb = new AWS.DynamoDB();
+
 async function getItemFromDynamoDB(event) {
     if ('queryStringParameters' in event) {
         const pathParameters = event["queryStringParameters"];
         if (pathParameters && 'content_id' in pathParameters) {
-            const student_id = pathParameters["content_id"];
+            const content_id = pathParameters["content_id"];
             console.log("fetching data for content: ", content_id);
             const params = {
                 TableName: process.env.STORAGE_CONTENT_NAME,
@@ -54,7 +57,7 @@ async function getItemFromDynamoDB(event) {
 createItemInDynamoDB = async (event) => {
     if ('body' in event) {
         const body = JSON.parse(event['body']);
-        if (body && 'student_id' in body) {
+        if (body && 'content_id' in body) {
             const content_id = body["content_id"];
             console.log("creating data for content: ", content_id);
             const jsonObject = {
@@ -71,14 +74,14 @@ createItemInDynamoDB = async (event) => {
             };
             try {
                 const result = await dynamodb.putItem(params).promise();
-                console.log('Retrieved item:', result);
+                console.log('Created item:', result);
                 return {
                     statusCode: 200,
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Headers": "*"
                     },
-
+                    
                     body: JSON.stringify(result)
                 };
             }
@@ -98,48 +101,58 @@ createItemInDynamoDB = async (event) => {
 }
 
 updateItemInDynamoDB = async (event) => {
-    if ('body' in event) {
-        const body = JSON.parse(event['body']);
-        if (body && 'content_id' in body) {
-            const content_id = body["content_id"];
-            console.log("updating data for content: ", content_id);
-            const jsonObject = {
-                id: content_id,
-                name: body["name"],
-                description: body["description"],
-                source_path: body["source_path"],
-                type: body["type"],
-              };
-            
-              const params = {
-                Item: AWS.DynamoDB.Converter.marshall(jsonObject),
-                TableName: process.env.STORAGE_CONTENT_NAME
-            };
-            try {
-                const result = await dynamodb.updateItem(params).promise();
-                console.log('Retrieved item:', result);
-                return {
-                    statusCode: 200,
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Headers": "*"
-                    },
+    console.log("here");
+    try{
+        console.log(event['body'])
+        if ('body' in event) {
+            const body = JSON.parse(event['body']);
+            console.log(body);
+            if (body && 'content_id' in body) {
+                const content_id = body["content_id"];
+                console.log("updating data for content: ", content_id);
+                const jsonObject = {
+                    id: content_id,
+                    name: body["name"],
+                    description: body["description"],
+                    source_path: body["source_path"],
+                    type: body["type"],
+                };
+                
+                const params = {
+                    Item: AWS.DynamoDB.Converter.marshall(jsonObject),
+                    TableName: process.env.STORAGE_CONTENT_NAME
+                };
+                try {
+                    const result = await dynamodb.updateItem(params).promise();
+                    console.log('Retrieved item:', result);
+                    return {
+                        statusCode: 200,
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*"
+                        },
+                    }
+                }
+                catch (err) {
+                    console.error('Error updating item in DynamoDB', err);
+                    return {
+                        statusCode: 200,
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*"
+                        },
+                        body: JSON.stringify('Error updating the Content!')
+                    };
                 }
             }
-            catch (err) {
-                console.error('Error updating item in DynamoDB', err);
-                return {
-                    statusCode: 200,
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Headers": "*"
-                    },
-                    body: JSON.stringify('Error updating the Content!')
-                };
-            }
-        }
 
+        }
     }
+    catch(err){
+        console.log(err);
+    }
+
+    
 }
 
 

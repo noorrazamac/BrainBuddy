@@ -10,13 +10,17 @@ Amplify Params - DO NOT EDIT */
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
+const AWS = require('aws-sdk');
+const dynamodb = new AWS.DynamoDB();
+
+// const dynamoDB2 = new AWS.DynamoDB.DocumentClient();
 
 async function getItemFromDynamoDB(event) {
     if ('queryStringParameters' in event) {
         const pathParameters = event["queryStringParameters"];
         if (pathParameters && 'module_id' in pathParameters) {
             const module_id = pathParameters["module_id"];
-            console.log("fetching data for module: ", content_id);
+            console.log("fetching data for module: ", module_id);
             const params = {
                 TableName: process.env.STORAGE_MODULE_NAME,
                 // TableName: "student-" + process.env.ENV,
@@ -61,7 +65,7 @@ createItemInDynamoDB = async (event) => {
             const jsonObject = {
                 id: module_id,
                 name: body["name"],
-                contents: []
+                contents: body["contents"]
               };
             
               const params = {

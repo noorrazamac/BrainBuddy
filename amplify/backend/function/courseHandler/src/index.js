@@ -38,6 +38,7 @@ async function getItemFromDynamoDB(event) {
 				const result = await dynamodb.getItem(params).promise();
 				const item = AWS.DynamoDB.Converter.unmarshall(result.Item);
 				console.log('Retrieved item:', item);
+				
 				return {
 					statusCode: 200,
 					headers: {
@@ -59,6 +60,53 @@ async function getItemFromDynamoDB(event) {
 				};
 			}
 		}
+	}
+}
+
+createCourseInDynamoDB = async (event) => {
+	if ('body' in event) {
+		const body = JSON.parse(event['body']);
+        if (body && 'course_id' in body) {
+            const course_id = body["course_id"];
+            console.log("creating data for module: ", course_id);
+            const jsonObject = {
+                id: course_id,
+                name: body["name"],
+				category: body["category"],
+				level: body["level"],
+                modules: body["modules"],
+				rating: body["rating"],
+              };
+            
+              const params = {
+                Item: AWS.DynamoDB.Converter.marshall(jsonObject),
+                TableName: process.env.STORAGE_MODULE_NAME
+            };
+            try {
+                const result = await dynamodb.putItem(params).promise();
+                console.log('Retrieved item:', result);
+                return {
+                    statusCode: 200,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*"
+                    },
+
+                    body: JSON.stringify(result)
+                };
+            }
+            catch (err) {
+                console.error('Error creating item in DynamoDB', err);
+                return {
+                    statusCode: 200,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*"
+                    },
+                    body: JSON.stringify('Error creating the Module!')
+                };
+            }
+        }
 	}
 }
 
