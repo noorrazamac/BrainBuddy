@@ -20,11 +20,11 @@
       "function": {
         "brainbuddy44066a49PostConfirmation": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-73614d6849693166627a-build.zip"
+          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-306b6961696935683157-build.zip"
         },
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/studentHandler-5076306c373733587550-build.zip"
+          "s3Key": "amplify-builds/studentHandler-497750485350746e4179-build.zip"
         },
         "favouritesHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
@@ -48,11 +48,11 @@
         },
         "moduleHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/moduleHandler-68464d742f536c546b71-build.zip"
+          "s3Key": "amplify-builds/moduleHandler-4d307a42774f75566831-build.zip"
         },
         "contentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/contentHandler-427a4b4b54487051336a-build.zip"
+          "s3Key": "amplify-builds/contentHandler-536d4a51796b65337876-build.zip"
         }
       },
       "storage": {
