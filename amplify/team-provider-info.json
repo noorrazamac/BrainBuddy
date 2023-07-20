@@ -20,7 +20,7 @@
       "function": {
         "brainbuddy44066a49PostConfirmation": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-534d332f2f4331703450-build.zip"
+          "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-73614d6849693166627a-build.zip"
         },
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
@@ -44,7 +44,7 @@
         },
         "courseHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/courseHandler-65437132344f366e4438-build.zip"
+          "s3Key": "amplify-builds/courseHandler-5535436e617458694a4e-build.zip"
         },
         "moduleHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
