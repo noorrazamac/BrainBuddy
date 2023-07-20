@@ -277,6 +277,50 @@ tableRowEven: {
 tableRowOdd: {
   backgroundColor: '#f9f9f9',
 },
+modulesContainer: {
+	marginBottom: 16,
+},
+  table: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    marginTop: 8,
+    backgroundColor: '#f2f2f2',
+},
+  tableRow: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    padding: 8,
+    backgroundColor: 'transparent',
+},
+  tableRowEven: {
+    backgroundColor: '#ebebeb',
+},
+  tableRowOdd: {
+    backgroundColor: '#f9f9f9',
+},
+  moduleTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+},
+  moduleTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 4,
+},
+  moduleContentContainer: {
+    marginTop: 8,
+    paddingLeft: 24,
+},
+  moduleContentItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+},
+  moduleContentText: {
+    marginLeft: 4,
+},
 });
 
 export default CourseDetails;
