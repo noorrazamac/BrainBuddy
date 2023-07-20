@@ -41,7 +41,34 @@ const Quiz = () => {
 
 
   const renderQuestion = () => {
-   
+    const currentQuestion = questions[currentQuestionIndex];
+    return (
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>{currentQuestion.question}</Text>
+        {currentQuestion.options.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[
+              styles.optionButton,
+              selectedOption === option && styles.selectedOptionButton,
+            ]}
+            onPress={() => handleOptionSelection(option)}
+          >
+            <Text style={styles.optionText}>{option}</Text>
+          </TouchableOpacity>
+        ))}
+        {selectedOption !== null && (
+          <View style={styles.feedbackContainer}>
+            <Text style={[styles.feedbackText, isCorrect ? styles.correctFeedbackText : styles.incorrectFeedbackText]}>
+              {isCorrect ? 'Correct! 🎉' : 'Incorrect! 😞 The correct answer is ' + questions[currentQuestionIndex].correctAnswer + '.'}
+            </Text>
+            <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
+              <Text style={styles.nextButtonText}>Next Question</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    );
   };
 
   return (
@@ -61,7 +88,7 @@ const Quiz = () => {
 };
 
 const styles = StyleSheet.create({
-  
+ 
 });
 
 export default Quiz;
