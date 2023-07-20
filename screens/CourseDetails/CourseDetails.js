@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 const course = {
   title: 'React Native 101',
@@ -11,17 +12,28 @@ const course = {
   modules: [
     {
       title: 'Module 1: Introduction to React Native',
-      content: 'This module introduces the basics of React Native and its key concepts.',
+      content: [
+        'Introduction to React Native and its key concepts',
+        'Setting up the development environment',
+        'Creating your first React Native app',
+      ],
     },
     {
       title: 'Module 2: UI Development with React Native',
-      content: 'Learn how to create user interfaces using React Native components.',
+      content: [
+        'Building user interfaces using React Native components',
+        'Styling components with CSS-in-JS',
+        'Handling user input and touch events',
+      ],
     },
     {
       title: 'Module 3: State Management in React Native',
-      content: 'Explore different approaches for managing state in React Native applications.',
+      content: [
+        'Understanding state and props in React Native',
+        'Managing state with React Hooks',
+        'Implementing Redux for state management',
+      ],
     },
-   
   ],
 };
 
@@ -93,16 +105,8 @@ const CourseDetails = () => {
                 <TouchableOpacity
                   key={index}
                   onPress={() => toggleModule(index)}
-                  style={styles.tableRow}
                   activeOpacity={0.8}
                 >
-                  <Text style={styles.moduleTitle}>{module.title}</Text>
-
-                  {expandedModuleIndex === index && (
-                    <View style={styles.moduleContentContainer}>
-                      <Text style={styles.moduleContent}>{module.content}</Text>
-                    </View>
-                  )}
                 </TouchableOpacity>
               ))}
             </View>
@@ -114,146 +118,143 @@ const CourseDetails = () => {
 };
 
 const styles = StyleSheet.create({
-
-  scrollContainer: {
-    flexGrow: 1,
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-  },
-  header: {
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#000000',
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  imageContainer: {
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  image: {
-    resizeMode: 'cover',
-  },
-  detailsContainer: {
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  additionalDescription: {
-    fontSize: 17,
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 17,
-    marginBottom: 8,
-  },
-  instructorContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  inlineContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 16,
-    marginBottom: 8,
-  },
-  instructorIcon: {
-    width: 35,
-    height: 35,
-    marginRight: 8,
-  },
-  instructor: {
-    fontSize: 17,
-  },
-  duration: {
-    fontSize: 17,
-  },
-  moduleContainer: {
-    marginBottom: 16,
-  },
-  moduleContent: {
-    fontSize: 17,
-  },
-  moduleContainer: {
-    marginBottom: 16,
-  },
-  moduleHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 8,
-  },
-  moduleTitle: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: 'bold',
-    
-  },
-  moduleContentContainer: {
-    paddingVertical: 8,
-  },
-  moduleContent: {
-    fontSize: 17,
-  },
-  descriptionContainer: {
-    marginBottom: 16,
-  },
-  additionalDescriptionContainer: {
-    marginBottom: 16,
-  },
-  instructorsContainer: {
-    marginBottom: 16,
-  },
-  durationContainer: {
-    marginBottom: 16,
-  },
-  modulesContainer: {
-    marginBottom: 16,
-  },
-  modulesContainer: {
-    marginBottom: 16,
-  },
-  modulesBackground: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 8,
-  },
-  modulesContainer: {
-    marginBottom: 16,
-  },
-  table: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    marginTop: 8,
-    backgroundColor: '#f2f2f2',
-  },
-  tableRow: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    padding: 8,
-    backgroundColor: 'transparent',
-  },
-  tableRowEven: {
-    backgroundColor: '#ebebeb',
-  },
-  tableRowOdd: {
-    backgroundColor: '#f9f9f9',
-  },
+ scrollContainer: {
+  flexGrow: 1,
+},
+container: {
+  flex: 1,
+  padding: 16,
+  backgroundColor: '#FFFFFF',
+},
+header: {
+  marginBottom: 16,
+},
+title: {
+  fontSize: 24,
+  fontWeight: 'bold',
+  textAlign: 'center',
+},
+separator: {
+  height: 1,
+  backgroundColor: '#000000',
+  marginTop: 8,
+  marginBottom: 16,
+},
+imageContainer: {
+  alignItems: 'center',
+  marginBottom: 16,
+},
+image: {
+  resizeMode: 'cover',
+},
+detailsContainer: {
+  marginBottom: 16,
+},
+label: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginBottom: 8,
+},
+additionalDescription: {
+  fontSize: 17,
+  marginBottom: 8,
+},
+description: {
+  fontSize: 17,
+  marginBottom: 8,
+},
+instructorContainer: {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+},
+inlineContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginRight: 16,
+  marginBottom: 8,
+},
+instructorIcon: {
+  width: 35,
+  height: 35,
+  marginRight: 8,
+},
+instructor: {
+  fontSize: 17,
+},
+duration: {
+  fontSize: 17,
+},
+moduleContainer: {
+  marginBottom: 16,
+},
+moduleContent: {
+  fontSize: 17,
+},
+moduleContainer: {
+  marginBottom: 16,
+},
+moduleHeader: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingVertical: 8,
+},
+moduleTitle: {
+  flex: 1,
+  fontSize: 18,
+  fontWeight: 'bold',
+},
+moduleContentContainer: {
+  paddingVertical: 8,
+},
+moduleContent: {
+  fontSize: 17,
+},
+descriptionContainer: {
+  marginBottom: 16,
+},
+additionalDescriptionContainer: {
+  marginBottom: 16,
+},
+instructorsContainer: {
+  marginBottom: 16,
+},
+durationContainer: {
+  marginBottom: 16,
+},
+modulesContainer: {
+  marginBottom: 16,
+},
+modulesContainer: {
+  marginBottom: 16,
+},
+modulesBackground: {
+  backgroundColor: '#F0F0F0',
+  padding: 16,
+  borderRadius: 8,
+},
+modulesContainer: {
+  marginBottom: 16,
+},
+table: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  marginTop: 8,
+  backgroundColor: '#f2f2f2',
+},
+tableRow: {
+  borderBottomWidth: 1,
+  borderBottomColor: '#ccc',
+  padding: 8,
+  backgroundColor: 'transparent',
+},
+tableRowEven: {
+  backgroundColor: '#ebebeb',
+},
+tableRowOdd: {
+  backgroundColor: '#f9f9f9',
+},
 });
 
 export default CourseDetails;
-
