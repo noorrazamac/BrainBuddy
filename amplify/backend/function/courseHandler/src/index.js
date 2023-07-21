@@ -88,7 +88,7 @@ async function getItemFromDynamoDB(event) {
 			const course_id = pathParameters["course_id"];
 			console.log("fetching data for course: ", course_id);
 			const params = {
-				TableName: "course-dev",
+				TableName: process.env.STORAGE_COURSE_NAME,
 				// TableName: "student-" + process.env.ENV,
 				Key: {
 					id: { S: course_id } // Assuming the primary key is of type string
@@ -131,6 +131,38 @@ async function getItemFromDynamoDB(event) {
 				};
 			}
 		}
+        else{
+            // code to fetch all courses from dynamodb
+            const params = {
+                TableName: process.env.STORAGE_COURSE_NAME,
+                
+            }
+    
+            try {
+                const data = await dynamodb.scan(params).promise();
+                const items = data.Items.map(item => AWS.DynamoDB.Converter.unmarshall(item));
+                console.log('Fetched items:', items);
+                return {
+                    statusCode: 200,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*"
+                    },
+                    body: JSON.stringify(items)
+                };
+              } catch (err) {
+                console.error('Error fetching items from DynamoDB', err);
+                return {
+                    statusCode: 200,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*"
+                    },
+                    body: JSON.stringify('Error finding the Course!')
+                };
+              }
+            
+        }
 	}
 }
 
@@ -143,7 +175,7 @@ createCourseInDynamoDB = async (event) => {
             console.log("creating data for course: ", course_id);
             const jsonObject = {
                 id: course_id,
-                title: "title"in body?["title"]:"",
+                title: "title"in body?body["title"]:"",
 				category: "category" in body?body["category"]:"",
 				description: "description" in body?body["description"]:"",
 				additionalDescription: "additionalDescription" in body?body["additionalDescription"]:"",

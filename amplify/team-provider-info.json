@@ -44,7 +44,7 @@
         },
         "courseHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/courseHandler-5a6a754359414478565a-build.zip"
+          "s3Key": "amplify-builds/courseHandler-6d496e59706e3846454f-build.zip"
         },
         "moduleHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
