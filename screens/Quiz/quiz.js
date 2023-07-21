@@ -20,25 +20,55 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [hasAnswered, setHasAnswered] = useState(false); // Track whether the user has answered the current question
 
   const handleOptionSelection = (selectedAnswer) => {
-    setSelectedOption(selectedAnswer);
+    if (!hasAnswered) {
+      setSelectedOption(selectedAnswer);
 
-    const currentQuestion = questions[currentQuestionIndex];
-    const isCorrectAnswer = Array.isArray(currentQuestion.correctAnswer)
-      ? currentQuestion.correctAnswer.some((item) => item.answer === selectedAnswer)
-      : currentQuestion.correctAnswer === selectedAnswer;
-    setIsCorrect(isCorrectAnswer);
+      const currentQuestion = questions[currentQuestionIndex];
+      const isCorrectAnswer = Array.isArray(currentQuestion.correctAnswer)
+        ? currentQuestion.correctAnswer.some((item) => item.answer === selectedAnswer)
+        : currentQuestion.correctAnswer === selectedAnswer;
+      setIsCorrect(isCorrectAnswer);
+      setHasAnswered(true);
+    }
   };
 
   const handleNextQuestion = () => {
     setSelectedOption(null);
     setIsCorrect(false); // Reset to false
+    setHasAnswered(false); // Allow the user to answer the next question
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
-
+  const renderMatchingQuestion = () => {
+    const currentQuestion = questions[currentQuestionIndex];
+    return (
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>{currentQuestion.question}</Text>
+        <View style={styles.matchingContainer}>
+          {currentQuestion.options.map((item, index) => (
+            <View key={index} style={styles.matchingItem}>
+              <Text style={styles.matchingQuestion}>{item.question}</Text>
+              <Text style={styles.matchingAnswer}>{item.answer}</Text>
+            </View>
+          ))}
+        </View>
+        {selectedOption !== null && (
+          <View style={styles.feedbackContainer}>
+            <Text style={[styles.feedbackText, isCorrect ? styles.correctFeedbackText : styles.incorrectFeedbackText]}>
+              {isCorrect ? 'Correct! 🎉' : 'Incorrect! 😞 The correct answer is ' + currentQuestion.correctAnswer[0].answer + '.'}
+            </Text>
+            <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
+              <Text style={styles.nextButtonText}>Next Question</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    );
+  };
 
   const renderQuestion = () => {
     const currentQuestion = questions[currentQuestionIndex];
