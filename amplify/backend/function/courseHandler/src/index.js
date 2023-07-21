@@ -143,11 +143,15 @@ createCourseInDynamoDB = async (event) => {
             console.log("creating data for course: ", course_id);
             const jsonObject = {
                 id: course_id,
-                name: body["name"],
-				category: body["category"],
-				level: body["level"],
-                modules: body["modules"],
-				rating: body["rating"],
+                title: "title"in body?["title"]:"",
+				category: "category" in body?body["category"]:"",
+				description: "description" in body?body["description"]:"",
+				additionalDescription: "additionalDescription" in body?body["additionalDescription"]:"",
+				instructor: "instructor" in body?body["instructor"]:"",
+				duration: "duration" in body?body["duration"]:"",
+				rating: "rating" in body?body["rating"]:"",
+				image: "image" in body?body["image"]:"",
+				modules: "modules" in body?body["modules"]:[]
               };
             
               const params = {

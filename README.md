@@ -49,11 +49,12 @@ Course:
 
 {
 	id:
-	name:	
+	title:	
 	description:
 	additionalDescription:
-	instructors:[]
+	instructor:
 	duration
+	category
 	modules:[
 		{
 			order:

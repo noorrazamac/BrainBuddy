@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-// import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
  
 const coursesJava = [
@@ -372,4 +372,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default Home;
+export default Home;    
