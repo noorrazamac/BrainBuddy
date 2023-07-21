@@ -14,7 +14,12 @@ const questions = [
     options: ['54', '85', '80'],
     correctAnswer: '80',
   },
-  // Add 10 more questions here
+  {
+    id: 3,
+    question: 'Which of the following is a programming language?',
+    options: ['HTML', 'CSS', 'JavaScript'],
+    correctAnswer: 'JavaScript',
+  },
   {
     id: 4,
     question: 'What is the capital of Germany?',
@@ -62,20 +67,23 @@ const questions = [
 const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(null); // Updated to null to show feedback only after selecting an option
+  const [isCorrect, setIsCorrect] = useState(null);
   const [totalScore, setTotalScore] = useState(0);
 
   const handleOptionSelection = (selectedAnswer) => {
+    if (selectedOption !== null) {
+      return;
+    }
+
     setSelectedOption(selectedAnswer);
 
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrectAnswer = Array.isArray(currentQuestion.correctAnswer)
-      ? currentQuestion.correctAnswer.some((item) => item.answer === selectedAnswer)
+      ? currentQuestion.correctAnswer.some((item) => item === selectedAnswer)
       : currentQuestion.correctAnswer === selectedAnswer;
 
     setIsCorrect(isCorrectAnswer);
 
-    // Increment the total score if the answer is correct
     if (isCorrectAnswer) {
       setTotalScore((prevScore) => prevScore + 1);
     }
@@ -83,7 +91,7 @@ const Quiz = () => {
 
   const handleNextQuestion = () => {
     setSelectedOption(null);
-    setIsCorrect(null); // Reset feedback to null
+    setIsCorrect(null);
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
@@ -146,7 +154,8 @@ const Quiz = () => {
   };
 
   const calculatePercentageScore = () => {
-    return (totalScore / questions.length) * 100;
+    const percentage = (totalScore / questions.length) * 100;
+    return percentage.toFixed(2);
   };
 
   return (
@@ -160,7 +169,13 @@ const Quiz = () => {
         ) : (
           <View style={styles.feedbackContainer}>
             <Text style={styles.quizCompletedText}>Congratulations! You have completed the quiz.</Text>
-            <Text style={styles.totalScoreText}>Your Total Score: {totalScore}/{questions.length} ({calculatePercentageScore()}%)</Text>
+            <View style={styles.scoreContainer}>
+              <Text style={styles.totalScoreLabel}>Your Total Score:</Text>
+              <View style={styles.scoreInfoContainer}>
+                <Text style={styles.totalScore}>{totalScore}/{questions.length}</Text>
+                <Text style={styles.percentageScore}> ({calculatePercentageScore()}%)</Text>
+              </View>
+            </View>
           </View>
         )}
       </ScrollView>
@@ -268,10 +283,28 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#333',
   },
-  totalScoreText: {
-    fontSize: 18,
-    textAlign: 'center',
+  scoreContainer: {
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  totalScoreLabel: {
+    fontSize: 24,
+    fontWeight: 'bold',
     color: '#333',
+  },
+  scoreInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  totalScore: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    color: '#00aa00',
+  },
+  percentageScore: {
+    fontSize: 24,
+    color: '#888',
   },
 });
 
