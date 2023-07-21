@@ -19,27 +19,28 @@ const questions = [
 const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [hasAnswered, setHasAnswered] = useState(false); // Track whether the user has answered the current question
+  const [isCorrect, setIsCorrect] = useState(null); // Updated to null to show feedback only after selecting an option
+  const [totalScore, setTotalScore] = useState(0);
 
   const handleOptionSelection = (selectedAnswer) => {
-    if (!hasAnswered) {
-      setSelectedOption(selectedAnswer);
+    setSelectedOption(selectedAnswer);
 
-      const currentQuestion = questions[currentQuestionIndex];
-      const isCorrectAnswer = Array.isArray(currentQuestion.correctAnswer)
-        ? currentQuestion.correctAnswer.some((item) => item.answer === selectedAnswer)
-        : currentQuestion.correctAnswer === selectedAnswer;
-      setIsCorrect(isCorrectAnswer);
-      setHasAnswered(true);
+    const currentQuestion = questions[currentQuestionIndex];
+    const isCorrectAnswer = Array.isArray(currentQuestion.correctAnswer)
+      ? currentQuestion.correctAnswer.some((item) => item.answer === selectedAnswer)
+      : currentQuestion.correctAnswer === selectedAnswer;
+
+    setIsCorrect(isCorrectAnswer);
+
+    // Increment the total score if the answer is correct
+    if (isCorrectAnswer) {
+      setTotalScore((prevScore) => prevScore + 1);
     }
   };
 
   const handleNextQuestion = () => {
     setSelectedOption(null);
-    setIsCorrect(false); // Reset to false
-    setHasAnswered(false); // Allow the user to answer the next question
-
+    setIsCorrect(null); // Reset feedback to null
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
@@ -110,7 +111,10 @@ const Quiz = () => {
         {currentQuestionIndex < questions.length ? (
           questions[currentQuestionIndex].options.length > 1 ? renderQuestion() : renderMatchingQuestion()
         ) : (
-          <Text style={styles.quizCompletedText}>Congratulations! You have completed the quiz.</Text>
+          <View style={styles.feedbackContainer}>
+            <Text style={styles.quizCompletedText}>Congratulations! You have completed the quiz.</Text>
+            <Text style={styles.totalScoreText}>Your Total Score: {totalScore}/{questions.length}</Text>
+          </View>
         )}
       </ScrollView>
     </View>
@@ -120,42 +124,37 @@ const Quiz = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f9f9f9',
   },
   header: {
     backgroundColor: '#ec5252',
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 10,
+    alignItems: 'center',
   },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
-    textAlign: 'center',
   },
   scrollContainer: {
     flexGrow: 1,
     padding: 20,
   },
   questionContainer: {
-    backgroundColor: '#fff',
-    padding: 20,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
+    marginBottom: 20,
   },
   questionText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     color: '#333',
+    textAlign: 'center',
   },
   optionButton: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#dddddd',
+    borderColor: '#000000',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -166,35 +165,34 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 18,
-    color: '#333',
+    color: '#000000',
     textAlign: 'center',
   },
   matchingContainer: {
-    marginVertical: 10,
+    marginBottom: 10,
   },
   matchingItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   matchingQuestion: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: '#000000',
   },
   matchingAnswer: {
+    flex: 1,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 10,
+    color: '#666',
+    textAlign: 'right',
   },
   feedbackContainer: {
-    marginTop: 20,
+    marginTop: 10,
   },
   feedbackText: {
     fontSize: 18,
-    color: '#333',
+    color: '#000000',
     textAlign: 'center',
   },
   correctFeedbackText: {
@@ -204,7 +202,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   nextButton: {
-    backgroundColor: '#ec5252',
+    backgroundColor: '#8BC34A',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -217,11 +215,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   quizCompletedText: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
     textAlign: 'center',
-    marginTop: 20,
+    marginBottom: 20,
+    color: '#333',
+  },
+  totalScoreText: {
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#333',
   },
 });
 
