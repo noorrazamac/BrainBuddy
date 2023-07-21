@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+
+// courses= ( async function() {
+//   const courses = await getData(course_id);
+//   console.log(JSON.stringify(courses));
+//   return courses();
+// })();
  
 const coursesJava = [
   {
     id: 1,
     title: 'Core Java',
+    category: 'Programming Java',
     instructor: 'Online',
     duration: '2 hours',
     rating: 4.5,
@@ -15,6 +22,7 @@ const coursesJava = [
   {
     id: 2,
     title: 'Java 8',
+    category: 'Programming Java',
     instructor: 'Online',
     duration: '2 hours',
     rating: 4.5,
@@ -22,6 +30,7 @@ const coursesJava = [
   },  {
     id: 3,
     title: 'Advanced Java',
+    category: 'Programming Java',
     instructor: 'Online',
     duration: '2 hours',
     rating: 4.5,
@@ -33,6 +42,7 @@ const coursesJava = [
     {
       id: 1,
       title: 'Indian Classical Music',
+      category: 'Vocal Music',
       instructor: 'Sudha Raghunadhan',
       rating: 4.5,
       image: require('../../images/classical.jpg'),
@@ -40,6 +50,7 @@ const coursesJava = [
     {
       id: 2,
       title: 'Indian Hindustani Music',
+      category: 'Vocal Music',
       instructor: 'Hari Haran',
       rating: 4.5,
       image: require('../../images/hindustani.jpg'),
@@ -47,6 +58,7 @@ const coursesJava = [
     {
       id: 3,
       title: 'Arabic Music',
+      category: 'Vocal Music',
       instructor: 'Mohammed Rafi',
       rating: 4.5,
       image: require('../../images/arabic.webp'),
@@ -59,6 +71,7 @@ const coursesJava = [
     {
       id: 1,
       title: 'Trinity Music',
+      category: 'Instrument- KeyBoard',
       instructor: 'Brocket Parsons',
       rating: 4.5,
       image: require('../../images/trinityKeyboard.webp'),
@@ -66,6 +79,7 @@ const coursesJava = [
     {
       id: 2,
       title: 'KM Music Conservatory',
+      category: 'Instrument- KeyBoard',
       instructor: 'A R Rahman',
       rating: 4.5,
       image: require('../../images/kmKeyboard.jpg'),
@@ -77,6 +91,7 @@ const coursesJava = [
     {
       id: 1,
       title: 'British Council',
+      category: 'Communicative English',
       instructor: 'Parth Patel',
       rating: 4.5,
       image: require('../../images/BCEnglish.jpg'),
@@ -84,6 +99,7 @@ const coursesJava = [
     {
       id: 2,
       title: 'Cambridge Academy',
+      category: 'Communicative English',
       instructor: 'Mary Rose',
       rating: 4.5,
       image: require('../../images/cambridgeEnglish.jpg'),
@@ -96,6 +112,7 @@ const coursesPython = [
   {
     id: 1,
     title: 'Introduction to Python',
+    category: 'Programming Python',
     instructor: 'Online',
     duration: '2.5 hours',
     rating: 4.5,
@@ -104,6 +121,7 @@ const coursesPython = [
   {
     id: 2,
     title: 'Python Types',
+    category: 'Programming Python',
     instructor: 'Online',
     duration: '3 hours',
     rating: 4.5,
@@ -111,6 +129,7 @@ const coursesPython = [
   },  {
     id: 3,
     title: 'Programming in Python',
+    category: 'Programming Python',
     instructor: 'Online',
     duration: '7 hours',
     rating: 4.5,
@@ -123,6 +142,7 @@ const coursesMaths = [
   {
     id: 1,
     title: 'Introduction to Maths',
+    category: 'Mathematics',
     instructor: 'Online',
     duration: '2.5 hours',
     rating: 4.5,
@@ -131,6 +151,7 @@ const coursesMaths = [
   {
     id: 2,
     title: 'Basics of Mathematics',
+    category: 'Mathematics',
     instructor: 'Online',
     duration: '3 hours',
     rating: 4.5,
@@ -138,6 +159,7 @@ const coursesMaths = [
   },  {
     id: 3,
     title: 'Advanced Mathematics',
+    category: 'Mathematics',
     instructor: 'Online',
     duration: '7 hours',
     rating: 4.5,
@@ -151,12 +173,26 @@ const SearchBar = ({ onChangeText }) => {
     <View style={styles.searchContainer}>
       <TextInput
         style={styles.input}
-        placeholder="Search..."
+        placeholder="Search......"
         onChangeText={onChangeText}
       />
     </View>
   );
 };
+
+async function getData(course_category) {
+  const apiName = 'coursesbyCategory';
+  const path = '/coursesbyCategory';
+  const myInit = {
+    headers: {} // OPTIONAL
+  };
+
+  return await API.get(apiName, path, {
+    queryStringParameters: {
+      course_category: course_category
+    }
+  });
+}
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
@@ -347,7 +383,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   courseInstructor: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#888',
     marginBottom: 3,
   },
