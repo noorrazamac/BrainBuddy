@@ -14,6 +14,49 @@ const questions = [
     options: ['54', '85', '80'],
     correctAnswer: '80',
   },
+  // Add 10 more questions here
+  {
+    id: 4,
+    question: 'What is the capital of Germany?',
+    options: ['Berlin', 'Paris', 'Madrid', 'Rome'],
+    correctAnswer: 'Berlin',
+  },
+  {
+    id: 5,
+    question: 'What is 8 + 5?',
+    options: ['10', '12', '13'],
+    correctAnswer: '13',
+  },
+  {
+    id: 6,
+    question: 'Which planet is closest to the Sun?',
+    options: ['Venus', 'Mars', 'Mercury'],
+    correctAnswer: 'Mercury',
+  },
+  {
+    id: 7,
+    question: 'What is the largest mammal?',
+    options: ['Elephant', 'Blue Whale', 'Giraffe'],
+    correctAnswer: 'Blue Whale',
+  },
+  {
+    id: 8,
+    question: 'Which gas do plants absorb from the atmosphere?',
+    options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'],
+    correctAnswer: 'Carbon Dioxide',
+  },
+  {
+    id: 9,
+    question: 'What is the chemical symbol for water?',
+    options: ['H2O', 'CO2', 'NaCl'],
+    correctAnswer: 'H2O',
+  },
+  {
+    id: 10,
+    question: 'What is the largest ocean on Earth?',
+    options: ['Indian Ocean', 'Atlantic Ocean', 'Pacific Ocean'],
+    correctAnswer: 'Pacific Ocean',
+  },
 ];
 
 const Quiz = () => {
@@ -102,6 +145,10 @@ const Quiz = () => {
     );
   };
 
+  const calculatePercentageScore = () => {
+    return (totalScore / questions.length) * 100;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -113,7 +160,7 @@ const Quiz = () => {
         ) : (
           <View style={styles.feedbackContainer}>
             <Text style={styles.quizCompletedText}>Congratulations! You have completed the quiz.</Text>
-            <Text style={styles.totalScoreText}>Your Total Score: {totalScore}/{questions.length}</Text>
+            <Text style={styles.totalScoreText}>Your Total Score: {totalScore}/{questions.length} ({calculatePercentageScore()}%)</Text>
           </View>
         )}
       </ScrollView>
