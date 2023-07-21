@@ -10,6 +10,7 @@ import Profile from "./screens/Profile/Profile";
 import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import CourseDetails from "./screens/CourseDetails/CourseDetails";
+import Quiz from "./screens/Quiz/quiz";
 
 
 LogBox.ignoreLogs(['Warning: ...']);
@@ -124,6 +125,15 @@ const App = () => {
               options={{
                 tabBarIcon: ({ color }) => (
                   <Icon name="book" color={color} size={24} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Quiz"
+              component={Quiz}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="home" color={color} size={24} />
                 ),
               }}
             />

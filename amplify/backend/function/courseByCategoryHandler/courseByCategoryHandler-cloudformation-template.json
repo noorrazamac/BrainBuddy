@@ -16,17 +16,17 @@
     "s3Key": {
       "Type": "String"
     },
-    "storagemoduleName": {
+    "storagecourseName": {
       "Type": "String",
-      "Default": "storagemoduleName"
+      "Default": "storagecourseName"
     },
-    "storagemoduleArn": {
+    "storagecourseArn": {
       "Type": "String",
-      "Default": "storagemoduleArn"
+      "Default": "storagecourseArn"
     },
-    "storagemoduleStreamArn": {
+    "storagecourseStreamArn": {
       "Type": "String",
-      "Default": "storagemoduleStreamArn"
+      "Default": "storagecourseStreamArn"
     }
   },
   "Conditions": {
@@ -59,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "moduleHandler",
+            "courseByCategoryHandler",
             {
               "Fn::Join": [
                 "",
                 [
-                  "moduleHandler",
+                  "courseByCategoryHandler",
                   "-",
                   {
                     "Ref": "env"
@@ -82,14 +82,14 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "STORAGE_MODULE_NAME": {
-              "Ref": "storagemoduleName"
+            "STORAGE_COURSE_NAME": {
+              "Ref": "storagecourseName"
             },
-            "STORAGE_MODULE_ARN": {
-              "Ref": "storagemoduleArn"
+            "STORAGE_COURSE_ARN": {
+              "Ref": "storagecourseArn"
             },
-            "STORAGE_MODULE_STREAMARN": {
-              "Ref": "storagemoduleStreamArn"
+            "STORAGE_COURSE_STREAMARN": {
+              "Ref": "storagecourseStreamArn"
             }
           }
         },
@@ -110,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "brainbuddyLambdaRole9e0169d7",
+            "brainbuddyLambdaRole51308af6",
             {
               "Fn::Join": [
                 "",
                 [
-                  "brainbuddyLambdaRole9e0169d7",
+                  "brainbuddyLambdaRole51308af6",
                   "-",
                   {
                     "Ref": "env"
@@ -219,14 +219,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagemoduleArn"
+                  "Ref": "storagecourseArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagemoduleArn"
+                        "Ref": "storagecourseArn"
                       },
                       "index/*"
                     ]
