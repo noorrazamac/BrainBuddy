@@ -5,7 +5,7 @@ import { Amplify, API } from 'aws-amplify';
 import awsconfig from '../../src/aws-exports';
 Amplify.configure(awsconfig);
 
-const course = {
+let course = {
   title: 'React Native 101',
   description: 'Learn the basics of React Native development',
   additionalDescription:
@@ -56,16 +56,14 @@ async function getData(course_id) {
 
 
 
-const CourseDetails = () => {
+const CourseDetails = (props) => {
+  course=props.route.params.course;
+  
+  console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
-  const course_id = '001';
-  courses= ( async function() {
-    const courses = await getData(course_id);
-    console.log(JSON.stringify(courses));
-    return courses();
-  })();
+  
   // console.log(JSON.stringify(courses));
   const [expandedModuleIndex, setExpandedModuleIndex] = useState(null);
 
@@ -76,7 +74,8 @@ const CourseDetails = () => {
       setExpandedModuleIndex(index);
     }
   };
-
+  let course_image=course.image;
+  console.log(course_image);
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
@@ -87,7 +86,7 @@ const CourseDetails = () => {
 
         <View style={styles.imageContainer}>
           <Image
-            source={require('./assets/reactCourse.jpg')}
+            source={require('../../images/Java.png')}
             style={{ ...styles.image, width: imageWidth, height: imageHeight }}
           />
         </View>
@@ -104,17 +103,17 @@ const CourseDetails = () => {
           </View>
 
           <View style={styles.instructorsContainer}>
-            <Text style={styles.label}>Course Instructors:</Text>
+            <Text style={styles.label}>Course Instructor:</Text>
             <View style={styles.instructorContainer}>
-              {course.instructors.map((instructor, index) => (
-                <View key={index} style={styles.inlineContainer}>
+              
+                <View  style={styles.inlineContainer}>
                   <Image
                     source={require('./assets/humanIcon.png')}
                     style={styles.instructorIcon}
                   />
-                  <Text style={styles.instructor}>{instructor}</Text>
+                  <Text style={styles.instructor}>{course.instructor}</Text>
                 </View>
-              ))}
+              
             </View>
           </View>
 
@@ -123,7 +122,7 @@ const CourseDetails = () => {
             <Text style={styles.duration}>{course.duration}</Text>
           </View>
 
-          <View style={styles.modulesContainer}>
+          {/* <View style={styles.modulesContainer}>
             <Text style={styles.label}>Course Modules:</Text>
             <View style={styles.table}>
               {course.modules.map((module, index) => (
@@ -157,7 +156,8 @@ const CourseDetails = () => {
                 </TouchableOpacity>
               ))}
             </View>
-          </View>
+          </View> */}
+
         </View>
       </View>
     </ScrollView>
