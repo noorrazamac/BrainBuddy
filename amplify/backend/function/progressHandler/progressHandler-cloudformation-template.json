@@ -15,6 +15,42 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "storagecourseName": {
+      "Type": "String",
+      "Default": "storagecourseName"
+    },
+    "storagecourseArn": {
+      "Type": "String",
+      "Default": "storagecourseArn"
+    },
+    "storagecourseStreamArn": {
+      "Type": "String",
+      "Default": "storagecourseStreamArn"
+    },
+    "storageprogressName": {
+      "Type": "String",
+      "Default": "storageprogressName"
+    },
+    "storageprogressArn": {
+      "Type": "String",
+      "Default": "storageprogressArn"
+    },
+    "storageprogressStreamArn": {
+      "Type": "String",
+      "Default": "storageprogressStreamArn"
+    },
+    "storagestudentName": {
+      "Type": "String",
+      "Default": "storagestudentName"
+    },
+    "storagestudentArn": {
+      "Type": "String",
+      "Default": "storagestudentArn"
+    },
+    "storagestudentStreamArn": {
+      "Type": "String",
+      "Default": "storagestudentStreamArn"
     }
   },
   "Conditions": {
@@ -69,6 +105,33 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_COURSE_NAME": {
+              "Ref": "storagecourseName"
+            },
+            "STORAGE_COURSE_ARN": {
+              "Ref": "storagecourseArn"
+            },
+            "STORAGE_COURSE_STREAMARN": {
+              "Ref": "storagecourseStreamArn"
+            },
+            "STORAGE_PROGRESS_NAME": {
+              "Ref": "storageprogressName"
+            },
+            "STORAGE_PROGRESS_ARN": {
+              "Ref": "storageprogressArn"
+            },
+            "STORAGE_PROGRESS_STREAMARN": {
+              "Ref": "storageprogressStreamArn"
+            },
+            "STORAGE_STUDENT_NAME": {
+              "Ref": "storagestudentName"
+            },
+            "STORAGE_STUDENT_ARN": {
+              "Ref": "storagestudentArn"
+            },
+            "STORAGE_STUDENT_STREAMARN": {
+              "Ref": "storagestudentStreamArn"
             }
           }
         },
@@ -160,6 +223,124 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagecourseArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagecourseArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storageprogressArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storageprogressArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagestudentArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagestudentArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }
