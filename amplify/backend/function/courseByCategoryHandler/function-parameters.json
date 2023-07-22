@@ -1,13 +1,13 @@
 {
-  "lambdaLayers": [],
   "permissions": {
     "storage": {
-      "module": [
+      "course": [
         "create",
         "read",
         "update",
         "delete"
       ]
     }
-  }
+  },
+  "lambdaLayers": []
 }

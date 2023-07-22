@@ -48,9 +48,13 @@ Users:
 Course:
 
 {
-	name:	
-	category:
-	level:
+	id:
+	title:	
+	description:
+	additionalDescription:
+	instructor:
+	duration
+	category
 	modules:[
 		{
 			order:
@@ -62,6 +66,7 @@ Course:
 
 Module:
 {
+	id:
 	name:	
 	contents:{
 		order:

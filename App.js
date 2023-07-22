@@ -10,10 +10,14 @@ import Profile from "./screens/Profile/Profile";
 import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import CourseDetails from "./screens/CourseDetails/CourseDetails";
+import Quiz from "./screens/Quiz/quiz";
+import "react-native-gesture-handler"; 
+
+import Navigation from "./Navigation";
 
 
-LogBox.ignoreLogs(['Warning: ...']);
-LogBox.ignoreAllLogs();
+// LogBox.ignoreLogs(['Warning: ...']);
+// LogBox.ignoreAllLogs();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -27,151 +31,21 @@ import {
   Modal,
   TouchableOpacity
 } from "react-native";
-// import {API, graphqlOperation} from 'aws-amplify';
-// import {createTodo} from './src/graphql/mutations';
-// import {listTodos} from './src/graphql/queries';
-import {
-  withAuthenticator,
-  useAuthenticator,
-} from "@aws-amplify/ui-react-native";
+
 
 import { Amplify } from "aws-amplify";
 import awsExports from "./src/aws-exports";
+import { withAuthenticator } from "@aws-amplify/ui-react-native";
 Amplify.configure(awsExports);
 
-// retrieves only the current value of 'user' from 'useAuthenticator'
-const userSelector = (context) => [context.user];
-
-const HomeScreen = () => {
-  return (
-    <View>
-      <Text>Home Screen</Text> 
-      {/* Add your content here */}
-    </View>
-  );
-};
-
-const SettingsScreen = () => {
-  return (
-    <View>
-      <Text>Settings Screen</Text>
-      {/* Add your content here */}
-    </View>
-  );
-};
-
-const SignOutButton = () => {
-  const { user, signOut } = useAuthenticator(userSelector);
-
-  return (
-    <Pressable onPress={signOut} style={styles.buttonContainer}>
-      <Text style={styles.buttonText}>
-        Hello, {user.username}! Click here to sign out!
-      </Text>
-    </Pressable>
-  );
-};
-const testAPI = () => {
-  const apiName = 'course';
-  const path = '/course';
-  const myInit = {
-    headers: {}, // OPTIONAL
-    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {
-      name: 'param' // OPTIONAL
-    }
-  };
-}
 const App = () => {
-
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-
-  const openPopup = () => {
-    setIsPopupVisible(true);
-  };
-
-  const closePopup = () => {
-    setIsPopupVisible(false);
-  };
-
-
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <Tab.Navigator>
-            <Tab.Screen
-              name="Home"
-              component={Home}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="home" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="My Learning"
-              component={MyLearning}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Course Details"
-              component={CourseDetails}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="book" color={color} size={24} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Profile"
-              //component={() => <Profile SignOut={SignOutButton} />}
-              component={Profile}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Icon name="account" color={color} size={24} />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-        </SafeAreaProvider>
-      </NavigationContainer>
-
-      <FAB
-        icon="forum"
-        style={styles.fab}
-        onPress={openPopup}
-      />
-
-      <Modal visible={isPopupVisible} animationType="slide">
-        <SafeAreaView style={styles.modalContainer}>
-            <View style={styles.headingContainer}>
-              <Text style={styles.headingText}>Chat Support</Text>
-            </View>
-            <View style={styles.popupContainer}>
-
-              <ChatSupport/>
-
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={closePopup}
-              >
-                <Icon name="arrow-left" size={24} color="black" />
-              </TouchableOpacity>
-            </View>
-          </SafeAreaView>
-      </Modal>
-    </SafeAreaView>
+    <Navigation />
   );
-};
+}
+
+
 export default withAuthenticator(App);
-
-
-
 
 
 const styles = StyleSheet.create({
