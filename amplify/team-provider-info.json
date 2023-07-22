@@ -22,34 +22,6 @@
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
           "s3Key": "amplify-builds/brainbuddy44066a49PostConfirmation-6d454138756348796248-build.zip"
         },
-        "studentHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/studentHandler-6359753365306a4b7278-build.zip"
-        },
-        "favouritesHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/favouritesHandler-356446655a4e4c704d4e-build.zip"
-        },
-        "progressHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/progressHandler-76426d622f5734584f65-build.zip"
-        },
-        "subscriptionHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/subscriptionHandler-59544f614d5a52387951-build.zip"
-        },
-        "paymentsHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/paymentsHandler-66486949483853764969-build.zip"
-        },
-        "courseHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/courseHandler-6d496e59706e3846454f-build.zip"
-        },
-        "moduleHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/moduleHandler-6f5446756d4358364f39-build.zip"
-        },
         "contentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
           "s3Key": "amplify-builds/contentHandler-363861615a30306c6850-build.zip"
@@ -57,21 +29,49 @@
         "courseByCategoryHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
           "s3Key": "amplify-builds/courseByCategoryHandler-3955542f6c7962714469-build.zip"
+        },
+        "courseHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/courseHandler-6d496e59706e3846454f-build.zip"
+        },
+        "favouritesHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/favouritesHandler-356446655a4e4c704d4e-build.zip"
+        },
+        "moduleHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/moduleHandler-6f5446756d4358364f39-build.zip"
+        },
+        "paymentsHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/paymentsHandler-66486949483853764969-build.zip"
+        },
+        "progressHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/progressHandler-766d6842413951596d4c-build.zip"
+        },
+        "studentHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/studentHandler-6359753365306a4b7278-build.zip"
+        },
+        "subscriptionHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/subscriptionHandler-59544f614d5a52387951-build.zip"
         }
       },
       "storage": {
-        "progress": {},
-        "subscription": {},
-        "payments": {},
-        "student": {},
+        "content": {},
         "course": {},
         "module": {},
-        "content": {}
+        "payments": {},
+        "progress": {},
+        "student": {},
+        "subscription": {}
       },
       "api": {
+        "course": {},
         "student": {},
-        "subscription": {},
-        "course": {}
+        "subscription": {}
       }
     }
   }
