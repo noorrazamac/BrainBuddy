@@ -48,7 +48,7 @@
         },
         "progressHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/progressHandler-76426d622f5734584f65-build.zip"
+          "s3Key": "amplify-builds/progressHandler-766d6842413951596d4c-build.zip"
         },
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
