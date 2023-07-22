@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView,Button, TouchableOpacity,ActivityIndicator,RefreshControl } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { Amplify, API } from 'aws-amplify';
+import { Amplify, API, Storage } from 'aws-amplify';
 import awsconfig from '../../src/aws-exports';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { set } from 'lodash';
+import Quiz from '../Quiz/quiz';
 Amplify.configure(awsconfig);
 
 let course = {
@@ -40,29 +43,55 @@ let course = {
   ],
 };
 
-async function getData(course_id) {
+
+
+
+function getData(course_id) {
   const apiName = 'course';
   const path = '/course';
   const myInit = {
-    headers: {} // OPTIONAL
-  };
-
-  return await API.get(apiName, path, {
+    headers: {}, // OPTIONAL
     queryStringParameters: {
-      course_id: course_id
+      course_id: course_id // OPTIONAL
     }
-  });
-}
-
-
-
-const CourseDetails = (props) => {
-  course=props.route.params.course;
+  };
   
-  console.log(JSON.stringify(course));
+
+  return API.get(apiName, path, myInit);
+}
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+const CourseDetails = (props) => {
+  const route=useRoute();
+  const {params}  = route;
+  course=params.course;
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: course.title,
+    });}
+  );
+  const [loading, setLoading] = React.useState(false);
+  const [modules, setModules] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [isDataLoaded, setDataLoaded] = React.useState(false);
+  const [uri, setUri] = useState("");
+  // console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
+  // const =Storage.get(course.image);
+   Storage.get(course.image.split("/")[3],  {
+    level: 'public', // defaults to `public`
+    
+    expires: 3600, // validity of the URL, in seconds. defaults to 900 (15 minutes) and maxes at 3600 (1 hour)
+    // contentType: 'string', // set return content type, eg "text/html"
+    validateObjectExistence: true, // defaults to false
+    // cacheControl?: string, // Specifies caching behavior along the request/reply chain
+  }).then((result) => {
+    setUri(result)}).catch((err) => {console.log(err)});
   
   // console.log(JSON.stringify(courses));
   const [expandedModuleIndex, setExpandedModuleIndex] = useState(null);
@@ -74,21 +103,60 @@ const CourseDetails = (props) => {
       setExpandedModuleIndex(index);
     }
   };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setDataLoaded(false);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+  // console.log(course)
   let course_image=course.image;
-  console.log(course_image);
+  (async function() {
+    if(!isDataLoaded){
+      console.log(course.id)
+      const response = await getData(course.id);
+      // console.log(response);
+      setModules(response.modules);
+      console.log("++++++++++"+JSON.stringify(response.modules));
+      console.log("============="+JSON.stringify(modules))
+      timeout(1000)
+      setDataLoaded(true);
+    }
+    
+  })();
+  
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <ScrollView contentContainerStyle={styles.scrollContainer} 
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{course.title}</Text>
           <View style={styles.separator} />
         </View>
-
+        <Button title="Go to Home" onPress={() => console.log(modules)} />
         <View style={styles.imageContainer}>
-          <Image
-            source={require('../../images/Java.png')}
+          {/* <Image
+            source={require(uri)}
             style={{ ...styles.image, width: imageWidth, height: imageHeight }}
-          />
+          /> */}
+          <Image
+                 source={{ uri: uri }}
+                 style={[
+                  //  styles.Image,
+                   {
+                     width: imageWidth,
+                     height: imageHeight,
+                   },
+                 ]}
+                 resizeMode="center"
+                 onLoadStart={() => setLoading(true)}
+                 onLoadEnd={() => setLoading(false)}
+                 
+               />
+               {loading && <ActivityIndicator color="green" size="large" />}
         </View>
 
         <View style={styles.detailsContainer}>
@@ -122,12 +190,12 @@ const CourseDetails = (props) => {
             <Text style={styles.duration}>{course.duration}</Text>
           </View>
 
-          {/* <View style={styles.modulesContainer}>
+          <View style={styles.modulesContainer}>
             <Text style={styles.label}>Course Modules:</Text>
             <View style={styles.table}>
-              {course.modules.map((module, index) => (
+              {modules.map((module, index) => (
                 <TouchableOpacity
-                  key={index}
+                  key={module.order}
                   onPress={() => toggleModule(index)}
                   activeOpacity={0.8}
                 >
@@ -139,15 +207,27 @@ const CourseDetails = (props) => {
                   >
                     <View style={styles.moduleTitleContainer}>
                       <Feather name="chevron-down" size={16} color="#333" />
-                      <Text style={styles.moduleTitle}>{module.title}</Text>
+                      <Text style={styles.moduleTitle}>{module.name}</Text>
                     </View>
 
                     {expandedModuleIndex === index && (
                       <View style={styles.moduleContentContainer}>
-                        {module.content.map((item, i) => (
-                          <View key={i} style={styles.moduleContentItem}>
+                        {module.contents.map((item, i) => (
+                          <View key={item.order} style={styles.moduleContentItem}>
                             <Feather name="chevron-right" size={14} color="#333" />
-                            <Text style={styles.moduleContentText}>{item}</Text>
+                            <TouchableOpacity  onPress={() => {
+                                    if(item.content.type=="quiz"){
+                                      navigation.navigate('Quiz', { Quiz })
+                                    }
+                                    
+                                  }
+                                }>
+
+                            < Text style={styles.moduleContentText}>{item.content.description}</Text>
+
+
+                                </TouchableOpacity>
+
                           </View>
                         ))}
                       </View>
@@ -156,7 +236,7 @@ const CourseDetails = (props) => {
                 </TouchableOpacity>
               ))}
             </View>
-          </View> */}
+          </View>
 
         </View>
       </View>
