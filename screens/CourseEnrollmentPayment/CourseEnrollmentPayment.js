@@ -75,9 +75,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
                 </View>
 
 
-                      <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Subscribe</Text>
-                      </TouchableOpacity>
+
 
 
           </View>
@@ -96,24 +94,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
               backgroundColor: 'white',
               paddingHorizontal: 30,
             },
-            content: {
-              flex: 1,
-              justifyContent: 'flex-start',
-              alignItems: 'flex-start',
-            },
 
-            button: {
-                backgroundColor: 'green',
-                paddingVertical: 12,
-                paddingHorizontal: 30,
-                borderRadius: 5,
-                marginBottom: 20, // Add some bottom margin to separate the button from the content
-                alignSelf: 'center', // Align the button in the center horizontally
-              },
-              buttonText: {
-                color: 'white',
-                fontSize: 18,
-              },
 
 
 
