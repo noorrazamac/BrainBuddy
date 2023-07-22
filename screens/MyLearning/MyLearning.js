@@ -34,10 +34,10 @@ const MyLearningScreen = ({navigation}) => {
       { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
       { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },]);
       (async function() {
-        await timeout(10000); 
         const response = await getData();
         // console.log(response);
         setCourses(response);
+        await timeout(10000); 
       })();
 //      
 // );

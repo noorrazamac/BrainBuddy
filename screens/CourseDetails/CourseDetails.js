@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Amplify, API } from 'aws-amplify';
 import awsconfig from '../../src/aws-exports';
+import { useRoute, useNavigation } from '@react-navigation/native';
 Amplify.configure(awsconfig);
 
 let course = {
@@ -57,9 +58,19 @@ async function getData(course_id) {
 
 
 const CourseDetails = (props) => {
-  course=props.route.params.course;
-  
-  console.log(JSON.stringify(course));
+  const route=useRoute();
+  const {params}  = route;
+  course=params.course;
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: course.title,
+    });}
+  );
+
+
+  // console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;

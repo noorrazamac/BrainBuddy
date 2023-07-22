@@ -65,9 +65,10 @@ async function fetch_module(module_id) {
             const content_id = item["contents"][i]["content_id"];
             const content = await fetch_content(content_id);
             // item["contents"][i] = content;
-            content_array.push({"order":item["contents"][i]["order"],"contents":content});
+            content_array.push({"order":item["contents"][i]["order"],"content":content});
         }
-        return content_array;
+        
+        return {contents:content_array,module_name:item["name"]};
     }
     catch (err) {
         console.error('Error retrieving item from DynamoDB', err);
@@ -104,8 +105,9 @@ async function getItemFromDynamoDB(event) {
                 const module_arrays=[];
                 for(let i=0;i<modules.length;i++){
                     const module_id=modules[i].module_id;
-                    const module = await fetch_module(module_id)
-                    module_arrays.push({order:modules[i].order, modules:module})
+                    const {contents,module_name} = await fetch_module(module_id)
+                    console.log(module_name)
+                    module_arrays.push({order:modules[i].order, contents:contents,name:module_name})
                 }
                 item["modules"]=module_arrays;
                 // console.log("item:=================");
@@ -161,7 +163,7 @@ async function getItemFromDynamoDB(event) {
                     body: JSON.stringify('Error finding the Course!')
                 };
               }
-            
+             
         }
 	}
 }
