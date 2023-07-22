@@ -27,12 +27,7 @@ const MyLearningScreen = ({navigation}) => {
   const [courses, setCourses] = useState([{ id: 1, title: 'Introduction to React Native', duration: '2 hours' },
       { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
       { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
-      { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
-      { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
-      { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
-      { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
-      { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
-      { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },]);
+      ]);
       (async function() {
         const response = await getData();
         // console.log(response);

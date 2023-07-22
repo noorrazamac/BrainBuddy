@@ -6,13 +6,11 @@ import {
   Authenticator,
 } from "@aws-amplify/ui-react-native";
 import { Auth } from 'aws-amplify';
+import { useNavigation } from '@react-navigation/native';
 
-const Profile = ( SignOut ) => {
-  // const SignOutButton = SignOut();
+const Profile = (  ) => {
   const { user } = useAuthenticator();
-  // console.log(user);
-  // Auth.currentAuthenticatedUser().then(user => console.log(user));
-
+  const navigate = useNavigation();
   return (
     
     <View style={styles.container}>
@@ -24,8 +22,8 @@ const Profile = ( SignOut ) => {
       <Text style={styles.name}>{user.username}</Text>
       <Text style={styles.email}>{user.attributes.email}</Text>
 
-      <TouchableOpacity style={styles.button1}>
-        <Text style={styles.buttonText1}>Edit Profile</Text>
+      <TouchableOpacity style={styles.button1} onPress={() => navigate.navigate('ChangePassword')}>
+        <Text style={styles.buttonText1}>Change Password</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button2} onPress={()=>{
