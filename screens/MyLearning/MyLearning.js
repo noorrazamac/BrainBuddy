@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,30 +10,42 @@ Amplify.configure(awsconfig);
 
 // import { navigation } from '@react-navigation/native';
 
-function getData() {
-  const apiName = 'course';
-  const path = '/course';
-  const myInit = {
-    headers: {} // OPTIONAL
-  };
 
-  return API.get(apiName, path, myInit);
-}
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const MyLearningScreen = ({navigation}) => {
-  const [courses, setCourses] = useState([{ id: 1, title: 'Introduction to React Native', duration: '2 hours' },
-      { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
-      { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
-      ]);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [isDataLoaded, setDataLoaded] = React.useState(false);
+  function getData() {
+    const apiName = 'course';
+    const path = '/course';
+    const myInit = {
+      headers: {} // OPTIONAL
+    };
+    console.log("getting data");
+    return API.get(apiName, path, myInit);
+  }
+  const [courses, setCourses] = useState([{ id: 1, title: 'Introduction to React Native', duration: '2 hours' }]);
       (async function() {
-        const response = await getData();
-        // console.log(response);
-        setCourses(response);
-        await timeout(10000); 
+        if(!isDataLoaded){
+          const response = await getData();
+          // console.log(response);
+          setCourses(response);
+          setDataLoaded(true);
+        }
+        
       })();
+      
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setDataLoaded(false);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
 //      
 // );
 
@@ -77,7 +89,11 @@ const MyLearningScreen = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>My Learning</Text>
       </View>
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View style={styles.contentContainer}>
           <Text style={styles.sectionTitle}>My Courses</Text>
           {renderCourseBoxes(navigation)}
