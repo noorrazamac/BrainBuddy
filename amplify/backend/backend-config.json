@@ -455,6 +455,11 @@
     }
   },
   "storage": {
+    "assets": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    },
     "content": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

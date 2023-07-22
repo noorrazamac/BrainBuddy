@@ -8,7 +8,17 @@
     "duration": "2 hours",
     "rating": 4.5,
     "category": "Java",
-    "image": "../../images/Java.png"
+    "image": "../../images/Java.png",
+    "modules":[
+		{
+			"order":1,
+			"module_id":"10001"
+		},
+        {
+            "order":2,
+			"module_id":"10002"
+        }
+	]
 }
 ,
 {
