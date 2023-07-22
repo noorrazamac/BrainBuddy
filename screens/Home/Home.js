@@ -2,6 +2,24 @@ import React, { useState } from 'react';
 import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+const enrollCourse = (course) => {
+  // Handle course enrollment logic here
+  console.log('Enrolling in course:', course.title);
+  
+};
+
+async function postData() {
+  const apiName = 'student';
+  const path = '/progress';
+  const myInit = {
+    body: {}, // replace this with attributes you need
+    headers: {} // OPTIONAL
+  };
+
+  return await API.post(apiName, path, myInit);
+}
+
+postData();
  
 const coursesJava = [
   {
@@ -198,10 +216,7 @@ const Home = () => {
     setCourseData6(filteredData6);
   };
 
-  const enrollCourse = (course) => {
-    // Handle course enrollment logic here
-    console.log('Enrolling in course:', course.title);
-  };
+
   
   const CourseItem = ({ course }) => { 
     return (
