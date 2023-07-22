@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 import { AntDesign } from '@expo/vector-icons';
 // import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import ChangePassword from "./screens/Profile/ChangePassword";
 
 const LearningStack = createNativeStackNavigator();
 function LearningStackGroup () {
@@ -21,6 +22,16 @@ function LearningStackGroup () {
       <LearningStack.Screen name="CourseDetails" component={CourseDetails} options={{headerShown:false}}/>
       <LearningStack.Screen name="Quiz" component={Quiz}options={{headerShown:false}} />
     </LearningStack.Navigator>
+  );
+}
+
+const ProfileStack = createNativeStackNavigator();
+function ProfileStackGroup () {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen name="Profile" component={Profile} options={{headerShown:true}}/>
+      <ProfileStack.Screen name="ChangePassword" component={ChangePassword} options={{headerShown:true}}/>
+    </ProfileStack.Navigator>
   );
 }
 
@@ -47,7 +58,7 @@ function TabGroup() {
 
         }}
       />
-      <Tab.Screen name="Profile" component={Profile}
+      <Tab.Screen name="ProfileStackGroup" component={ProfileStackGroup}
       options={{
         tabBarIcon: ({ color, size }) => (<AntDesign name="user" size={24} color="black" />)
       }} />
