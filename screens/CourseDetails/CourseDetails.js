@@ -6,6 +6,8 @@ import awsconfig from '../../src/aws-exports';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { set } from 'lodash';
 import Quiz from '../Quiz/quiz';
+import VideoScreen from '../Content/VideoScreen';
+import { SafeAreaView } from 'react-navigation';
 Amplify.configure(awsconfig);
 
 let course = {
@@ -136,7 +138,6 @@ const CourseDetails = (props) => {
           <Text style={styles.title}>{course.title}</Text>
           <View style={styles.separator} />
         </View>
-        <Button title="Go to Home" onPress={() => console.log(modules)} />
         <View style={styles.imageContainer}>
           {/* <Image
             source={require(uri)}
@@ -217,9 +218,13 @@ const CourseDetails = (props) => {
                             <Feather name="chevron-right" size={14} color="#333" />
                             <TouchableOpacity  onPress={() => {
                                     if(item.content.type=="quiz"){
-                                      navigation.navigate('Quiz', { Quiz })
+                                      navigation.navigate('Quiz', { item })
+                                    }else if(item.content.type=="video"){
+                                      navigation.navigate('VideoScreen', { item })
                                     }
-                                    
+                                    else if(item.content.type=="pdf"){
+                                      navigation.navigate('PDFScreen', { item })
+                                    }
                                   }
                                 }>
 
@@ -236,8 +241,13 @@ const CourseDetails = (props) => {
                 </TouchableOpacity>
               ))}
             </View>
+            
           </View>
-
+          <SafeAreaView style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => {console.log("Drop Course")}}>
+              <Text style={styles.container}>Drop Course</Text>
+            </TouchableOpacity>
+            </SafeAreaView>
         </View>
       </View>
     </ScrollView>
