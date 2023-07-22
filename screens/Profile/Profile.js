@@ -5,25 +5,33 @@ import {
   useAuthenticator,
   Authenticator,
 } from "@aws-amplify/ui-react-native";
+import { Auth } from 'aws-amplify';
 
 const Profile = ( SignOut ) => {
   // const SignOutButton = SignOut();
+  const { user } = useAuthenticator();
+  // console.log(user);
+  // Auth.currentAuthenticatedUser().then(user => console.log(user));
 
   return (
+    
     <View style={styles.container}>
       <Image
         source={require('../../images/profilepic.png')}
         style={styles.profilePicture}
       />
 
-      <Text style={styles.name}>Ashik</Text>
-      <Text style={styles.email}>ashik@gmail.com</Text>
+      <Text style={styles.name}>{user.username}</Text>
+      <Text style={styles.email}>{user.attributes.email}</Text>
 
       <TouchableOpacity style={styles.button1}>
         <Text style={styles.buttonText1}>Edit Profile</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button2}>
+      <TouchableOpacity style={styles.button2} onPress={()=>{
+        Auth.signOut();
+        console.log("SignOut");
+      }}>
         <Text style={styles.buttonText2}>LogOut</Text>
       </TouchableOpacity>
 

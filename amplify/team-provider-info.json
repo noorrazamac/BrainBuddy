@@ -52,11 +52,7 @@
         },
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/studentHandler-6359753365306a4b7278-build.zip"
-        },
-        "subscriptionHandler": {
-          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
-          "s3Key": "amplify-builds/subscriptionHandler-59544f614d5a52387951-build.zip"
+          "s3Key": "amplify-builds/studentHandler-374648336d5948303074-build.zip"
         }
       },
       "storage": {
