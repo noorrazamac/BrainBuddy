@@ -55,4 +55,23 @@ describe('CourseDetails', () => {
     expect(getByTestId('module-content-2')).toBeFalsy();
     expect(getByTestId('module-content-3')).toBeFalsy();
   });
+
+  it('toggles module contents on press', () => {
+    const { getByText, getByTestId } = render(<CourseDetails route={{ params: { course } }} />);
+
+    // Check if module contents are initially not rendered
+    expect(getByTestId('module-content-1')).toBeFalsy();
+    expect(getByTestId('module-content-2')).toBeFalsy();
+    expect(getByTestId('module-content-3')).toBeFalsy();
+
+    // Click on module headers to toggle contents
+    fireEvent.press(getByText('Module 1: Introduction to React Native'));
+    fireEvent.press(getByText('Module 2: UI Development with React Native'));
+    fireEvent.press(getByText('Module 3: State Management in React Native'));
+
+    // Check if module contents are now rendered
+    expect(getByTestId('module-content-1')).toBeTruthy();
+    expect(getByTestId('module-content-2')).toBeTruthy();
+    expect(getByTestId('module-content-3')).toBeTruthy();
+  });
 });
