@@ -6,6 +6,8 @@ import awsconfig from '../../src/aws-exports';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { set } from 'lodash';
 import Quiz from '../Quiz/quiz';
+import VideoScreen from '../Content/VideoScreen';
+import { SafeAreaView } from 'react-navigation';
 Amplify.configure(awsconfig);
 
 let course = {
@@ -66,6 +68,7 @@ const CourseDetails = (props) => {
   const route=useRoute();
   const {params}  = route;
   course=params.course;
+  const student=params.student;
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -75,14 +78,17 @@ const CourseDetails = (props) => {
   );
   const [loading, setLoading] = React.useState(false);
   const [modules, setModules] = React.useState([]);
+  const [enrolled, setEnrolled] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [isDataLoaded, setDataLoaded] = React.useState(false);
+  const [isLogoLoaded, setLogoLoaded] = React.useState(false);
   const [uri, setUri] = useState("");
   // console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
   // const =Storage.get(course.image);
+  if(!isLogoLoaded){
    Storage.get(course.image.split("/")[3],  {
     level: 'public', // defaults to `public`
     
@@ -91,8 +97,11 @@ const CourseDetails = (props) => {
     validateObjectExistence: true, // defaults to false
     // cacheControl?: string, // Specifies caching behavior along the request/reply chain
   }).then((result) => {
-    setUri(result)}).catch((err) => {console.log(err)});
-  
+    setUri(result)
+    setLogoLoaded(true)
+    console.log("logo loaded")
+  } ).catch((err) => {console.log(err)});
+  }
   // console.log(JSON.stringify(courses));
   const [expandedModuleIndex, setExpandedModuleIndex] = useState(null);
 
@@ -112,12 +121,15 @@ const CourseDetails = (props) => {
   }, []);
   // console.log(course)
   let course_image=course.image;
+  
   (async function() {
     if(!isDataLoaded){
       console.log(course.id)
-      const response = await getData(course.id);
+      const response = await getData(course.course_id);
+      console.log(course)
       // console.log(response);
       setModules(response.modules);
+      // course=response;
       console.log("++++++++++"+JSON.stringify(response.modules));
       console.log("============="+JSON.stringify(modules))
       timeout(1000)
@@ -136,7 +148,6 @@ const CourseDetails = (props) => {
           <Text style={styles.title}>{course.title}</Text>
           <View style={styles.separator} />
         </View>
-        <Button title="Go to Home" onPress={() => console.log(modules)} />
         <View style={styles.imageContainer}>
           {/* <Image
             source={require(uri)}
@@ -217,9 +228,13 @@ const CourseDetails = (props) => {
                             <Feather name="chevron-right" size={14} color="#333" />
                             <TouchableOpacity  onPress={() => {
                                     if(item.content.type=="quiz"){
-                                      navigation.navigate('Quiz', { Quiz })
+                                      navigation.navigate('Quiz', { item })
+                                    }else if(item.content.type=="video"){
+                                      navigation.navigate('VideoScreen', { item })
                                     }
-                                    
+                                    else if(item.content.type=="pdf"){
+                                      navigation.navigate('PDFScreen', { item })
+                                    }
                                   }
                                 }>
 
@@ -236,8 +251,17 @@ const CourseDetails = (props) => {
                 </TouchableOpacity>
               ))}
             </View>
+            
           </View>
-
+          <SafeAreaView style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => {
+              console.log(student)
+              console.log("Drop Course")
+              
+              }}>
+              <Text style={styles.container}>{true?"notdrop":"Drop"}</Text>
+            </TouchableOpacity>
+            </SafeAreaView>
         </View>
       </View>
     </ScrollView>

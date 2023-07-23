@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity, RefreshControl } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import PaymentMethodScreen from '../CourseEnrollmentPayment/PaymentMethodScreen';
+
+import { Amplify, API, Storage} from 'aws-amplify';
+import { AntDesign } from '@expo/vector-icons'; // Import AntDesign from the Expo library (if available) or use a different icon library
+import awsconfig from '../../src/aws-exports';
 import { useNavigation } from '@react-navigation/native';
+
+import PaymentMethodScreen from '../CourseEnrollmentPayment/PaymentMethodScreen';
+Amplify.configure(awsconfig);
 
 
 
@@ -184,7 +190,6 @@ async function postData() {
 //   },
 // ];
 
-
 // const SearchBar = ({ onChangeText , onClearText}) => {
 //   return (
 //     <View style={styles.searchContainer}>
@@ -208,6 +213,18 @@ const SearchBar = ({ onChangeText, onClearText }) => {
     }
   };
 
+
+const SearchBar = ({ onChangeText, onClearText }) => {
+  console.log("caling on changetext/onkeypress ");
+  const handleKeyPress = ({ nativeEvent }) => {
+    const { key } = nativeEvent;
+    if (key === 'Backspace' && onClearText) {
+      // Check if the Backspace key was pressed and the onClearText prop is provided
+      onClearText();
+    }
+  };
+
+
   return (
     <View style={styles.searchContainer}>
       <TextInput
@@ -224,7 +241,9 @@ const SearchBar = ({ onChangeText, onClearText }) => {
 
 async function getData(category) {
   const apiName = 'course';
-  const path = '/course';
+
+  const path = '/courseByCategory';
+
   const myInit = {
     headers: {} // OPTIONAL
   };
@@ -349,10 +368,45 @@ const handleSearch = text => {
 };
   
   const CourseItem = ({ course }) => { 
+    const [isLogoLoaded, setLogoLoaded] = React.useState(false);
+
+    if(!isLogoLoaded){
+      
+        Storage.get(course.image.split("/")[3],  {
+          level: 'public', // defaults to `public`
+          
+          expires: 3600, // validity of the URL, in seconds. defaults to 900 (15 minutes) and maxes at 3600 (1 hour)
+          // contentType: 'string', // set return content type, eg "text/html"
+          validateObjectExistence: true, // defaults to false
+          // cacheControl?: string, // Specifies caching behavior along the request/reply chain
+        }).then(result => {
+       
+          course.image=result
+          setLogoLoaded(true)
+          console.log("logo loaded")
+        
+      }).catch((err) => {console.log(err)});
+      // course.map(c=>{
+      //   Storage.get(c.image.split("/")[3],  {
+      //     level: 'public', // defaults to `public`
+          
+      //     expires: 3600, // validity of the URL, in seconds. defaults to 900 (15 minutes) and maxes at 3600 (1 hour)
+      //     // contentType: 'string', // set return content type, eg "text/html"
+      //     validateObjectExistence: true, // defaults to false
+      //     // cacheControl?: string, // Specifies caching behavior along the request/reply chain
+      //   })
+      // }).all.then(result => {
+       
+      //     c.image=result
+      //     setLogoLoaded(true)
+      //     console.log("logo loaded")
+        
+      // }).catch((err) => {console.log(err)});
+    }
     return (
       <View style={styles.courseItem}>
        
-        <Image source={course.image} style={styles.courseImage} />
+        <Image source={{ uri: course.image }} style={styles.courseImage} />
         <View style={styles.courseInfo}>
           <Text style={styles.courseTitle}>{course.title}</Text>
           <Text style={styles.courseInstructor}>{course.instructor}</Text>

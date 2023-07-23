@@ -6,7 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Amplify, API } from 'aws-amplify';
 import awsconfig from '../../src/aws-exports';
 Amplify.configure(awsconfig);
-
+import {
+  useAuthenticator,
+} from "@aws-amplify/ui-react-native";
 
 // import { navigation } from '@react-navigation/native';
 
@@ -18,21 +20,30 @@ function timeout(ms) {
 const MyLearningScreen = ({navigation}) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [isDataLoaded, setDataLoaded] = React.useState(false);
+  const { user } = useAuthenticator();
   function getData() {
-    const apiName = 'course';
-    const path = '/course';
+    const apiName = 'student';
+    const path = '/student';
+    
+    // console.log(user)
     const myInit = {
-      headers: {} // OPTIONAL
+      headers: {}, // OPTIONAL,
+      queryStringParameters: {
+        student_id: user.attributes.sub // OPTIONAL
+      }
     };
+    console.log(user.attributes.sub)
     console.log("getting data");
     return API.get(apiName, path, myInit);
   }
-  const [courses, setCourses] = useState([{ id: 1, title: 'Introduction to React Native', duration: '2 hours' }]);
+  const [courses, setCourses] = useState([]);
+  const [student, setStudent] = useState([]);
       (async function() {
         if(!isDataLoaded){
           const response = await getData();
-          // console.log(response);
-          setCourses(response);
+          console.log(response);
+          setCourses(response.enrolled_courses);
+          setStudent(response);
           setDataLoaded(true);
         }
         
@@ -46,13 +57,7 @@ const MyLearningScreen = ({navigation}) => {
       setRefreshing(false);
     }, 1000);
   }, []);
-//      
-// );
 
-//  [
-    
-//     // Add more courses as needed
-//   ];
   const renderCourseBoxes = () => {
     const navigate = useNavigation();
     if (courses.length === 0) {
@@ -70,8 +75,8 @@ const MyLearningScreen = ({navigation}) => {
     return courses.map(course => (
       <SafeAreaView>
       <View key={course.id} style={styles.courseContainer}>
-         {/* on cluck navigate to course Details */}
-            <TouchableOpacity  onPress={() => navigation.navigate('CourseDetails', { course })}>
+         {/* on click navigate to course Details */}
+            <TouchableOpacity  onPress={() => navigation.navigate('CourseDetails', { course,student })}>
 
               <Text style={styles.courseTitle}>{course.title}</Text>
               <Text style={styles.courseDuration}>{course.duration}</Text>
