@@ -25,6 +25,14 @@
           ],
           "category": "function",
           "resourceName": "contentHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "courseByCategoryHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -138,6 +146,33 @@
     },
     "contentHandler": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "content"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "courseByCategoryHandler": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "course"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -182,6 +217,17 @@
     },
     "moduleHandler": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "module"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -192,6 +238,35 @@
     },
     "progressHandler": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "course"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "progress"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "student"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -247,6 +322,22 @@
         {
           "category": "function",
           "resourceName": "contentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_courseByCategoryHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "courseByCategoryHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_courseByCategoryHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "courseByCategoryHandler"
         }
       ]
     },
@@ -364,6 +455,11 @@
     }
   },
   "storage": {
+    "assets": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    },
     "content": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

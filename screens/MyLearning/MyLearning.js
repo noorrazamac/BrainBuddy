@@ -1,28 +1,66 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React,{useState} from 'react';
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Amplify, API } from 'aws-amplify';
+import awsconfig from '../../src/aws-exports';
+Amplify.configure(awsconfig);
 
-const courses = [
-  { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
-  { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
-  { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
-  { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
-  { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
-  { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
-  { id: 1, title: 'Introduction to React Native', duration: '2 hours' },
-  { id: 2, title: 'Advanced JavaScript Concepts', duration: '3.5 hours' },
-  { id: 3, title: 'User Interface Design Principles', duration: '1.5 hours' },
-  // Add more courses as needed
-];
 
-const MyLearningScreen = () => {
+// import { navigation } from '@react-navigation/native';
+
+
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const MyLearningScreen = ({navigation}) => {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [isDataLoaded, setDataLoaded] = React.useState(false);
+  function getData() {
+    const apiName = 'course';
+    const path = '/course';
+    const myInit = {
+      headers: {} // OPTIONAL
+    };
+    console.log("getting data");
+    return API.get(apiName, path, myInit);
+  }
+  const [courses, setCourses] = useState([{ id: 1, title: 'Introduction to React Native', duration: '2 hours' }]);
+      (async function() {
+        if(!isDataLoaded){
+          const response = await getData();
+          // console.log(response);
+          setCourses(response);
+          setDataLoaded(true);
+        }
+        
+      })();
+      
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setDataLoaded(false);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+//      
+// );
+
+//  [
+    
+//     // Add more courses as needed
+//   ];
   const renderCourseBoxes = () => {
+    const navigate = useNavigation();
     if (courses.length === 0) {
       return (
         <View style={styles.emptyCoursesContainer}>
           <Text style={styles.emptyCoursesMessage}>Seems like you have not purchased any course yet.</Text>
           <Text style={styles.sadEmoji}>😢</Text>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('CourseList')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate.navigate('CourseList')}>
             <Text style={styles.buttonText}>See Courses</Text>
           </TouchableOpacity>
         </View>
@@ -30,22 +68,35 @@ const MyLearningScreen = () => {
     }
 
     return courses.map(course => (
+      <SafeAreaView>
       <View key={course.id} style={styles.courseContainer}>
-        <Text style={styles.courseTitle}>{course.title}</Text>
-        <Text style={styles.courseDuration}>{course.duration}</Text>
+         {/* on cluck navigate to course Details */}
+            <TouchableOpacity  onPress={() => navigation.navigate('CourseDetails', { course })}>
+
+              <Text style={styles.courseTitle}>{course.title}</Text>
+              <Text style={styles.courseDuration}>{course.duration}</Text>
+
+            </TouchableOpacity>
+
       </View>
+      </SafeAreaView>
     ));
   };
 
   return (
+    
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>My Learning</Text>
       </View>
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View style={styles.contentContainer}>
           <Text style={styles.sectionTitle}>My Courses</Text>
-          {renderCourseBoxes()}
+          {renderCourseBoxes(navigation)}
         </View>
       </ScrollView>
     </View>

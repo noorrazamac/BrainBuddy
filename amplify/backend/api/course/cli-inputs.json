@@ -39,6 +39,19 @@
           "delete"
         ]
       }
+    },
+    "/courseByCategory": {
+      "name": "/courseByCategory",
+      "lambdaFunction": "courseByCategoryHandler",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }
