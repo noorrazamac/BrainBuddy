@@ -46,13 +46,7 @@ const MyLearningScreen = ({navigation}) => {
       setRefreshing(false);
     }, 1000);
   }, []);
-//      
-// );
 
-//  [
-    
-//     // Add more courses as needed
-//   ];
   const renderCourseBoxes = () => {
     const navigate = useNavigation();
     if (courses.length === 0) {
@@ -70,7 +64,7 @@ const MyLearningScreen = ({navigation}) => {
     return courses.map(course => (
       <SafeAreaView>
       <View key={course.id} style={styles.courseContainer}>
-         {/* on cluck navigate to course Details */}
+         {/* on click navigate to course Details */}
             <TouchableOpacity  onPress={() => navigation.navigate('CourseDetails', { course })}>
 
               <Text style={styles.courseTitle}>{course.title}</Text>
