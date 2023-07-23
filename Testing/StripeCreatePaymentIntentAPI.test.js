@@ -24,6 +24,26 @@ describe('fetchPaymentIntentClient', () => {
     expect(result).toBe(mockClientSecret);
   });
 
- 
+  it('should throw an error for a network error', async () => {
+    const amount = 50;
+
+    // Mock a network error
+    global.fetch.mockRejectedValueOnce(new Error('Network error'));
+
+    await expect(fetchPaymentIntentClient(amount)).rejects.toThrow('Network error');
+  });
+
+  it('should throw an error for non-OK responses', async () => {
+    const amount = 50;
+
+    // Mock a non-OK response
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: 'Internal Server Error',
+    });
+
+    await expect(fetchPaymentIntentClient(amount)).rejects.toThrow('Network response was not ok');
+  });
 
 });
