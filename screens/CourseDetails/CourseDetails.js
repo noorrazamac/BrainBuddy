@@ -68,6 +68,7 @@ const CourseDetails = (props) => {
   const route=useRoute();
   const {params}  = route;
   course=params.course;
+  const student=params.student;
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -77,6 +78,7 @@ const CourseDetails = (props) => {
   );
   const [loading, setLoading] = React.useState(false);
   const [modules, setModules] = React.useState([]);
+  const [enrolled, setEnrolled] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [isDataLoaded, setDataLoaded] = React.useState(false);
   const [uri, setUri] = useState("");
@@ -244,8 +246,12 @@ const CourseDetails = (props) => {
             
           </View>
           <SafeAreaView style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => {console.log("Drop Course")}}>
-              <Text style={styles.container}>Drop Course</Text>
+            <TouchableOpacity style={styles.button} onPress={() => {
+              console.log(student)
+              console.log("Drop Course")
+              
+              }}>
+              <Text style={styles.container}>{true?"notdrop":"Drop"}</Text>
             </TouchableOpacity>
             </SafeAreaView>
         </View>
