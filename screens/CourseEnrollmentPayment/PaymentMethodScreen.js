@@ -1,12 +1,14 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
-import { useStripe } from '@stripe/stripe-react-native';
-import { fetchPaymentIntentClient } from './fetchPaymentIntentClient';
+import { StripeProvider } from '@stripe/stripe-react-native';
+//import { fetchPaymentIntentClient } from './fetchPaymentIntentClient';
 import { useNavigation } from '@react-navigation/native';
 
+
+//const navigation = useNavigation();
  const PaymentMethodScreen = () => {
-         const navigation = useNavigation();
+
          let selectedPlanAmount = 50;
          const handlePaymentOptionPress = (option) => {
             // Handle the selected payment option
@@ -89,7 +91,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-                    const { initPaymentSheet, presentPaymentSheet } = useStripe();
+                    const { initPaymentSheet, presentPaymentSheet } = StripeProvider();
                      const onCheckout = async () => {
 
 
@@ -188,7 +190,7 @@ import { useNavigation } from '@react-navigation/native';
                                       <View style={styles.radioButtonIcon} />
                                    </TouchableOpacity>
                                    <TouchableOpacity onPress={() => console.log('Pay with card')}>
-                                     <Text style={styles.radioButtonText}>Pay with card</Text>
+                                     <Text style={styles.radioButtonText}>Card Payment</Text>
                                    </TouchableOpacity>
                                  </View>
 

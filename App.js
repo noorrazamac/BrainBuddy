@@ -11,7 +11,8 @@ import MyLearning from "./screens/MyLearning/MyLearning";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import CourseDetails from "./screens/CourseDetails/CourseDetails";
 import Quiz from "./screens/Quiz/quiz";
-import "react-native-gesture-handler"; 
+import "react-native-gesture-handler";
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 import Navigation from "./Navigation";
 
@@ -38,9 +39,13 @@ import awsExports from "./src/aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react-native";
 Amplify.configure(awsExports);
 
+const Stripe_Key = 'pk_test_51NVKhcKgcfY74efpZOBPjWitXs4MW1GVG3f4eDTgGbQQRIWTgUePpPd3bR6EIgMF0k2yi29VhZL8Tc2X17b1ZRJM00MgDYJg52';
+
 const App = () => {
   return (
+  <StripeProvider publishableKey={Stripe_Key}>
     <Navigation />
+  </StripeProvider>
   );
 }
 

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import PaymentMethodScreen from '../CourseEnrollmentPayment/PaymentMethodScreen';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 const enrollCourse = (course) => {
+      const navigation = useNavigation();
   // Handle course enrollment logic here
+  navigation.navigate('PaymentMethodScreen')
   console.log('Enrolling in course:', course.title);
   
 };
