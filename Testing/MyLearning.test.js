@@ -1,12 +1,16 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
+
 import MyLearning from '../screens/MyLearning/MyLearning';
 
-// Mock the API function getData since it's asynchronous
-jest.mock('../screens/MyLearning/MyLearning', () => ({
-  ...jest.requireActual('../screens/MyLearning/MyLearning'),
-  getData: jest.fn(() => Promise.resolve([])), // Mock the response for getData
-}));
+// Mock the getData function since it's asynchronous
+jest.mock('../screens/MyLearning/MyLearning', () => {
+  return {
+    __esModule: true,
+    default: jest.fn(() => null), // Mock the MyLearning component
+    getData: jest.fn(() => Promise.resolve([])), // Mock the response for getData
+  };
+});
 
 describe('MyLearning', () => {
   // Test rendering of MyLearning with no courses
