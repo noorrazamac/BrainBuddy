@@ -38,5 +38,21 @@ describe('CourseDetails', () => {
     ],
   };
 
-  
+  it('renders course details correctly', () => {
+    const { getByText, getByTestId } = render(<CourseDetails route={{ params: { course } }} />);
+    
+    // Check if the course title and description are rendered
+    expect(getByText(course.title)).toBeTruthy();
+    expect(getByText(course.description)).toBeTruthy();
+
+    // Check if the module names are rendered
+    expect(getByText('Module 1: Introduction to React Native')).toBeTruthy();
+    expect(getByText('Module 2: UI Development with React Native')).toBeTruthy();
+    expect(getByText('Module 3: State Management in React Native')).toBeTruthy();
+
+    // Check if the module contents are not initially rendered
+    expect(getByTestId('module-content-1')).toBeFalsy();
+    expect(getByTestId('module-content-2')).toBeFalsy();
+    expect(getByTestId('module-content-3')).toBeFalsy();
+  });
 });
