@@ -222,11 +222,17 @@ const Home = () => {
 
   const [searchText, setSearchText] = useState('');
   const [courseData1, setCourseData1] = useState([]);
+  const [courseDatasearch1, setCourseDatasearch1] = useState([]);
   const [courseData2, setCourseData2] = useState([]);
+  const [courseDatasearch2, setcourseDatasearch2] = useState([]);
   const [courseData3, setCourseData3] = useState([]);
+  const [courseDatasearch3, setcourseDatasearch3] = useState([]);
   const [courseData4, setCourseData4] = useState([]);
+  const [courseDatasearch4, setcourseDatasearch4] = useState([]);
   const [courseData5, setCourseData5] = useState([]);
+  const [courseDatasearch5, setcourseDatasearch5] = useState([]);
   const [courseData6, setCourseData6] = useState([]);
+  const [courseDatasearch6, setcourseDatasearch6] = useState([]);
   const [isSearchEmpty, setIsSearchEmpty] = useState(true);
 
   const onRefresh = React.useCallback(() => {
@@ -255,11 +261,17 @@ const fetchData = async () => {
     const coursesMaths = await getData("Mathematics");
 
     setCourseData1(coursesMusic);
+    setCourseDatasearch1(coursesMusic);
     setCourseData2(coursesJava);
+    setcourseDatasearch2(coursesJava);
     setCourseData3(coursesKeyBoard);
+    setcourseDatasearch3(coursesKeyBoard);
     setCourseData4(coursesEnglish);
+    setcourseDatasearch4(coursesEnglish);
     setCourseData5(coursesPython);
+    setcourseDatasearch5(coursesPython);
     setCourseData6(coursesMaths);
+    setcourseDatasearch6(coursesMaths);
     setDataLoaded(true);
 }
   } catch (error) {
@@ -287,22 +299,22 @@ const handleSearch = text => {
   } else {
     console.log("search text is not empty");
     // If the search text is not empty, filter the data based on the search text
-    const filteredData1 = courseData1.filter(course =>
+    const filteredData1 = courseDatasearch1.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData2 = courseData2.filter(course =>
+    const filteredData2 = courseDatasearch2.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData3 = courseData3.filter(course =>
+    const filteredData3 = courseDatasearch3.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData4 = courseData4.filter(course =>
+    const filteredData4 = courseDatasearch4.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData5 = courseData5.filter(course =>
+    const filteredData5 = courseDatasearch5.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData6 = courseData6.filter(course =>
+    const filteredData6 = courseDatasearch6.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
 
