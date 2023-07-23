@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity, RefreshControl } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
 import { Amplify, API, Storage} from 'aws-amplify';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign from the Expo library (if available) or use a different icon library
 import awsconfig from '../../src/aws-exports';
@@ -168,6 +167,7 @@ Amplify.configure(awsconfig);
 //   },
 // ];
 
+
 // const SearchBar = ({ onChangeText , onClearText}) => {
 //   return (
 //     <View style={styles.searchContainer}>
@@ -191,18 +191,6 @@ const SearchBar = ({ onChangeText, onClearText }) => {
     }
   };
 
-
-const SearchBar = ({ onChangeText, onClearText }) => {
-  console.log("caling on changetext/onkeypress ");
-  const handleKeyPress = ({ nativeEvent }) => {
-    const { key } = nativeEvent;
-    if (key === 'Backspace' && onClearText) {
-      // Check if the Backspace key was pressed and the onClearText prop is provided
-      onClearText();
-    }
-  };
-
-
   return (
     <View style={styles.searchContainer}>
       <TextInput
@@ -219,9 +207,7 @@ const SearchBar = ({ onChangeText, onClearText }) => {
 
 async function getData(category) {
   const apiName = 'course';
-
   const path = '/courseByCategory';
-
   const myInit = {
     headers: {} // OPTIONAL
   };
