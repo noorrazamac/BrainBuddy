@@ -37,14 +37,14 @@ This is the first message sent to you via API so to inform you about the situati
 
   const { Configuration, OpenAIApi } = require("openai");
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const openai = new OpenAIApi(configuration);
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [{"role": "system", "content": "You are a helpful assistant."}, {role: "user", content: firstMessage}],
   });
-  console.log(completion.data.choices[0].message);
+  console.log(completion.data.choices[0].message.content);
 }
 
 askChatGpt();
