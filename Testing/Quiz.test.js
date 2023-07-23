@@ -78,6 +78,17 @@ describe('Quiz', () => {
     });
   });
 
+  test('should handle option selection and show correct feedback', async () => {
+    const question = mockQuestions[0];
+    const correctAnswer = question.correctAnswer;
+    const wrongAnswer = question.options.find((option) => option !== correctAnswer);
+  
+    const { getByText } = render(<Quiz />);
+  
+    fireEvent.press(getByText(wrongAnswer));
+    await waitFor(() => expect(getByText(`Incorrect! 😞 The correct answer is ${correctAnswer}.`)).toBeTruthy());
+  
+  });
 
   
 });
