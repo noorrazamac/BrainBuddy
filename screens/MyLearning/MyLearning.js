@@ -57,7 +57,13 @@ const MyLearningScreen = ({navigation}) => {
       setRefreshing(false);
     }, 1000);
   }, []);
+//      
+// );
 
+//  [
+    
+//     // Add more courses as needed
+//   ];
   const renderCourseBoxes = () => {
     const navigate = useNavigation();
     if (courses.length === 0) {
