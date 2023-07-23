@@ -1,12 +1,12 @@
 
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
-import { StripeProvider } from '@stripe/stripe-react-native';
+import { useStripe } from '@stripe/stripe-react-native';
 //import { fetchPaymentIntentClient } from './fetchPaymentIntentClient';
-import { useNavigation } from '@react-navigation/native';
 
 
-//const navigation = useNavigation();
+
+
  const PaymentMethodScreen = () => {
 
          let selectedPlanAmount = 50;
@@ -91,7 +91,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-                    const { initPaymentSheet, presentPaymentSheet } = StripeProvider();
+                    const { initPaymentSheet, presentPaymentSheet } = useStripe();
                      const onCheckout = async () => {
 
 
