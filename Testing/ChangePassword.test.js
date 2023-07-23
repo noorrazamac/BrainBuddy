@@ -20,5 +20,26 @@ describe('ChangePassword component', () => {
   
       expect(newPasswordInput.props.value).toBe('newPassword456');
     });
-  
+    
+    it('should display "Passwords are same" message when old and new passwords are the same', () => {
+        const { getByText, getByPlaceholderText, getByTestId } = render(<ChangePassword />);
+        const passwordInput = getByPlaceholderText('Old password');
+    
+        fireEvent.changeText(passwordInput, 'samePassword');
+        fireEvent.changeText(getByPlaceholderText('New password'), 'samePassword');
+        fireEvent.press(getByTestId('changePasswordButton'));
+    
+        expect(getByText('Passwords are same')).toBeDefined();
+      });
+    
+      it('should display "Password changed successfully" message when passwords are different', () => {
+        const { getByText, getByPlaceholderText, getByTestId } = render(<ChangePassword />);
+        const passwordInput = getByPlaceholderText('Old password');
+    
+        fireEvent.changeText(passwordInput, 'oldPassword123');
+        fireEvent.changeText(getByPlaceholderText('New password'), 'newPassword456');
+        fireEvent.press(getByTestId('changePasswordButton'));
+    
+        expect(getByText('Password changed successfully')).toBeDefined();
+      });
   });
