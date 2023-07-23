@@ -31,4 +31,37 @@ describe("Profile component", () => {
     expect(getByText(mockUser.username)).toBeDefined();
     expect(getByText(mockUser.attributes.email)).toBeDefined();
   });
+
+  it('should navigate to the "ChangePassword" screen when "Change Password" button is pressed', () => {
+    // Mock useNavigation hook
+    const mockNavigate = jest.fn();
+    jest.mock("@react-navigation/native", () => ({
+      useNavigation: jest.fn(() => ({
+        navigate: mockNavigate,
+      })),
+    }));
+
+    const { getByText } = render(<Profile />);
+    const changePasswordButton = getByText("Change Password");
+
+    fireEvent.press(changePasswordButton);
+
+    expect(mockNavigate).toHaveBeenCalledWith("ChangePassword");
+  });
+
+  it('should sign out when "LogOut" button is pressed', () => {
+    const mockSignOut = jest.fn();
+    jest.mock("aws-amplify", () => ({
+      Auth: {
+        signOut: mockSignOut,
+      },
+    }));
+
+    const { getByText } = render(<Profile />);
+    const logoutButton = getByText("LogOut");
+
+    fireEvent.press(logoutButton);
+
+    expect(mockSignOut).toHaveBeenCalled();
+  });
 });
