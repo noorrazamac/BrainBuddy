@@ -1,9 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity, RefreshControl } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Amplify, API } from 'aws-amplify';
-import { AntDesign } from '@expo/vector-icons'; // Import AntDesign from the Expo library (if available) or use a different icon library
+import PaymentMethodScreen from '../CourseEnrollmentPayment/PaymentMethodScreen';
+import { useNavigation } from '@react-navigation/native';
 
+
+
+const enrollCourse = (course) => {
+      const navigation = useNavigation();
+  // Handle course enrollment logic here
+  navigation.navigate('PaymentMethodScreen')
+  console.log('Enrolling in course:', course.title);
+  
+};
+
+async function postData() {
+  const apiName = 'student';
+  const path = '/progress';
+  const myInit = {
+    body: {}, // replace this with attributes you need
+    headers: {} // OPTIONAL
+  };
+
+  return await API.post(apiName, path, myInit);
+}
 
 
 // const coursesJava = [

@@ -1,5 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView,Button, TouchableOpacity,ActivityIndicator,RefreshControl } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Amplify, API, Storage } from 'aws-amplify';
+import awsconfig from '../../src/aws-exports';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { set } from 'lodash';
+import Quiz from '../Quiz/quiz';
+Amplify.configure(awsconfig);
 
 let course = {
   title: 'React Native 101',
@@ -36,7 +43,42 @@ let course = {
   ],
 };
 
-const CourseDetails = () => {
+
+
+
+function getData(course_id) {
+  const apiName = 'course';
+  const path = '/course';
+  const myInit = {
+    headers: {}, // OPTIONAL
+    queryStringParameters: {
+      course_id: course_id // OPTIONAL
+    }
+  };
+  
+
+  return API.get(apiName, path, myInit);
+}
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+const CourseDetails = (props) => {
+  const route=useRoute();
+  const {params}  = route;
+  course=params.course;
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: course.title,
+    });}
+  );
+  const [loading, setLoading] = React.useState(false);
+  const [modules, setModules] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [isDataLoaded, setDataLoaded] = React.useState(false);
+  const [uri, setUri] = useState("");
+  // console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
@@ -143,87 +185,247 @@ const CourseDetails = () => {
             </View>
           </View>
 
-          <Text style={styles.label}>Course Duration:</Text>
-          <Text style={styles.duration}>{course.duration}</Text>
+          <View style={styles.durationContainer}>
+            <Text style={styles.label}>Course Duration:</Text>
+            <Text style={styles.duration}>{course.duration}</Text>
+          </View>
+
+          <View style={styles.modulesContainer}>
+            <Text style={styles.label}>Course Modules:</Text>
+            <View style={styles.table}>
+              {modules.map((module, index) => (
+                <TouchableOpacity
+                  key={module.order}
+                  onPress={() => toggleModule(index)}
+                  activeOpacity={0.8}
+                >
+                  <View
+                    style={[
+                      styles.tableRow,
+                      index % 2 === 0 ? styles.tableRowEven : styles.tableRowOdd,
+                    ]}
+                  >
+                    <View style={styles.moduleTitleContainer}>
+                      <Feather name="chevron-down" size={16} color="#333" />
+                      <Text style={styles.moduleTitle}>{module.name}</Text>
+                    </View>
+
+                    {expandedModuleIndex === index && (
+                      <View style={styles.moduleContentContainer}>
+                        {module.contents.map((item, i) => (
+                          <View key={item.order} style={styles.moduleContentItem}>
+                            <Feather name="chevron-right" size={14} color="#333" />
+                            <TouchableOpacity  onPress={() => {
+                                    if(item.content.type=="quiz"){
+                                      navigation.navigate('Quiz', { Quiz })
+                                    }
+                                    
+                                  }
+                                }>
+
+                            < Text style={styles.moduleContentText}>{item.content.description}</Text>
+
+
+                                </TouchableOpacity>
+
+                          </View>
+                        ))}
+                      </View>
+                    )}
+                  </View> 
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
         </View>
       </View>
     </ScrollView>
   );
 };
 
-const AppButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
-
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-  },
-  header: {
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#000000',
+ scrollContainer: {
+  flexGrow: 1,
+},
+container: {
+  flex: 1,
+  padding: 16,
+  backgroundColor: '#FFFFFF',
+},
+header: {
+  marginBottom: 16,
+},
+title: {
+  fontSize: 24,
+  fontWeight: 'bold',
+  textAlign: 'center',
+},
+separator: {
+  height: 1,
+  backgroundColor: '#000000',
+  marginTop: 8,
+  marginBottom: 16,
+},
+imageContainer: {
+  alignItems: 'center',
+  marginBottom: 16,
+},
+image: {
+  resizeMode: 'cover',
+},
+detailsContainer: {
+  marginBottom: 16,
+},
+label: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginBottom: 8,
+},
+additionalDescription: {
+  fontSize: 17,
+  marginBottom: 8,
+},
+description: {
+  fontSize: 17,
+  marginBottom: 8,
+},
+instructorContainer: {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+},
+inlineContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginRight: 16,
+  marginBottom: 8,
+},
+instructorIcon: {
+  width: 35,
+  height: 35,
+  marginRight: 8,
+},
+instructor: {
+  fontSize: 17,
+},
+duration: {
+  fontSize: 17,
+},
+moduleContainer: {
+  marginBottom: 16,
+},
+moduleContent: {
+  fontSize: 17,
+},
+moduleContainer: {
+  marginBottom: 16,
+},
+moduleHeader: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingVertical: 8,
+},
+moduleTitle: {
+  flex: 1,
+  fontSize: 18,
+  fontWeight: 'bold',
+},
+moduleContentContainer: {
+  paddingVertical: 8,
+},
+moduleContent: {
+  fontSize: 17,
+},
+descriptionContainer: {
+  marginBottom: 16,
+},
+additionalDescriptionContainer: {
+  marginBottom: 16,
+},
+instructorsContainer: {
+  marginBottom: 16,
+},
+durationContainer: {
+  marginBottom: 16,
+},
+modulesContainer: {
+  marginBottom: 16,
+},
+modulesContainer: {
+  marginBottom: 16,
+},
+modulesBackground: {
+  backgroundColor: '#F0F0F0',
+  padding: 16,
+  borderRadius: 8,
+},
+modulesContainer: {
+  marginBottom: 16,
+},
+table: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  marginTop: 8,
+  backgroundColor: '#f2f2f2',
+},
+tableRow: {
+  borderBottomWidth: 1,
+  borderBottomColor: '#ccc',
+  padding: 8,
+  backgroundColor: 'transparent',
+},
+tableRowEven: {
+  backgroundColor: '#ebebeb',
+},
+tableRowOdd: {
+  backgroundColor: '#f9f9f9',
+},
+modulesContainer: {
+	marginBottom: 16,
+},
+  table: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
     marginTop: 8,
-    marginBottom: 16,
-  },
-  imageContainer: {
+    backgroundColor: '#f2f2f2',
+},
+  tableRow: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    padding: 8,
+    backgroundColor: 'transparent',
+},
+  tableRowEven: {
+    backgroundColor: '#ebebeb',
+},
+  tableRowOdd: {
+    backgroundColor: '#f9f9f9',
+},
+  moduleTitleContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
-  },
-  image: {
-    resizeMode: 'cover',
-  },
-  detailsContainer: {
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 20,
+    marginBottom: 8,
+},
+  moduleTitle: {
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  additionalDescription: {
-    fontSize: 17,
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 17,
-    marginBottom: 8,
-  },
-  instructorContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  inlineContainer: {
+    marginLeft: 4,
+},
+  moduleContentContainer: {
+    marginTop: 8,
+    paddingLeft: 24,
+},
+  moduleContentItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 16,
-    marginBottom: 8,
-  },
-  instructorIcon: {
-    width: 35,
-    height: 35,
-    marginRight: 8,
-  },
-  instructor: {
-    fontSize: 17,
-  },
-  duration: {
-    fontSize: 17,
-  },
+    marginBottom: 4,
+},
+  moduleContentText: {
+    marginLeft: 4,
+},
 });
 
 export default CourseDetails;

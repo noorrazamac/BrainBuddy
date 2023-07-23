@@ -41,6 +41,10 @@
     "react-native-url-polyfill": "^1.3.0",
     "react-native-web": "~0.18.7",
     "react-navigation": "^4.4.4",
+<<<<<<< HEAD
+=======
+    "react-native-pager-view": "6.1.2",
+>>>>>>> d79d834289ccbc8a133f1c140fcf814e030744a2
     "@stripe/stripe-react-native": "0.23.3"
   },
   "devDependencies": {
