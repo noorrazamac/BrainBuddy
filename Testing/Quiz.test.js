@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import Quiz from '../screens/Quiz/quiz'; // Replace with the correct path to the Quiz component
+import Quiz from '../screens/Quiz/quiz';
 
 // Mock questions data
 const mockQuestions = [
