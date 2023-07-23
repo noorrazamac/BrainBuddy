@@ -81,12 +81,14 @@ const CourseDetails = (props) => {
   const [enrolled, setEnrolled] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [isDataLoaded, setDataLoaded] = React.useState(false);
+  const [isLogoLoaded, setLogoLoaded] = React.useState(false);
   const [uri, setUri] = useState("");
   // console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
   // const =Storage.get(course.image);
+  if(!isLogoLoaded){
    Storage.get(course.image.split("/")[3],  {
     level: 'public', // defaults to `public`
     
@@ -95,8 +97,11 @@ const CourseDetails = (props) => {
     validateObjectExistence: true, // defaults to false
     // cacheControl?: string, // Specifies caching behavior along the request/reply chain
   }).then((result) => {
-    setUri(result)}).catch((err) => {console.log(err)});
-  
+    setUri(result)
+    setLogoLoaded(true)
+    console.log("logo loaded")
+  } ).catch((err) => {console.log(err)});
+  }
   // console.log(JSON.stringify(courses));
   const [expandedModuleIndex, setExpandedModuleIndex] = useState(null);
 
@@ -116,12 +121,15 @@ const CourseDetails = (props) => {
   }, []);
   // console.log(course)
   let course_image=course.image;
+  
   (async function() {
     if(!isDataLoaded){
       console.log(course.id)
-      const response = await getData(course.id);
+      const response = await getData(course.course_id);
+      console.log(course)
       // console.log(response);
       setModules(response.modules);
+      // course=response;
       console.log("++++++++++"+JSON.stringify(response.modules));
       console.log("============="+JSON.stringify(modules))
       timeout(1000)
