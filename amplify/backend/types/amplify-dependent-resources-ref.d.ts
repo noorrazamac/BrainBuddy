@@ -100,6 +100,10 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
+    "assets": {
+      "BucketName": "string",
+      "Region": "string"
+    },
     "content": {
       "Arn": "string",
       "Name": "string",

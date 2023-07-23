@@ -79,7 +79,6 @@ Content:
 	name:
 	description:
 	source_path:
-	description:
 	type:
 }
 
