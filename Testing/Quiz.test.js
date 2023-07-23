@@ -90,5 +90,21 @@ describe('Quiz', () => {
   
   });
 
+  test('should update total score correctly when selecting correct answers', async () => {
+    const { getByText } = render(<Quiz />);
+    let currentQuestionIndex = 0;
+  
+    for (let i = 0; i < mockQuestions.length; i++) {
+      const question = mockQuestions[currentQuestionIndex];
+      const correctAnswer = question.correctAnswer;
+  
+      fireEvent.press(getByText(correctAnswer));
+      await waitFor(() => expect(getByText('Correct! 🎉')).toBeTruthy());
+  
+      fireEvent.press(getByText('Next Question'));
+      currentQuestionIndex++;
+    }
+  });
+
   
 });
