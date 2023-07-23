@@ -224,16 +224,21 @@ const Home = () => {
 
 
   
-  const CourseItem = ({ course }) => { 
+  const CourseItem = ({ course }) => {
+
+    const navigation = useNavigation();
     return (
       <View style={styles.courseItem}>
-       
+
         <Image source={course.image} style={styles.courseImage} />
         <View style={styles.courseInfo}>
           <Text style={styles.courseTitle}>{course.title}</Text>
           <Text style={styles.courseInstructor}>{course.instructor}</Text>
           <Text style={styles.courseRating}>{course.rating} stars</Text>
-          <TouchableOpacity style={styles.enrollButton} onPress={() => enrollCourse(course)}>
+          <TouchableOpacity style={styles.enrollButton}
+          onPress={() =>
+              navigation.navigate('PaymentMethodScreen')
+            }>
             <Text style={styles.enrollButtonText}>Enroll</Text>
           </TouchableOpacity>
         </View>
