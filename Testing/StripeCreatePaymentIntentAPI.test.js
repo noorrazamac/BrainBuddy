@@ -1,4 +1,4 @@
-import fetchPaymentIntentClient from './fetchPaymentIntentClient';
+import fetchPaymentIntentClient from '../screens/CourseEnrollmentPayment/fetchPaymentIntentClient';
 
 describe('fetchPaymentIntentClient', () => {
   beforeEach(() => {
