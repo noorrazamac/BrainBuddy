@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
-//import { fetchPaymentIntentClient } from './fetchPaymentIntentClient';
+import { fetchPaymentIntentClient } from './fetchPaymentIntentClient';
+import { useNavigation } from '@react-navigation/native';
 
  const PaymentMethodScreen = () => {
-
+         const navigation = useNavigation();
          let selectedPlanAmount = 50;
          const handlePaymentOptionPress = (option) => {
             // Handle the selected payment option
@@ -27,7 +28,7 @@ import { useStripe } from '@stripe/stripe-react-native';
                   );
                   item.id == 1 ?
                   selectedPlanAmount = 50 :
-                  selectedPlanAmount = 99;
+                  selectedPlanAmount = 100;
                   console.log(selectedPlanAmount);
 
                   setIsLiked(updatedState);
@@ -100,9 +101,8 @@ import { useStripe } from '@stripe/stripe-react-native';
                          });
                          console.log("after fetchPaymentIntent", response);
                          if (response.error) {
-
-                           console.log('Something went wrong');
-                           return;
+                              Alert.alert('Something went wrong');
+                              return;
                          }
 
                          // 2. Initialize the Payment sheet
@@ -112,23 +112,35 @@ import { useStripe } from '@stripe/stripe-react-native';
                            paymentIntentClientSecret: response,
                          });
                          console.log("After Initialize Payment Sheet", initResponse);
-                         if (initResponse.error) {
-                           console.log("Initialize payment sheet error",initResponse.error);
-
-                           return;
-                         }
+                          if (initResponse.error) {
+                               console.log(initResponse.error);
+                               Alert.alert('Something went wrong');
+                               return;
+                             }
 
                          // 3. Present the Payment Sheet from Stripe
                          console.log("Before View Payment Sheet", initResponse);
                          const paymentResponse = await presentPaymentSheet();
+
                          console.log("After View Payment Sheet", initResponse);
                          if (paymentResponse.error) {
-                          console.log('Something went wrong');
-                           return;
-                         }
+                              Alert.alert(
+                                `Error code: ${paymentResponse.error.code}`,
+                                paymentResponse.error.message
+                              );
+                              return;
+                            }
 
                          // 4. If payment is ok -> create the order
-                         onCreateOrder();
+                          Alert.alert('Payment Successful', 'You have successfully subscribed!', [
+                               {
+                                 text: 'OK',
+                                 onPress: () => {
+                                   // Navigate back to the previous screen
+                                   navigation.goBack();
+                                 },
+                               },
+                             ]);
                        } catch (error) {
                          console.log('An error occurred:', error);
 
