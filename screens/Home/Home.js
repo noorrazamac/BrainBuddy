@@ -204,7 +204,7 @@ const SearchBar = ({ onChangeText, onClearText }) => {
 
 async function getData(category) {
   const apiName = 'course';
-  const path = '/course';
+  const path = '/courseByCategory';
   const myInit = {
     headers: {} // OPTIONAL
   };

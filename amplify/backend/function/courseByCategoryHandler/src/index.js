@@ -16,21 +16,21 @@ const dynamodb = new AWS.DynamoDB();
 async function getItemFromDynamoDB(event) {
 	if ('queryStringParameters' in event) {
 		const pathParameters = event["queryStringParameters"];
-		if (pathParameters && 'course_id' in pathParameters) {
-			const course_id = pathParameters["course_id"];
-			console.log("fetching data for course: ", course_id);
+		if (pathParameters && 'category' in pathParameters) {
+			const category = pathParameters["category"];
+			console.log("fetching data for category: ", category);
 			const params = {
-				TableName: process.env.STORAGE_COURSE_NAME,
-				// TableName: "student-" + process.env.ENV,
-				Key: {
-					id: { S: course_id } // Assuming the primary key is of type string
-				}
-			};
+                TableName: process.env.STORAGE_COURSE_NAME,
+                FilterExpression: 'category = :categoryValue',
+                ExpressionAttributeValues: {
+                  ':categoryValue': { S: category }
+                }
+              };
 		
     
             try {
                 const data = await dynamodb.scan(params).promise();
-                const items = data.Items.map(item => DynamoDB.Converter.unmarshall(item));
+                const items = data.Items.map(item => AWS.DynamoDB.Converter.unmarshall(item));
                 console.log('Fetched items:', items);
                 return {
                     statusCode: 200,
@@ -48,7 +48,7 @@ async function getItemFromDynamoDB(event) {
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Headers": "*"
                     },
-                    body: JSON.stringify('Error finding the Course!')
+                    body: JSON.stringify('Error finding the category!')
                 };
               }
             
