@@ -20,6 +20,195 @@ async function postData() {
   const myInit = {
     body: {}, // replace this with attributes you need
     headers: {} // OPTIONAL
+<<<<<<< HEAD
+=======
+  };
+
+  return await API.post(apiName, path, myInit);
+}
+
+
+// const coursesJava = [
+//   {
+//     id: 1,
+//     title: 'Core Java',
+//     category: 'Programming Java',
+//     instructor: 'Online',
+//     duration: '2 hours',
+//     rating: 4.5,
+//     image: require('../../images/Java.png'),
+//   },
+//   {
+//     id: 2,
+//     title: 'Java 8',
+//     category: 'Programming Java',
+//     instructor: 'Online',
+//     duration: '2 hours',
+//     rating: 4.5,
+//     image: require('../../images/Java.png'),
+//   },  {
+//     id: 3,
+//     title: 'Advanced Java',
+//     category: 'Programming Java',
+//     instructor: 'Online',
+//     duration: '2 hours',
+//     rating: 4.5,
+//     image: require('../../images/Java.png'),
+//   },
+//   // Add more courses as needed
+// ];
+//   const coursesMusic = [
+//     {
+//       id: 1,
+//       title: 'Indian Classical Music',
+//       category: 'Vocal Music',
+//       instructor: 'Sudha Raghunadhan',
+//       rating: 4.5,
+//       image: require('../../images/classical.jpg'),
+//     },
+//     {
+//       id: 2,
+//       title: 'Indian Hindustani Music',
+//       category: 'Vocal Music',
+//       instructor: 'Hari Haran',
+//       rating: 4.5,
+//       image: require('../../images/hindustani.jpg'),
+//     },
+//     {
+//       id: 3,
+//       title: 'Arabic Music',
+//       category: 'Vocal Music',
+//       instructor: 'Mohammed Rafi',
+//       rating: 4.5,
+//       image: require('../../images/arabic.webp'),
+//     },
+//     // Add more course objects...
+//   ];
+
+  
+//   const coursesKeyBoard = [
+//     {
+//       id: 1,
+//       title: 'Trinity Music',
+//       category: 'Instrument- KeyBoard',
+//       instructor: 'Brocket Parsons',
+//       rating: 4.5,
+//       image: require('../../images/trinityKeyboard.webp'),
+//     },
+//     {
+//       id: 2,
+//       title: 'KM Music Conservatory',
+//       category: 'Instrument- KeyBoard',
+//       instructor: 'A R Rahman',
+//       rating: 4.5,
+//       image: require('../../images/kmKeyboard.jpg'),
+//     },
+//     // Add more course objects...
+//   ];
+
+//   const coursesEnglish = [
+//     {
+//       id: 1,
+//       title: 'British Council',
+//       category: 'Communicative English',
+//       instructor: 'Parth Patel',
+//       rating: 4.5,
+//       image: require('../../images/BCEnglish.jpg'),
+//     },
+//     {
+//       id: 2,
+//       title: 'Cambridge Academy',
+//       category: 'Communicative English',
+//       instructor: 'Mary Rose',
+//       rating: 4.5,
+//       image: require('../../images/cambridgeEnglish.jpg'),
+//     },
+//     // Add more course objects...
+//   ];
+
+    
+// const coursesPython = [
+//   {
+//     id: 1,
+//     title: 'Introduction to Python',
+//     category: 'Programming Python',
+//     instructor: 'Online',
+//     duration: '2.5 hours',
+//     rating: 4.5,
+//     image: require('../../images/python.png'),
+//   },
+//   {
+//     id: 2,
+//     title: 'Python Types',
+//     category: 'Programming Python',
+//     instructor: 'Online',
+//     duration: '3 hours',
+//     rating: 4.5,
+//     image: require('../../images/python.png'),
+//   },  {
+//     id: 3,
+//     title: 'Programming in Python',
+//     category: 'Programming Python',
+//     instructor: 'Online',
+//     duration: '7 hours',
+//     rating: 4.5,
+//     image: require('../../images/python.png'),
+//   },
+//   // Add more courses as needed
+// ];
+
+// const coursesMaths = [
+//   {
+//     id: 1,
+//     title: 'Introduction to Maths',
+//     category: 'Mathematics',
+//     instructor: 'Online',
+//     duration: '2.5 hours',
+//     rating: 4.5,
+//     image: require('../../images/IntroMaths.jpg'),
+//   },
+//   {
+//     id: 2,
+//     title: 'Basics of Mathematics',
+//     category: 'Mathematics',
+//     instructor: 'Online',
+//     duration: '3 hours',
+//     rating: 4.5,
+//     image: require('../../images/midschoolMaths.jpg'),
+//   },  {
+//     id: 3,
+//     title: 'Advanced Mathematics',
+//     category: 'Mathematics',
+//     instructor: 'Online',
+//     duration: '7 hours',
+//     rating: 4.5,
+//     image: require('../../images/highschoolMaths.jpg'),
+//   },
+// ];
+
+
+// const SearchBar = ({ onChangeText , onClearText}) => {
+//   return (
+//     <View style={styles.searchContainer}>
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Search......"
+//         onChangeText={onChangeText}
+//         onClearText={onClearText}
+//       />
+//     </View>
+//   );
+// };
+
+const SearchBar = ({ onChangeText, onClearText }) => {
+  console.log("caling on changetext/onkeypress ");
+  const handleKeyPress = ({ nativeEvent }) => {
+    const { key } = nativeEvent;
+    if (key === 'Backspace' && onClearText) {
+      // Check if the Backspace key was pressed and the onClearText prop is provided
+      onClearText();
+    }
+>>>>>>> 7671668127c517441f6a84358d6e3762fa5ecfd4
   };
 
   return await API.post(apiName, path, myInit);
