@@ -42,6 +42,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "courseByCategoryHandler": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "courseHandler": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -93,6 +100,10 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
+    "assets": {
+      "BucketName": "string",
+      "Region": "string"
+    },
     "content": {
       "Arn": "string",
       "Name": "string",
@@ -126,6 +137,14 @@ export type AmplifyDependentResourcesAttributes = {
       "StreamArn": "string"
     },
     "progress": {
+      "Arn": "string",
+      "Name": "string",
+      "PartitionKeyName": "string",
+      "PartitionKeyType": "string",
+      "Region": "string",
+      "StreamArn": "string"
+    },
+    "student": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",
