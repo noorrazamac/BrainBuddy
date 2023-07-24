@@ -84,6 +84,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "quizHandler": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "studentHandler": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -137,6 +144,14 @@ export type AmplifyDependentResourcesAttributes = {
       "StreamArn": "string"
     },
     "progress": {
+      "Arn": "string",
+      "Name": "string",
+      "PartitionKeyName": "string",
+      "PartitionKeyType": "string",
+      "Region": "string",
+      "StreamArn": "string"
+    },
+    "quiz": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",

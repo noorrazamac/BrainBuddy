@@ -1,74 +1,109 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { Amplify, API, Storage } from 'aws-amplify';
+import awsconfig from '../../src/aws-exports';
+Amplify.configure(awsconfig);
 
-const questions = [
-  {
-    id: 1,
-    question: 'What is the capital of France?',
-    options: ['Berlin', 'Paris', 'Madrid', 'Rome'],
-    correctAnswer: 'Paris',
-  },
-  {
-    id: 2,
-    question: 'What is 5 x 10 + 30?',
-    options: ['54', '85', '80'],
-    correctAnswer: '80',
-  },
-  {
-    id: 3,
-    question: 'Which of the following is a programming language?',
-    options: ['HTML', 'CSS', 'JavaScript'],
-    correctAnswer: 'JavaScript',
-  },
-  {
-    id: 4,
-    question: 'What is the capital of Germany?',
-    options: ['Berlin', 'Paris', 'Madrid', 'Rome'],
-    correctAnswer: 'Berlin',
-  },
-  {
-    id: 5,
-    question: 'What is 8 + 5?',
-    options: ['10', '12', '13'],
-    correctAnswer: '13',
-  },
-  {
-    id: 6,
-    question: 'Which planet is closest to the Sun?',
-    options: ['Venus', 'Mars', 'Mercury'],
-    correctAnswer: 'Mercury',
-  },
-  {
-    id: 7,
-    question: 'What is the largest mammal?',
-    options: ['Elephant', 'Blue Whale', 'Giraffe'],
-    correctAnswer: 'Blue Whale',
-  },
-  {
-    id: 8,
-    question: 'Which gas do plants absorb from the atmosphere?',
-    options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'],
-    correctAnswer: 'Carbon Dioxide',
-  },
-  {
-    id: 9,
-    question: 'What is the chemical symbol for water?',
-    options: ['H2O', 'CO2', 'NaCl'],
-    correctAnswer: 'H2O',
-  },
-  {
-    id: 10,
-    question: 'What is the largest ocean on Earth?',
-    options: ['Indian Ocean', 'Atlantic Ocean', 'Pacific Ocean'],
-    correctAnswer: 'Pacific Ocean',
-  },
-];
+// const questions = [
+//   {
+//     id: 1,
+//     question: 'What is the capital of France?',
+//     options: ['Berlin', 'Paris', 'Madrid', 'Rome'],
+//     correctAnswer: 'Paris',
+//   },
+//   {
+//     id: 2,
+//     question: 'What is 5 x 10 + 30?',
+//     options: ['54', '85', '80'],
+//     correctAnswer: '80',
+//   },
+//   {
+//     id: 3,
+//     question: 'Which of the following is a programming language?',
+//     options: ['HTML', 'CSS', 'JavaScript'],
+//     correctAnswer: 'JavaScript',
+//   },
+//   {
+//     id: 4,
+//     question: 'What is the capital of Germany?',
+//     options: ['Berlin', 'Paris', 'Madrid', 'Rome'],
+//     correctAnswer: 'Berlin',
+//   },
+//   {
+//     id: 5,
+//     question: 'What is 8 + 5?',
+//     options: ['10', '12', '13'],
+//     correctAnswer: '13',
+//   },
+//   {
+//     id: 6,
+//     question: 'Which planet is closest to the Sun?',
+//     options: ['Venus', 'Mars', 'Mercury'],
+//     correctAnswer: 'Mercury',
+//   },
+//   {
+//     id: 7,
+//     question: 'What is the largest mammal?',
+//     options: ['Elephant', 'Blue Whale', 'Giraffe'],
+//     correctAnswer: 'Blue Whale',
+//   },
+//   {
+//     id: 8,
+//     question: 'Which gas do plants absorb from the atmosphere?',
+//     options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'],
+//     correctAnswer: 'Carbon Dioxide',
+//   },
+//   {
+//     id: 9,
+//     question: 'What is the chemical symbol for water?',
+//     options: ['H2O', 'CO2', 'NaCl'],
+//     correctAnswer: 'H2O',
+//   },
+//   {
+//     id: 10,
+//     question: 'What is the largest ocean on Earth?',
+//     options: ['Indian Ocean', 'Atlantic Ocean', 'Pacific Ocean'],
+//     correctAnswer: 'Pacific Ocean',
+//   },
+// ];
 
-const Quiz = () => {
+const Quiz = (course) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [totalScore, setTotalScore] = useState(0);
+  const [isDataLoaded, setDataLoaded] = useState(false);
+  const route=useRoute();
+
+  const {params}  = route;
+  const [questions,setQuestions] = useState([]);
+  const content=params.item.content;
+  if(!isDataLoaded){
+    const apiName = 'course';
+    const path = '/quiz';
+    const myInit = {
+      headers: {}, // OPTIONAL
+      queryStringParameters: {
+        quiz_id: content.source_path // OPTIONAL
+      }
+    };
+    API.get(apiName, path, myInit).then(response => {
+      console.log(response);
+      console.log("=========");
+      setQuestions(response.questions);
+      setDataLoaded(true);
+    }).catch(error => {
+      console.log(error.response);
+    });
+  }
+
+  
+
+// Later on in your styles..
+    
+  
+
 
   const handleOptionSelection = (selectedAnswer) => {
     if (selectedOption !== null) {
@@ -164,7 +199,7 @@ const Quiz = () => {
         <Text style={styles.headerText}>BrainBuddy Quiz</Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {currentQuestionIndex < questions.length ? (
+        {!isDataLoaded?(<View><Text>Please wait while data is loaded</Text></View>):(currentQuestionIndex < questions.length ? (
           questions[currentQuestionIndex].options.length > 1 ? renderQuestion() : renderMatchingQuestion()
         ) : (
           <View style={styles.feedbackContainer}>
@@ -177,7 +212,7 @@ const Quiz = () => {
               </View>
             </View>
           </View>
-        )}
+        ))}
       </ScrollView>
     </View>
   );
