@@ -37,6 +37,8 @@ function ProfileStackGroup () {
     <ProfileStack.Navigator>
       <ProfileStack.Screen name="Profile" component={Profile} options={{headerShown:true}}/>
       <ProfileStack.Screen name="ChangePassword" component={ChangePassword} options={{headerShown:true}}/>
+      <ProfileStack.Screen name="PaymentMethodScreen" component={PaymentMethodScreen}  options={{headerShown:true, headerTitle: 'Payment Method', headerStyle: {elevation: 20}}}/>
+
     </ProfileStack.Navigator>
   );
 }
@@ -47,7 +49,10 @@ function HomeStackGroup () {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen name="Home" component={Home} options={{headerShown:true}}/>
-      <HomeStack.Screen name="PaymentMethodScreen" component={PaymentMethodScreen}  options={{headerShown:true, headerTitle: 'Payment Method', headerStyle: {elevation: 20}}}/>
+      <LearningStack.Screen name="CourseDetails" component={CourseDetails} options={{headerShown:false}}/>
+      <LearningStack.Screen name="Quiz" component={Quiz}options={{headerShown:false}} />
+      <LearningStack.Screen name="VideoScreen" component={VideoScreen}options={{headerShown:false}} />
+
     </HomeStack.Navigator>
   );
 }
@@ -64,7 +69,9 @@ function TabGroup() {
       }>
       <Tab.Screen name="HomeStackGroup" component={HomeStackGroup}
       options={{
-        tabBarIcon: ({ color, size }) => (<Ionicons name="home" size={24} color="black" />)
+        tabBarIcon: ({ color, size }) => (<Ionicons name="home" size={24} color="black" />),
+        headerShown: false,
+          tabBarLabel: 'Home'
       }}
       />
       <Tab.Screen name="LearningStackGroup" component={LearningStackGroup} 
@@ -79,7 +86,7 @@ function TabGroup() {
       options={{
         tabBarIcon: ({ color, size }) => (<AntDesign name="user" size={24} color="black" />),
         headerShown: false,
-        tabBarLabel: 'My Learning'
+        tabBarLabel: 'My Profile'
       }} />
 
 <Tab.Screen name="Chat Support" component={ChatSupport} 

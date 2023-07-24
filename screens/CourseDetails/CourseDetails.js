@@ -10,40 +10,40 @@ import VideoScreen from '../Content/VideoScreen';
 import { SafeAreaView } from 'react-navigation';
 Amplify.configure(awsconfig);
 
-let course = {
-  title: 'React Native 101',
-  description: 'Learn the basics of React Native development',
-  additionalDescription:
-    'This course covers topics such as UI development, state management, navigation, and more. By the end of the course, you will have the skills to build mobile apps with React Native.',
-  instructors: ['John Doe', 'Jane Smith', 'Mike Johnson'],
-  duration: '4 weeks',
-  modules: [
-    {
-      title: 'Module 1: Introduction to React Native',
-      content: [
-        'Introduction to React Native and its key concepts',
-        'Setting up the development environment',
-        'Creating your first React Native app',
-      ],
-    },
-    {
-      title: 'Module 2: UI Development with React Native',
-      content: [
-        'Building user interfaces using React Native components',
-        'Styling components with CSS-in-JS',
-        'Handling user input and touch events',
-      ],
-    },
-    {
-      title: 'Module 3: State Management in React Native',
-      content: [
-        'Understanding state and props in React Native',
-        'Managing state with React Hooks',
-        'Implementing Redux for state management',
-      ],
-    },
-  ],
-};
+// let course = {
+//   title: 'React Native 101',
+//   description: 'Learn the basics of React Native development',
+//   additionalDescription:
+//     'This course covers topics such as UI development, state management, navigation, and more. By the end of the course, you will have the skills to build mobile apps with React Native.',
+//   instructors: ['John Doe', 'Jane Smith', 'Mike Johnson'],
+//   duration: '4 weeks',
+//   modules: [
+//     {
+//       title: 'Module 1: Introduction to React Native',
+//       content: [
+//         'Introduction to React Native and its key concepts',
+//         'Setting up the development environment',
+//         'Creating your first React Native app',
+//       ],
+//     },
+//     {
+//       title: 'Module 2: UI Development with React Native',
+//       content: [
+//         'Building user interfaces using React Native components',
+//         'Styling components with CSS-in-JS',
+//         'Handling user input and touch events',
+//       ],
+//     },
+//     {
+//       title: 'Module 3: State Management in React Native',
+//       content: [
+//         'Understanding state and props in React Native',
+//         'Managing state with React Hooks',
+//         'Implementing Redux for state management',
+//       ],
+//     },
+//   ],
+// };
 
 
 
@@ -67,8 +67,12 @@ function timeout(ms) {
 const CourseDetails = (props) => {
   const route=useRoute();
   const {params}  = route;
-  course=params.course;
-  const student=params.student;
+  const course=params.course;
+  // const student=params.student;
+  console.log("=================================================")
+  console.log(course)
+  console.log("=================================================")
+
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -82,26 +86,32 @@ const CourseDetails = (props) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [isDataLoaded, setDataLoaded] = React.useState(false);
   const [isLogoLoaded, setLogoLoaded] = React.useState(false);
-  const [uri, setUri] = useState("");
+  const [uri, setUri] = useState(course.image);
   // console.log(JSON.stringify(course));
   const screenWidth = Dimensions.get('window').width;
   const imageWidth = screenWidth - 32;
   const imageHeight = (imageWidth * 9) / 16;
   // const =Storage.get(course.image);
   if(!isLogoLoaded){
-   Storage.get(course.image.split("/")[3],  {
-    level: 'public', // defaults to `public`
-    
-    expires: 3600, // validity of the URL, in seconds. defaults to 900 (15 minutes) and maxes at 3600 (1 hour)
-    // contentType: 'string', // set return content type, eg "text/html"
-    validateObjectExistence: true, // defaults to false
-    // cacheControl?: string, // Specifies caching behavior along the request/reply chain
-  }).then((result) => {
-    setUri(result)
-    setLogoLoaded(true)
-    console.log("logo loaded")
-  } ).catch((err) => {console.log(err)});
-  }
+    if(course.image.includes("https")){
+      setLogoLoaded(true)
+      
+    }else{
+      Storage.get(course.image.split("/")[3],  {
+        level: 'public', // defaults to `public`
+        
+        expires: 3600, // validity of the URL, in seconds. defaults to 900 (15 minutes) and maxes at 3600 (1 hour)
+        // contentType: 'string', // set return content type, eg "text/html"
+        validateObjectExistence: true, // defaults to false
+        // cacheControl?: string, // Specifies caching behavior along the request/reply chain
+      }).then((result) => {
+        setUri(result)
+        setLogoLoaded(true)
+        console.log("logo loaded")
+      } ).catch((err) => {console.log(err)});
+      }
+    }
+   
   // console.log(JSON.stringify(courses));
   const [expandedModuleIndex, setExpandedModuleIndex] = useState(null);
 
@@ -125,7 +135,13 @@ const CourseDetails = (props) => {
   (async function() {
     if(!isDataLoaded){
       console.log(course.id)
-      const response = await getData(course.course_id);
+      let id=1;
+      if("course_id" in course){
+        id=course.course_id
+      }else if("id" in course){
+        id=course.id
+      }
+      const response = await getData(id);
       console.log(course)
       // console.log(response);
       setModules(response.modules);
@@ -254,13 +270,13 @@ const CourseDetails = (props) => {
             
           </View>
           <SafeAreaView style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => {
-              console.log(student)
+            {/* <TouchableOpacity style={styles.button} onPress={() => {
+              // console.log(student)
               console.log("Drop Course")
               
               }}>
-              <Text style={styles.container}>{true?"notdrop":"Drop"}</Text>
-            </TouchableOpacity>
+              {/* <Text style={styles.container}>{true?"notdrop":"Drop"}</Text> *
+            </TouchableOpacity> */}
             </SafeAreaView>
         </View>
       </View>

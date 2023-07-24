@@ -82,7 +82,7 @@ const MyLearningScreen = ({navigation}) => {
       <SafeAreaView>
       <View key={course.id} style={styles.courseContainer}>
          {/* on click navigate to course Details */}
-            <TouchableOpacity  onPress={() => navigation.navigate('CourseDetails', { course,student })}>
+            <TouchableOpacity  onPress={() => navigation.navigate('CourseDetails', { course })}>
 
               <Text style={styles.courseTitle}>{course.title}</Text>
               <Text style={styles.courseDuration}>{course.duration}</Text>

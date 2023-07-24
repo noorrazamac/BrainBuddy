@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Amplify, API, Storage} from 'aws-amplify';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign from the Expo library (if available) or use a different icon library
 import awsconfig from '../../src/aws-exports';
+import { useNavigation } from '@react-navigation/native';
 
 Amplify.configure(awsconfig);
 
@@ -220,6 +221,7 @@ async function getData(category) {
 }
 
 const Home = () => {
+  const navigate = useNavigation();
   const [refreshing, setRefreshing] = React.useState(false);
   const [isDataLoaded, setDataLoaded] = React.useState(false);
 
@@ -368,14 +370,20 @@ const handleSearch = text => {
       // }).catch((err) => {console.log(err)});
     }
     return (
-      <View style={styles.courseItem}>
-       
+      
+      //  <TouchableOpacity onPress={}>
+      <View style={styles.courseItem}  >
+      
         <Image source={{ uri: course.image }} style={styles.courseImage} />
         <View style={styles.courseInfo}>
           <Text style={styles.courseTitle}>{course.title}</Text>
           <Text style={styles.courseInstructor}>{course.instructor}</Text>
           <Text style={styles.courseRating}>{course.rating} stars</Text>
+          <TouchableOpacity style={styles.button} onPress={() => navigate.navigate('CourseDetails', {  course })}>
+        <Text style={styles.buttonText}>Details</Text>
+      </TouchableOpacity>
         </View>
+      {/* </TouchableOpacity> */}
       </View>
     );
   };
@@ -397,26 +405,14 @@ const handleSearch = text => {
     );
   };
 
-  const SubscribeButton = () => {
-    const handleSubscribe = () => {
-      // Implement the logic for handling the subscription process here
-      // For example, navigate to the subscription screen or display a payment gateway
-      console.log('Subscribing now...');
-    };
   
-    return (
-      <TouchableOpacity style={styles.button} onPress={handleSubscribe}>
-        <Text style={styles.buttonText}>Subscribe Now</Text>
-      </TouchableOpacity>
-    );
-  };
   
   
   return (
    <View style={styles.container}>
 
         <SearchBar onChangeText={handleSearch}/>
-        <SubscribeButton />
+        {/* <SubscribeButton /> */}
         <ScrollView  contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

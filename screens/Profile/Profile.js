@@ -11,6 +11,20 @@ import { useNavigation } from '@react-navigation/native';
 const Profile = (  ) => {
   const { user } = useAuthenticator();
   const navigate = useNavigation();
+  const SubscribeButton = () => {
+    const handleSubscribe = () => {
+      // Implement the logic for handling the subscription process here
+      // For example, navigate to the subscription screen or display a payment gateway
+      navigate.navigate('PaymentMethodScreen');
+      console.log('Subscribing now...');
+    };
+  
+    return (
+      <TouchableOpacity style={styles.button} onPress={handleSubscribe}>
+        <Text style={styles.button1}>Subscribe Now</Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     
     <View style={styles.container}>
@@ -25,7 +39,7 @@ const Profile = (  ) => {
       <TouchableOpacity style={styles.button1} onPress={() => navigate.navigate('ChangePassword')}>
         <Text style={styles.buttonText1}>Change Password</Text>
       </TouchableOpacity>
-
+      <SubscribeButton/>
       <TouchableOpacity style={styles.button2} onPress={()=>{
         Auth.signOut();
         console.log("SignOut");
