@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Amplify, API, Storage } from 'aws-amplify';
 import awsconfig from '../../src/aws-exports';
+import { log } from 'xstate/lib/actions';
 Amplify.configure(awsconfig);
 
 // const questions = [
@@ -192,6 +193,37 @@ const Quiz = (course) => {
     const percentage = (totalScore / questions.length) * 100;
     return percentage.toFixed(2);
   };
+
+  let answerKey = [];
+
+  if(isDataLoaded){
+    class JSONIterator {
+      constructor(data) {
+        this.data = data;
+        this.index = 0;
+      }
+    
+      hasNext() {
+        return this.index < this.data.length;
+      }
+    
+      next() {
+        if (this.hasNext()) {
+          const element = this.data[this.index];
+          this.index++;
+          return element;
+        }
+        return null;
+      }
+    }
+    
+    const dataIterator = new JSONIterator(questions);
+    
+    while (dataIterator.hasNext()) {
+      const element = dataIterator.next();
+      answerKey.push(element.correctAnswer);
+    }
+  }
 
   return (
     <View style={styles.container}>
