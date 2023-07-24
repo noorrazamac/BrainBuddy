@@ -1,4 +1,4 @@
- import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import MyLearning from "./screens/MyLearning/MyLearning";
 import Feed from "./screens/Feed";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,7 +16,8 @@ import { Ionicons } from '@expo/vector-icons';
 import ChangePassword from "./screens/Profile/ChangePassword";
 import ChatSupport from "./screens/ChatSupport/ChatSupport";
 import { Entypo } from '@expo/vector-icons';
-import PDFScreen from "./screens/Content/PDFScreen";
+import PDFScreen from "./screens/Content/PDFScreen";import PaymentMethodScreen from './screens/CourseEnrollmentPayment/PaymentMethodScreen';
+
 const LearningStack = createNativeStackNavigator();
 function LearningStackGroup () {
   return (
@@ -40,6 +41,17 @@ function ProfileStackGroup () {
   );
 }
 
+
+const HomeStack = createNativeStackNavigator();
+function HomeStackGroup () {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={Home} options={{headerShown:true}}/>
+      <HomeStack.Screen name="PaymentMethodScreen" component={PaymentMethodScreen}  options={{headerShown:true, headerTitle: 'Payment Method', headerStyle: {elevation: 20}}}/>
+    </HomeStack.Navigator>
+  );
+}
+
 function TabGroup() {
   return (
     <Tab.Navigator
@@ -50,7 +62,7 @@ function TabGroup() {
         }
         
       }>
-      <Tab.Screen name="Home" component={Home} 
+      <Tab.Screen name="HomeStackGroup" component={HomeStackGroup}
       options={{
         tabBarIcon: ({ color, size }) => (<Ionicons name="home" size={24} color="black" />)
       }}
