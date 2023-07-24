@@ -1,0 +1,197 @@
+
+{
+    "course_id": "1",
+    "title": "Core Java",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Michael Johnson",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Java",
+    "image": "../../images/Java.png",
+    "modules":[
+		{
+			"order":1,
+			"module_id":"10001"
+		},
+        {
+            "order":2,
+			"module_id":"10002"
+        }
+	]
+}
+,
+{
+    "course_id": "2",
+    "title": "Java 8",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Emily Williams",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Java",
+    "image": "../../images/Java.png"
+}
+,  
+{
+    "course_id": "3",
+    "title": "Advanced Java",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Robert Brown",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Java",
+    "image": "../../images/Java.png"
+}
+,
+{
+    "course_id": "4",
+    "title": "Indian Classical Music",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Sudha Raghunadhan",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Vocal Music",
+    "image": "../../images/classical.jpg"
+},
+{
+    "course_id": "5",
+    "title": "Indian Hindustani Music",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Hari Haran",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Vocal Music",
+    "image": "../../images/hindustani.jpg"
+},
+{
+    "course_id": "6",
+    "title": "Arabic Music",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Mohammed Rafi",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Vocal Music",
+    "image": "../../images/arabic.webp"
+},
+{
+    "course_id": "7",
+    "title": "Trinity Music",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Brocket Parsons",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Instrumental Music",
+    "image": "../../images/trinityKeyboard.webp"
+},
+{
+    "course_id": "8",
+    "title": "KM Music Conservatory",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "A R Rahman",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "Instrumental Music",
+    "image": "../../images/kmKeyboard.jpg"
+},
+{
+    "course_id": "9",
+    "title": "British Council",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Parth Patel",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "English",
+    "image": "../../images/BCEnglish.jpg"
+},
+{
+    "course_id": "10",
+    "title": "Cambridge Academy",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Mary Rose",
+    "duration": "2 hours",
+    "rating": 4.5,
+    "category": "English",
+    "image": "../../images/cambridgeEnglish.jpg"
+}
+,
+{
+    "course_id": "11",
+    "title": "Introduction to Python",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Sophia Lee",
+    "duration": "2.5 hours",
+    "rating": 4.5,
+    "category": "Python",
+    "image": "../../images/python.png"
+}
+,
+{
+    "course_id": "12",
+    "title": "Python Types",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "David Martin",
+    "duration": "3 hours",
+    "rating": 4.5,
+    "category": "Python",
+    "image": "../../images/python.png"
+}
+,
+{
+    "course_id": "13",
+    "title": "Programming in Python",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Olivia Garcia",
+    "duration": "7 hours",
+    "rating": 4.5,
+    "category": "Python",
+    "image": "../../images/python.png"
+}
+,
+{
+    "course_id": "14",
+    "title": "Introduction to Maths",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "William Rodriguez",
+    "duration": "2.5 hours",
+    "rating": 4.5,
+    "category": "Mathematics",
+    "image": "../../images/IntroMaths.jpg"
+}
+,
+{
+    "course_id": "15",
+    "title": "Basics of Mathematics",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "Ava Martinez",
+    "duration": "3 hours",
+    "rating": 4.5,
+    "category": "Mathematics",
+    "image": "../../images/midschoolMaths.jpg"
+}
+,  
+{
+    "course_id": "16",
+    "title": "Advanced Mathematics",
+    "description":"description",
+    "additionalDescription":"additionalInfo",
+    "instructor": "James Lopez",
+    "duration": "7 hours",
+    "rating": 4.5,
+    "category": "Mathematics",
+    "image": "../../images/highschoolMaths.jpg"
+  }
+  ,
