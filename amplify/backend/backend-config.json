@@ -33,6 +33,14 @@
           ],
           "category": "function",
           "resourceName": "courseByCategoryHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "quizHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -270,6 +278,22 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "quizHandler": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "quiz"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "studentHandler": {
       "build": true,
       "dependsOn": [
@@ -421,6 +445,22 @@
         }
       ]
     },
+    "AMPLIFY_function_quizHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "quizHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_quizHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "quizHandler"
+        }
+      ]
+    },
     "AMPLIFY_function_studentHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -477,6 +517,10 @@
       "service": "DynamoDB"
     },
     "progress": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "quiz": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     },

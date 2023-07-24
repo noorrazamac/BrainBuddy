@@ -57,6 +57,10 @@
         "studentHandler": {
           "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
           "s3Key": "amplify-builds/studentHandler-496544314e2f766a3944-build.zip"
+        },
+        "quizHandler": {
+          "deploymentBucketName": "amplify-brainbuddy-dev-185249-deployment",
+          "s3Key": "amplify-builds/quizHandler-5a744a3670357965562f-build.zip"
         }
       },
       "storage": {
@@ -67,7 +71,8 @@
         "progress": {},
         "student": {},
         "subscription": {},
-        "assets": {}
+        "assets": {},
+        "quiz": {}
       },
       "api": {
         "course": {},

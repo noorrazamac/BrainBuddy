@@ -255,7 +255,7 @@ const fetchData = async () => {
     if(!isDataLoaded){
 
     console.log("fetchData inside");
-    const coursesMusic = await getData("Music");
+    const coursesMusic = await getData("Vocal Music");
     const coursesJava = await getData("Java");
   
     const coursesKeyBoard = await getData("Instrumental Music");

@@ -85,7 +85,16 @@ Content:
 //TODO
 Quiz:
 {
+	id:
 	name:
+	questions:[
+		id: 
+		question: 
+		options: []
+		correctAnswer: 
+	]
+    
+  }
 }
 
 Progress: ()
