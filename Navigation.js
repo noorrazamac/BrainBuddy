@@ -71,7 +71,7 @@ function TabGroup() {
       options={{
         tabBarIcon: ({ color, size }) => (<Ionicons name="home" size={24} color="black" />),
         headerShown: false,
-          tabBarLabel: 'Home'
+          tabBarLabel: 'Explore'
       }}
       />
       <Tab.Screen name="LearningStackGroup" component={LearningStackGroup} 
