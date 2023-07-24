@@ -1,0 +1,32 @@
+{
+	"module_id": "10001",
+	"name":	"Introduction to Java",
+	"contents":[
+        {
+            "order": 1,
+            "content_id": "1001"
+        },
+        {
+            "order": 2,
+                "content_id": "1002"
+        },
+        {
+            "order": 3,
+                "content_id": "1003"
+        }
+    ]
+}
+{
+	"module_id": "10002",
+	"name":	"Applications in Java",
+	"contents":[
+        {
+            "order": 1,
+            "content_id": "1004"
+        },
+        {
+            "order": 2,
+                "content_id": "1005"
+        }
+    ]
+}

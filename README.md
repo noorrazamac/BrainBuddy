@@ -1,3 +1,4 @@
+
 # API Design
 
 ### Subscription API
@@ -47,9 +48,13 @@ Users:
 Course:
 
 {
-	name:
-	category:
-	level:
+	id:
+	title:
+	description:
+	additionalDescription:
+	instructor:
+	duration
+	category
 	modules:[
 		{
 			order:
@@ -61,6 +66,7 @@ Course:
 
 Module:
 {
+	id:
 	name:
 	contents:{
 		order:
@@ -73,7 +79,6 @@ Content:
 	name:
 	description:
 	source_path:
-	description:
 	type:
 }
 
@@ -128,8 +133,8 @@ Payments:
 
 
 
-# AWS Guide
 
+# AWS Guide
 
 ### Amplify
 
@@ -137,12 +142,11 @@ Payments:
 	**Console** -> deploy website on s3 and cloud front
 	**SDK** -> merge frontend and backend
 
-###### 
     Categories (3 of our use)
 
     **API will call function**
 			GraphQL
-			REST API (we are using)
+			**REST API** (we are using)
 				it uses API Gateway
 					it has resources (everything comes after / in URL)
 					Every resource is a path but not vice versa
@@ -151,7 +155,7 @@ Payments:
 					|RESOURCES| = |LAMBDA FUNCTION|
 
     **Function will call Storage**
-			Lambda Function is a serverless version of a EC2 instance that runs Nodejs
+			**Lambda Function** is a serverless version of a EC2 instance that runs Nodejs
 			Path in project directory -> "/amplify/backend/function/function_name/src/index.js"
 				(export.handler will run first)
 				API Gateway will forward request to Lambda Function in specific format which will be processed in that function (in event variable)
@@ -164,17 +168,16 @@ Payments:
 
     PERMISSIONS ALREADY SET
 
-    AMPLIFY PUSH (for deploying code on AWS)
+    **AMPLIFY PUSH** (for deploying code on AWS)
 					check everything (dynamoDB, Authentication)
-				AMPLIFY PUSH FUNCTION
+				**AMPLIFY PUSH FUNCTION**
 					check only function (better to use in our case)
 
 ### Storage
 
     Learn from documentation / LinkedIn Learning / ChatGPT
-		2 Type
-			DynamoDB
-			s3 Bucket (assets -> images, videos)
+		2 Type**DynamoDB**
+			**s3 Bucket** (assets -> images, videos)
 				will call s3 bucket directly in order because API gateway has size limit of response, we will fetch the path of asset from DynamoDB and we will make API call to s3 from frontend to fetch the asset (get code from AMPLIFY SDK for js)
 					https://docs.amplify.aws/lib/q/platform/react-native/
 
@@ -182,7 +185,6 @@ Console.log() in the Lambda Function are recorded in a cloud watch
 	To Debug -> Open latest cloud watch stream (Log will be sorted as per time)
 		open latest LOG STREAM and check LATEST TIME
 		It might take some time for log to appear (wait for 30-40 seconds)
-
 
 **Cognito** -> authentication, authorization
 	https://docs.amplify.aws/lib/auth/overview/q/platform/react-native/#social-provider-federation

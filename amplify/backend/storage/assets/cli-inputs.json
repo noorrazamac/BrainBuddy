@@ -1,0 +1,12 @@
+{
+  "resourceName": "assets",
+  "policyUUID": "913b75b6",
+  "bucketName": "assetsforbrainbuddy",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

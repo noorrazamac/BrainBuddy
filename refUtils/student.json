@@ -1,0 +1,64 @@
+{
+    "id": "5c87ea12-02e7-4963-9bf2-1b1e60f01783",
+    "email": "anurags153@gmail.com",
+    "enrolled_courses": [
+        {
+            "course_id": "1",
+            "title": "Core Java",
+            "description":"description",
+            "additionalDescription":"additionalInfo",
+            "instructor": "Michael Johnson",
+            "duration": "2 hours",
+            "rating": 4.5,
+            "category": "Java",
+            "image": "../../images/Java.png",
+            "modules":[
+                {
+                    "order":1,
+                    "module_id":"10001"
+                },
+                {
+                    "order":2,
+                    "module_id":"10002"
+                }
+            ]
+        },
+        {
+            "course_id": "2",
+            "title": "Java 8",
+            "description":"description",
+            "additionalDescription":"additionalInfo",
+            "instructor": "Emily Williams",
+            "duration": "2 hours",
+            "rating": 4.5,
+            "category": "Java",
+            "image": "../../images/Java.png"
+        },
+        {
+            "course_id": "4",
+            "title": "Indian Classical Music",
+            "description":"description",
+            "additionalDescription":"additionalInfo",
+            "instructor": "Sudha Raghunadhan",
+            "duration": "2 hours",
+            "rating": 4.5,
+            "category": "Vocal Music",
+            "image": "../../images/classical.jpg"
+        },
+        {
+            "course_id": "15",
+            "title": "Basics of Mathematics",
+            "description":"description",
+            "additionalDescription":"additionalInfo",
+            "instructor": "Ava Martinez",
+            "duration": "3 hours",
+            "rating": 4.5,
+            "category": "Mathematics",
+            "image": "../../images/midschoolMaths.jpg"
+        }
+    ],
+    "favorite_courses": [
+    ],
+    "subscription_id": null,
+    "userName": "test3"
+   }
