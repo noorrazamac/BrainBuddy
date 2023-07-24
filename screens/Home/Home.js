@@ -1,188 +1,205 @@
-import React, { useState } from 'react';
-import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, TextInput,Image, StyleSheet, Text, TouchableOpacity, RefreshControl } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Amplify, API, Storage} from 'aws-amplify';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign from the Expo library (if available) or use a different icon library
 import awsconfig from '../../src/aws-exports';
-import { useNavigation } from '@react-navigation/native';
 
-import PaymentMethodScreen from '../CourseEnrollmentPayment/PaymentMethodScreen';
 Amplify.configure(awsconfig);
 
 
 
-const enrollCourse = (course) => {
-      const navigation = useNavigation();
-  // Handle course enrollment logic here
-  navigation.navigate('PaymentMethodScreen')
-  console.log('Enrolling in course:', course.title);
-  
-};
-
-async function postData() {
-  const apiName = 'student';
-  const path = '/progress';
-  const myInit = {
-    body: {}, // replace this with attributes you need
-    headers: {} // OPTIONAL
-  };
-
-  return await API.post(apiName, path, myInit);
-}
-
-postData();
- 
-const coursesJava = [
-  {
-    id: 1,
-    title: 'Core Java',
-    instructor: 'Online',
-    duration: '2 hours',
-    rating: 4.5,
-    image: require('../../images/Java.png'),
-  },
-  {
-    id: 2,
-    title: 'Java 8',
-    instructor: 'Online',
-    duration: '2 hours',
-    rating: 4.5,
-    image: require('../../images/Java.png'),
-  },  {
-    id: 3,
-    title: 'Advanced Java',
-    instructor: 'Online',
-    duration: '2 hours',
-    rating: 4.5,
-    image: require('../../images/Java.png'),
-  },
-  // Add more courses as needed
-];
-  const coursesMusic = [
-    {
-      id: 1,
-      title: 'Indian Classical Music',
-      instructor: 'Sudha Raghunadhan',
-      rating: 4.5,
-      image: require('../../images/classical.jpg'),
-    },
-    {
-      id: 2,
-      title: 'Indian Hindustani Music',
-      instructor: 'Hari Haran',
-      rating: 4.5,
-      image: require('../../images/hindustani.jpg'),
-    },
-    {
-      id: 3,
-      title: 'Arabic Music',
-      instructor: 'Mohammed Rafi',
-      rating: 4.5,
-      image: require('../../images/arabic.webp'),
-    },
-    // Add more course objects...
-  ];
+// const coursesJava = [
+//   {
+//     id: 1,
+//     title: 'Core Java',
+//     category: 'Programming Java',
+//     instructor: 'Online',
+//     duration: '2 hours',
+//     rating: 4.5,
+//     image: require('../../images/Java.png'),
+//   },
+//   {
+//     id: 2,
+//     title: 'Java 8',
+//     category: 'Programming Java',
+//     instructor: 'Online',
+//     duration: '2 hours',
+//     rating: 4.5,
+//     image: require('../../images/Java.png'),
+//   },  {
+//     id: 3,
+//     title: 'Advanced Java',
+//     category: 'Programming Java',
+//     instructor: 'Online',
+//     duration: '2 hours',
+//     rating: 4.5,
+//     image: require('../../images/Java.png'),
+//   },
+//   // Add more courses as needed
+// ];
+//   const coursesMusic = [
+//     {
+//       id: 1,
+//       title: 'Indian Classical Music',
+//       category: 'Vocal Music',
+//       instructor: 'Sudha Raghunadhan',
+//       rating: 4.5,
+//       image: require('../../images/classical.jpg'),
+//     },
+//     {
+//       id: 2,
+//       title: 'Indian Hindustani Music',
+//       category: 'Vocal Music',
+//       instructor: 'Hari Haran',
+//       rating: 4.5,
+//       image: require('../../images/hindustani.jpg'),
+//     },
+//     {
+//       id: 3,
+//       title: 'Arabic Music',
+//       category: 'Vocal Music',
+//       instructor: 'Mohammed Rafi',
+//       rating: 4.5,
+//       image: require('../../images/arabic.webp'),
+//     },
+//     // Add more course objects...
+//   ];
 
   
-  const coursesKeyBoard = [
-    {
-      id: 1,
-      title: 'Trinity Music',
-      instructor: 'Brocket Parsons',
-      rating: 4.5,
-      image: require('../../images/trinityKeyboard.webp'),
-    },
-    {
-      id: 2,
-      title: 'KM Music Conservatory',
-      instructor: 'A R Rahman',
-      rating: 4.5,
-      image: require('../../images/kmKeyboard.jpg'),
-    },
-    // Add more course objects...
-  ];
+//   const coursesKeyBoard = [
+//     {
+//       id: 1,
+//       title: 'Trinity Music',
+//       category: 'Instrument- KeyBoard',
+//       instructor: 'Brocket Parsons',
+//       rating: 4.5,
+//       image: require('../../images/trinityKeyboard.webp'),
+//     },
+//     {
+//       id: 2,
+//       title: 'KM Music Conservatory',
+//       category: 'Instrument- KeyBoard',
+//       instructor: 'A R Rahman',
+//       rating: 4.5,
+//       image: require('../../images/kmKeyboard.jpg'),
+//     },
+//     // Add more course objects...
+//   ];
 
-  const coursesEnglish = [
-    {
-      id: 1,
-      title: 'British Council',
-      instructor: 'Parth Patel',
-      rating: 4.5,
-      image: require('../../images/BCEnglish.jpg'),
-    },
-    {
-      id: 2,
-      title: 'Cambridge Academy',
-      instructor: 'Mary Rose',
-      rating: 4.5,
-      image: require('../../images/cambridgeEnglish.jpg'),
-    },
-    // Add more course objects...
-  ];
+//   const coursesEnglish = [
+//     {
+//       id: 1,
+//       title: 'British Council',
+//       category: 'Communicative English',
+//       instructor: 'Parth Patel',
+//       rating: 4.5,
+//       image: require('../../images/BCEnglish.jpg'),
+//     },
+//     {
+//       id: 2,
+//       title: 'Cambridge Academy',
+//       category: 'Communicative English',
+//       instructor: 'Mary Rose',
+//       rating: 4.5,
+//       image: require('../../images/cambridgeEnglish.jpg'),
+//     },
+//     // Add more course objects...
+//   ];
 
     
-const coursesPython = [
-  {
-    id: 1,
-    title: 'Introduction to Python',
-    instructor: 'Online',
-    duration: '2.5 hours',
-    rating: 4.5,
-    image: require('../../images/python.png'),
-  },
-  {
-    id: 2,
-    title: 'Python Types',
-    instructor: 'Online',
-    duration: '3 hours',
-    rating: 4.5,
-    image: require('../../images/python.png'),
-  },  {
-    id: 3,
-    title: 'Programming in Python',
-    instructor: 'Online',
-    duration: '7 hours',
-    rating: 4.5,
-    image: require('../../images/python.png'),
-  },
-  // Add more courses as needed
-];
+// const coursesPython = [
+//   {
+//     id: 1,
+//     title: 'Introduction to Python',
+//     category: 'Programming Python',
+//     instructor: 'Online',
+//     duration: '2.5 hours',
+//     rating: 4.5,
+//     image: require('../../images/python.png'),
+//   },
+//   {
+//     id: 2,
+//     title: 'Python Types',
+//     category: 'Programming Python',
+//     instructor: 'Online',
+//     duration: '3 hours',
+//     rating: 4.5,
+//     image: require('../../images/python.png'),
+//   },  {
+//     id: 3,
+//     title: 'Programming in Python',
+//     category: 'Programming Python',
+//     instructor: 'Online',
+//     duration: '7 hours',
+//     rating: 4.5,
+//     image: require('../../images/python.png'),
+//   },
+//   // Add more courses as needed
+// ];
 
-const coursesMaths = [
-  {
-    id: 1,
-    title: 'Introduction to Maths',
-    instructor: 'Online',
-    duration: '2.5 hours',
-    rating: 4.5,
-    image: require('../../images/IntroMaths.jpg'),
-  },
-  {
-    id: 2,
-    title: 'Basics of Mathematics',
-    instructor: 'Online',
-    duration: '3 hours',
-    rating: 4.5,
-    image: require('../../images/midschoolMaths.jpg'),
-  },  {
-    id: 3,
-    title: 'Advanced Mathematics',
-    instructor: 'Online',
-    duration: '7 hours',
-    rating: 4.5,
-    image: require('../../images/highschoolMaths.jpg'),
-  },
-];
+// const coursesMaths = [
+//   {
+//     id: 1,
+//     title: 'Introduction to Maths',
+//     category: 'Mathematics',
+//     instructor: 'Online',
+//     duration: '2.5 hours',
+//     rating: 4.5,
+//     image: require('../../images/IntroMaths.jpg'),
+//   },
+//   {
+//     id: 2,
+//     title: 'Basics of Mathematics',
+//     category: 'Mathematics',
+//     instructor: 'Online',
+//     duration: '3 hours',
+//     rating: 4.5,
+//     image: require('../../images/midschoolMaths.jpg'),
+//   },  {
+//     id: 3,
+//     title: 'Advanced Mathematics',
+//     category: 'Mathematics',
+//     instructor: 'Online',
+//     duration: '7 hours',
+//     rating: 4.5,
+//     image: require('../../images/highschoolMaths.jpg'),
+//   },
+// ];
 
 
-const SearchBar = ({ onChangeText }) => {
+// const SearchBar = ({ onChangeText , onClearText}) => {
+//   return (
+//     <View style={styles.searchContainer}>
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Search......"
+//         onChangeText={onChangeText}
+//         onClearText={onClearText}
+//       />
+//     </View>
+//   );
+// };
+
+const SearchBar = ({ onChangeText, onClearText }) => {
+  console.log("caling on changetext/onkeypress ");
+  const handleKeyPress = ({ nativeEvent }) => {
+    const { key } = nativeEvent;
+    if (key === 'Backspace' && onClearText) {
+      // Check if the Backspace key was pressed and the onClearText prop is provided
+      onClearText();
+    }
+  };
+
   return (
     <View style={styles.searchContainer}>
       <TextInput
         style={styles.input}
-        placeholder="Search..."
+        placeholder="Search......"
         onChangeText={onChangeText}
+        onKeyPress={handleKeyPress} // Add the onKeyPress prop to handle Backspace key press
       />
+  
     </View>
   );
 };
@@ -203,13 +220,33 @@ async function getData(category) {
 }
 
 const Home = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [isDataLoaded, setDataLoaded] = React.useState(false);
+
   const [searchText, setSearchText] = useState('');
-  const [courseData1, setCourseData1] = useState(coursesMusic);
-  const [courseData2, setCourseData2] = useState(coursesJava);
-  const [courseData3, setCourseData3] = useState(coursesKeyBoard);
-  const [courseData4, setCourseData4] = useState(coursesEnglish);
-  const [courseData5, setCourseData5] = useState(coursesPython);
-  const [courseData6, setCourseData6] = useState(coursesMaths);
+  const [courseData1, setCourseData1] = useState([]);
+  const [courseDatasearch1, setCourseDatasearch1] = useState([]);
+  const [courseData2, setCourseData2] = useState([]);
+  const [courseDatasearch2, setcourseDatasearch2] = useState([]);
+  const [courseData3, setCourseData3] = useState([]);
+  const [courseDatasearch3, setcourseDatasearch3] = useState([]);
+  const [courseData4, setCourseData4] = useState([]);
+  const [courseDatasearch4, setcourseDatasearch4] = useState([]);
+  const [courseData5, setCourseData5] = useState([]);
+  const [courseDatasearch5, setcourseDatasearch5] = useState([]);
+  const [courseData6, setCourseData6] = useState([]);
+  const [courseDatasearch6, setcourseDatasearch6] = useState([]);
+  const [isSearchEmpty, setIsSearchEmpty] = useState(true);
+
+  const onRefresh = React.useCallback(() => {
+    console.log("usecallback called");
+    setRefreshing(true);
+    setDataLoaded(false);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+    fetchData();
+  }, []);
 
 
 const fetchData = async () => {
@@ -253,25 +290,34 @@ useEffect(() => {
   fetchData();
 }, []);
 
-  const handleSearch = text => {
-    setSearchText(text);
+const handleSearch = text => {
+  setSearchText(text);
 
-    const filteredData1 = coursesMusic.filter(course =>
+  if (text.trim() === '') {
+    setDataLoaded(false);
+    console.log("search text made empty");
+    // If the search text is empty, use the original data without refetching    
+    fetchData();
+    setIsSearchEmpty(true);
+  } else {
+    console.log("search text is not empty");
+    // If the search text is not empty, filter the data based on the search text
+    const filteredData1 = courseDatasearch1.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData2 = coursesJava.filter(course =>
+    const filteredData2 = courseDatasearch2.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData3 = coursesKeyBoard.filter(course =>
+    const filteredData3 = courseDatasearch3.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData4 = coursesEnglish.filter(course =>
+    const filteredData4 = courseDatasearch4.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData5 = coursesPython.filter(course =>
+    const filteredData5 = courseDatasearch5.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
-    const filteredData6 = coursesMaths.filter(course =>
+    const filteredData6 = courseDatasearch6.filter(course =>
       course.title.toLowerCase().includes(text.toLowerCase())
     );
 
@@ -281,9 +327,9 @@ useEffect(() => {
     setCourseData4(filteredData4);
     setCourseData5(filteredData5);
     setCourseData6(filteredData6);
-  };
-
-
+    setIsSearchEmpty(false);
+  }
+};
   
   const CourseItem = ({ course }) => { 
     const [isLogoLoaded, setLogoLoaded] = React.useState(false);
@@ -329,12 +375,6 @@ useEffect(() => {
           <Text style={styles.courseTitle}>{course.title}</Text>
           <Text style={styles.courseInstructor}>{course.instructor}</Text>
           <Text style={styles.courseRating}>{course.rating} stars</Text>
-          <TouchableOpacity style={styles.enrollButton}
-          onPress={() =>
-              navigation.navigate('PaymentMethodScreen')
-            }>
-            <Text style={styles.enrollButtonText}>Enroll</Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -356,70 +396,91 @@ useEffect(() => {
       </Text>
     );
   };
+
+  const SubscribeButton = () => {
+    const handleSubscribe = () => {
+      // Implement the logic for handling the subscription process here
+      // For example, navigate to the subscription screen or display a payment gateway
+      console.log('Subscribing now...');
+    };
+  
+    return (
+      <TouchableOpacity style={styles.button} onPress={handleSubscribe}>
+        <Text style={styles.buttonText}>Subscribe Now</Text>
+      </TouchableOpacity>
+    );
+  };
+  
   
   return (
-    <View style={styles.container}>
-      <SearchBar onChangeText={handleSearch} />
-      <ScrollView>
-     
-      <FlatList
-        data={courseData1}
-        keyExtractor={item => item.id}
-      renderItem={renderCourseView}
-      pagingEnabled={true}
-      horizontal={true}
-      />
-  
-      <FlatList
-        data={courseData2}
-        keyExtractor={item => item.id}
-        renderItem={renderCourseView}
-        pagingEnabled={true}
-        horizontal={true}
-      />
+   <View style={styles.container}>
 
-<FlatList
-        data={courseData3}
-        keyExtractor={item => item.id}
-        renderItem={renderCourseView}
-        pagingEnabled={true}
-        horizontal={true}
-      />
- 
-<FlatList
-        data={courseData4}
-        keyExtractor={item => item.id}
-        renderItem={renderCourseView}
-        pagingEnabled={true}
-        horizontal={true}
-      />
-       
-      <FlatList
-        data={courseData5}
-        keyExtractor={item => item.id}
-        renderItem={renderCourseView}
-        pagingEnabled={true}
-        horizontal={true}
-      />
-      
-      <FlatList
-        data={courseData6}
-        keyExtractor={item => item.id}
-        renderItem={renderCourseView}
-        pagingEnabled={true}
-        horizontal={true}
-      />
+        <SearchBar onChangeText={handleSearch}/>
+        <SubscribeButton />
+        <ScrollView  contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
 
-      {/* Add more FlatLists here if needed */}
-      </ScrollView>
-    </View>
+          <FlatList
+            data={courseData1}
+            keyExtractor={item => item.id}
+            renderItem={renderCourseView}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            pagingEnabled={true}
+            horizontal={true} />
+
+          <FlatList
+            data={courseData2}
+            keyExtractor={item => item.id}
+            renderItem={renderCourseView}
+            pagingEnabled={true}
+            horizontal={true} />
+
+          <FlatList
+            data={courseData3}
+            keyExtractor={item => item.id}
+            renderItem={renderCourseView}
+            pagingEnabled={true}
+            horizontal={true} />
+
+          <FlatList
+            data={courseData4}
+            keyExtractor={item => item.id}
+            renderItem={renderCourseView}
+            pagingEnabled={true}
+            horizontal={true} />
+
+          <FlatList
+            data={courseData5}
+            keyExtractor={item => item.id}
+            renderItem={renderCourseView}
+            pagingEnabled={true}
+            horizontal={true} />
+
+          <FlatList
+            data={courseData6}
+            keyExtractor={item => item.id}
+            renderItem={renderCourseView}
+            pagingEnabled={true}
+            horizontal={true} />
+
+          {/* Add more FlatLists here if needed */}
+        </ScrollView>
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 1,
+   // padding: 1,
+  },
+  containerbutton: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleContainer: {
     backgroundColor: '#f2f2f2',
@@ -467,7 +528,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   courseInstructor: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#888',
     marginBottom: 3,
   },
@@ -477,17 +538,37 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   enrollButton: {
-    backgroundColor: 'green',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'grey',
     padding: 15,
     borderRadius: 4,
     marginRight: 1,
     textAlign: 'right',
-    width: 70,
+    width: 120,
     height: 50,
+  },
+  button: {
+    backgroundColor: 'green', // Customize the button color as needed
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    widht: 120,
+    borderRadius: 58,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   enrollButtonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  clearIcon: {
+    padding: 5,
   },
   
 });
