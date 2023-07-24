@@ -1,0 +1,13 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "quiz": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}

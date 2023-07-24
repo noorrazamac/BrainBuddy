@@ -1,0 +1,35 @@
+{
+    "content_id": "1001",
+	"name":"coreJava01",
+	"description": "What is Java Programming",
+	"source_path": "CoreJava1.mp4",
+	"type": "video"
+}
+{
+    "content_id": "1002",
+	"name":"coreJava02",
+	"description": "Setting up the development environment (IDE, JDK, etc.)",
+	"source_path": "CoreJava1.mp4",
+	"type": "video"
+}
+{
+    "content_id": "1003",
+	"name":"coreJava03",
+	"description": "Writing and running your first Java program",
+	"source_path": "CoreJava1.mp4",
+	"type": "video"
+}
+{
+    "content_id": "1004",
+	"name":"coreJava04",
+	"description": "Reading practice assignment for Java",
+	"source_path": "LearnJava.pdf",
+	"type": "pdf"
+}
+{
+    "content_id": "1005",
+	"name":"coreJava05",
+	"description": "Simple Quiz for Java",
+	"source_path": "",
+	"type": "quiz"
+}
