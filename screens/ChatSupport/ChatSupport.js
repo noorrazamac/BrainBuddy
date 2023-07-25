@@ -14,7 +14,7 @@ const ChatSupport = () => {
   async function askChatGpt(userQuery) {
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
     const completion = await openai.createChatCompletion({

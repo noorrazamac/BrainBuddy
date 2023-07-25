@@ -3,11 +3,18 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 //import { fetchPaymentIntentClient } from './fetchPaymentIntentClient';
+import { Amplify, API, Storage} from 'aws-amplify';
+import awsconfig from '../../src/aws-exports';
+import { useNavigation } from '@react-navigation/native';
+
+Amplify.configure(awsconfig);
+
 
 
 
 
  const PaymentMethodScreen = () => {
+  const navigate = useNavigation();
 
          let selectedPlanAmount = 50;
          const handlePaymentOptionPress = (option) => {
@@ -61,23 +68,34 @@ import { useStripe } from '@stripe/stripe-react-native';
                       console.log("inside fetchPaymentIntentClient");
 
                       try {
-                        const response = await fetch("http://10.0.2.2:3000/payments/intents", {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                          },
-                          body: JSON.stringify({
-                            amount: amount * 100,
-                            payment_method_types: ["card"],
-                          }),
-                        });
+                        // const response = await fetch("https://5hm1jef1qk.execute-api.us-east-1.amazonaws.com/dev/intents", {
+                        //   method: 'POST',
+                        //   headers: {
+                        //     'Content-Type': 'application/json',
+                        //     'Accept': 'application/json'
+                        //   },
+                        //   body: JSON.stringify({
+                        //     amount: amount * 100
+                            
+                        //   }),
+                        // });
+                        const apiName = 'subscription'; // replace this with your api name.
+                        const path = '/intents'; //replace this with the path you have configured on your API
+                        const myInit = {
+                          body: {
+                            amount: 100,
+                          }, // replace this with attributes you need
+                          headers: {} // OPTIONAL
+                        };
 
-                        if (!response.ok) {
-                          throw new Error('Network response was not ok');
-                        }
+                        const response=await API.post(apiName, path, myInit)
+                
+                        console.log("+++++++"+JSON.stringify(response))
+                        // if (!response.ok) {
+                        //   throw new Error('Network response was not ok');
+                        // }
 
-                        const data = await response.json();
+                        const data =  response;
                         console.log("response fetchPaymentIntentClient", data);
                         console.log("response fetchPaymentIntentClient secret", data.paymentIntent);
 
@@ -138,8 +156,8 @@ import { useStripe } from '@stripe/stripe-react-native';
                                {
                                  text: 'OK',
                                  onPress: () => {
-                                   // Navigate back to the previous screen
-                                   navigation.goBack();
+                                  //  Navigate back to the previous screen
+                                   navigate.goBack();
                                  },
                                },
                              ]);

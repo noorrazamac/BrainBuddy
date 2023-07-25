@@ -11,8 +11,8 @@
         ]
       }
     },
-    "/payments": {
-      "name": "/payments",
+    "/intents": {
+      "name": "/intents",
       "lambdaFunction": "paymentsHandler",
       "permissions": {
         "setting": "private",
